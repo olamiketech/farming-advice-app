@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgroPredict AI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- Markdown parser -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <header class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-green-600 mb-2">AgroPredict AI</h1>
+            <p class="text-gray-600">Your farming assistant</p>
+        </header>
+
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <form id="cropForm" class="space-y-4">
+                <div>
+                    <label for="crop" class="block text-sm font-medium text-gray-700">Crop Type</label>
+                    <select id="crop" name="crop" 
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500" required>
+                        <option value="">Select a crop</option>
+                        <option value="maize">Maize</option>
+                        <option value="cassava">Cassava</option>
+                        <option value="rice">Rice</option>
+                    </select>
+                </div>
+                
+                <div id="locationInfo" class="flex flex-col space-y-2">
+                    <label class="text-sm font-medium text-gray-700">Your Location</label>
+                    <div class="flex items-center space-x-2">
+                        <span id="locationStatus" class="text-sm text-gray-600">Loading location...</span>
+                        <button id="getLocation" 
+                                class="px-3 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                            Get My Location
+                        </button>
+                    </div>
+                    <div id="locationDisplay" class="text-sm text-gray-600 mt-2">
+                        <span class="font-medium">Current Location:</span>
+                        <span id="locationCoords"></span>
+                    </div>
+                    <div id="location-error" class="text-red-500 mt-2 hidden"></div>
+                </div>
+                
+                <input type="hidden" id="latitude" name="latitude">
+                <input type="hidden" id="longitude" name="longitude">
+                
+                <button id="get-advice" type="submit" 
+                        class="w-full bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
+                    Get Advice
+                </button>
+            </form>
+        </div>
+
+        <div id="results" class="bg-white rounded-lg shadow-md p-6 hidden">
+            <div class="space-y-4">
+                <div class="space-y-2">
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm text-gray-600">Temperature</span>
+                        <span id="temperature" class="text-green-600 font-semibold">Loading...</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm text-gray-600">Rainfall</span>
+                        <span id="rainfall" class="text-green-600 font-semibold">Loading...</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm text-gray-600">Humidity</span>
+                        <span id="humidity" class="text-green-600 font-semibold">Loading...</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm text-gray-600">Wind Speed</span>
+                        <span id="windSpeed" class="text-green-600 font-semibold">Loading...</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm text-gray-600">Solar Radiation</span>
+                        <span id="solarRadiation" class="text-green-600 font-semibold">Loading...</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm text-gray-600">Soil Moisture</span>
+                        <span id="soilMoisture" class="text-green-600 font-semibold">Loading...</span>
+                    </div>
+                </div>
+                
+                <div id="advice" class="hidden bg-white rounded-lg shadow-md p-6 mt-4">
+                    <h2 class="text-2xl font-bold mb-4">Farming Advisory</h2>
+                    <div class="flex justify-between items-center mb-4">
+                        <div>
+                            <span id="date" class="text-gray-600"></span>
+                        </div>
+                        <div>
+                            <span id="location" class="text-gray-600"></span>
+                        </div>
+                    </div>
+                    
+                    <!-- Weather Summary hidden -->
+                        <!-- Weather Summary heading removed -->
+                        <ul class="space-y-2 hidden">
+                            <li><span class="font-medium">Temperature:</span> <span id="weather-temp"></span></li>
+                            <li><span class="font-medium">Sunshine:</span> <span id="weather-sunshine"></span></li>
+                            <li><span class="font-medium">Humidity:</span> <span id="weather-humidity"></span></li>
+                            <li><span class="font-medium">Wind Speed:</span> <span id="weather-wind"></span></li>
+                            <li><span class="font-medium">Rain:</span> <span id="weather-rain"></span></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <h3 class="font-semibold mb-2">Advice</h3>
+                        <div id="advice-text"></div>
+                        <div id="translation-result" class="mt-4 text-blue-700 whitespace-pre-wrap"></div>
+                        <!-- Language selection for translation -->
+                        <div class="mt-4">
+                            <label for="language-select" class="block text-sm font-medium text-gray-700 mb-1">Translate to:</label>
+                            <select id="language-select" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                <option value="yo">Yoruba</option>
+                                <option value="ha">Hausa</option>
+                                <option value="ig">Igbo</option>
+                                <option value="fr">French</option>
+                                <option value="es">Spanish</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <h3 class="font-semibold mb-2">Tip</h3>
+                        <div id="advice-tip"></div>
+                    </div>
+                    
+                    <div class="flex justify-end">
+                        <button id="translate-btn" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+                            <span class="text-white">Translate to Local Language</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="mt-6">
+                    <h2 class="text-lg font-semibold mb-2">Soil Conditions</h2>
+                    <div class="space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-gray-600">pH Level</span>
+                            <span id="soilPH" class="text-green-600 font-semibold">Loading...</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-gray-600">Soil Type</span>
+                            <span id="soilType" class="text-green-600 font-semibold">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- LeafDoctor Section -->
+    <div class="bg-white rounded-lg shadow-md p-6 mt-8">
+        <h2 class="text-2xl font-bold text-green-600 mb-4">LeafDoctor</h2>
+        <p class="text-gray-700 mb-4">
+            LeafDoctor uses cutting&#8209;edge artificial intelligence to identify plant diseases instantly, provide tailored treatment recommendations, and help you maintain thriving plants and crops.
+        </p>
+        <a href="https://leafdoctor.org/" target="_blank" rel="noopener noreferrer" class="inline-block bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700">
+            Try LeafDoctor Now
+        </a>
+    </div>
+
+    <script>
+        // Function to get user's location
+        async function getLocation() {
+            try {
+                // Check if geolocation is supported
+                if (!navigator.geolocation) {
+                    throw new Error('Geolocation is not supported by your browser');
+                }
+
+                // Request location
+                const position = await new Promise((resolve, reject) => {
+                    navigator.geolocation.getCurrentPosition(
+                        (pos) => resolve(pos),
+                        (err) => reject(new Error('Error getting location'))
+                    );
+                });
+
+                const lat = position.coords.latitude;
+                const lon = position.coords.longitude;
+                
+                // Store coordinates in hidden inputs
+                document.getElementById('latitude').value = lat;
+                document.getElementById('longitude').value = lon;
+                
+                // Update display
+                document.getElementById('locationCoords').textContent = `Latitude: ${lat.toFixed(4)}, Longitude: ${lon.toFixed(4)}`;
+                document.getElementById('locationStatus').textContent = 'Location fetched successfully';
+            } catch (error) {
+                console.error('Error getting location:', error);
+                document.getElementById('locationStatus').textContent = 'Error fetching location';
+                document.getElementById('location-error').textContent = error.message;
+                document.getElementById('location-error').classList.remove('hidden');
+            }
+        }
+
+        // Attach event listeners
+        document.getElementById('getLocation').addEventListener('click', async (e) => {
+            e.preventDefault();
+            await getLocation();
+        });
+
+        document.getElementById('get-advice').addEventListener('click', async (e) => {
+            e.preventDefault();
+            await handleGetAdvice();
+        });
+
+        async function handleGetAdvice() {
+            const cropSelect = document.getElementById('crop');
+            const latitude = document.getElementById('latitude').value;
+            const longitude = document.getElementById('longitude').value;
+            
+            if (!latitude || !longitude) {
+                alert('Please get your location first');
+                return;
+            }
+
+            if (!cropSelect.value) {
+                alert('Please select a crop type');
+                return;
+            }
+
+            // Show loading state
+            document.getElementById('get-advice').disabled = true;
+            document.getElementById('get-advice').textContent = 'Fetching advice...';
+            document.getElementById('results').classList.remove('hidden');
+            document.getElementById('advice').classList.add('hidden');
+
+            try {
+                // Show loading states
+                document.getElementById('temperature').textContent = 'Loading...';
+                document.getElementById('rainfall').textContent = 'Loading...';
+                document.getElementById('humidity').textContent = 'Loading...';
+                document.getElementById('windSpeed').textContent = 'Loading...';
+                document.getElementById('solarRadiation').textContent = 'Loading...';
+                document.getElementById('soilMoisture').textContent = 'Loading...';
+                document.getElementById('soilPH').textContent = 'Loading...';
+                document.getElementById('soilType').textContent = 'Loading...';
+
+                // Use consistent API endpoint
+                const response = await axios.post('http://localhost:8000/predict', {
+                    crop_type: cropSelect.value,
+                    location: {
+                        lat: parseFloat(latitude),
+                        lon: parseFloat(longitude)
+                    }
+                });
+
+                // Update results
+                const adviceMarkdown = response.data.advice;
+                let adviceHtml = adviceMarkdown;
+                if (typeof marked !== 'undefined') {
+                    adviceHtml = marked.parse(adviceMarkdown);
+                }
+                const adviceContainer = document.getElementById('advice-text');
+                adviceContainer.innerHTML = adviceHtml;
+                wrapAdviceInCards(adviceContainer);
+                    // Clear previous translation
+                    document.getElementById('translation-result').textContent = '';
+                
+                // Update weather data
+                const weather = response.data.weather || {};
+                document.getElementById('temperature').textContent = weather.temperature || 'N/A';
+                document.getElementById('rainfall').textContent = weather.rain || 'N/A';
+                document.getElementById('humidity').textContent = `${weather.humidity || 'N/A'}%`;
+                document.getElementById('windSpeed').textContent = weather.wind_speed || 'N/A';
+                document.getElementById('solarRadiation').textContent = weather.sunshine || 'N/A';
+                
+                // Update soil data
+                const soil = response.data.soil || {};
+                document.getElementById('soilMoisture').textContent = `${(soil.moisture || 0) * 100}%`;
+                document.getElementById('soilPH').textContent = (soil.ph || 0).toFixed(1);
+                document.getElementById('soilType').textContent = soil.type || 'Unknown';
+
+                // Update date and location
+                const now = new Date();
+                document.getElementById('date').textContent = now.toLocaleDateString();
+                document.getElementById('location').textContent = `Latitude: ${latitude}, Longitude: ${longitude}`;
+
+                // Show advice section
+                document.getElementById('advice').classList.remove('hidden');
+
+            } catch (error) {
+                console.error('Error fetching advice:', error);
+                // Clear loading states and show error
+                document.getElementById('temperature').textContent = 'Error';
+                document.getElementById('rainfall').textContent = 'Error';
+                document.getElementById('humidity').textContent = 'Error';
+                document.getElementById('windSpeed').textContent = 'Error';
+                document.getElementById('solarRadiation').textContent = 'Error';
+                document.getElementById('soilMoisture').textContent = 'Error';
+                document.getElementById('soilPH').textContent = 'Error';
+                document.getElementById('soilType').textContent = 'Error';
+                
+                // Reset button
+                document.getElementById('get-advice').disabled = false;
+                document.getElementById('get-advice').textContent = 'Get Advice';
+                // Show detailed error message
+                if (error.response && error.response.data && error.response.data.detail) {
+                    alert(`Error: ${error.response.data.detail}`);
+                } else {
+                    alert(`Failed to fetch advice. Error: ${error.message}`);
+                }
+            } finally {
+                // Reset button
+                document.getElementById('get-advice').disabled = false;
+                document.getElementById('get-advice').textContent = 'Get Advice';
+            }
+        }
+        
+        // Function to handle translation requests
+        async function handleTranslate() {
+            const advice = document.getElementById('advice-text').innerText.trim();
+            if (!advice) {
+                alert('No advice available to translate');
+                return;
+            }
+
+            const translateBtn = document.getElementById('translate-btn');
+            translateBtn.disabled = true;
+            translateBtn.textContent = 'Translating...';
+
+            try {
+                const targetLang = document.getElementById('language-select').value || 'yo';
+                const response = await axios.post('http://localhost:8000/translate', {
+                    text: advice,
+                    target_language: targetLang
+                });
+                document.getElementById('translation-result').innerHTML = response.data.translation;
+            } catch (error) {
+                console.error('Error translating text:', error);
+                if (error.response && error.response.data && error.response.data.detail) {
+                    alert(`Error: ${error.response.data.detail}`);
+                } else {
+                    alert(`Failed to translate advice. Error: ${error.message}`);
+                }
+            } finally {
+                translateBtn.disabled = false;
+                translateBtn.textContent = 'Translate to Local Language';
+            }
+        }
+
+        // Utility to wrap advice sections into card components
+        function wrapAdviceInCards(container) {
+            if (!container) return;
+
+            // Style lists for readability
+            container.querySelectorAll('ul').forEach(ul => {
+                ul.classList.add('list-disc', 'pl-5', 'space-y-1');
+            });
+            container.querySelectorAll('ol').forEach(ol => {
+                ol.classList.add('list-decimal', 'pl-5', 'space-y-1');
+            });
+
+            // Iterate over child nodes and wrap headings with their content into cards
+            const children = Array.from(container.childNodes);
+            let card = null;
+            children.forEach(node => {
+                if (node.nodeType === 1 && /^H[1-6]$/i.test(node.tagName)) {
+                    // Start a new card whenever we see a heading
+                    card = document.createElement('div');
+                    card.className = 'bg-white rounded-lg shadow-md p-4 mb-4';
+                    container.insertBefore(card, node);
+                }
+                if (card) {
+                    card.appendChild(node);
+                }
+            });
+        }
+
+        // Attach translate button listener
+        document.getElementById('translate-btn').addEventListener('click', async (e) => {
+            e.preventDefault();
+            await handleTranslate();
+        });
+    </script>
+</body>
+</html>
