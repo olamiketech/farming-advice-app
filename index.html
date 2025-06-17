@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AgroPredict AI</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Choices.js for searchable dropdown -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <!-- Markdown parser -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -22,17 +25,14 @@
                     <label for="crop" class="block text-sm font-medium text-gray-700">Crop Type</label>
                     <select id="crop" name="crop" 
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500" required>
-                        <option value="">Select a crop</option>
-                        <option value="maize">Maize</option>
-                        <option value="cassava">Cassava</option>
-                        <option value="rice">Rice</option>
+                        <option value="">Loading crops...</option>
                     </select>
                 </div>
                 
                 <div id="locationInfo" class="flex flex-col space-y-2">
                     <label class="text-sm font-medium text-gray-700">Your Location</label>
                     <div class="flex items-center space-x-2">
-                        <span id="locationStatus" class="text-sm text-gray-600">Loading location...</span>
+                        <span id="locationStatus" class="text-sm text-gray-600">Click the button to get location</span>
                         <button id="getLocation" 
                                 class="px-3 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
                             Get My Location
@@ -42,6 +42,7 @@
                         <span class="font-medium">Current Location:</span>
                         <span id="locationCoords"></span>
                     </div>
+                    <div id="locationCoords" class="text-sm text-gray-600"></div>
                     <div id="location-error" class="text-red-500 mt-2 hidden"></div>
                 </div>
                 
@@ -110,6 +111,15 @@
                         <h3 class="font-semibold mb-2">Advice</h3>
                         <div id="advice-text"></div>
                         <div id="translation-result" class="mt-4 text-blue-700 whitespace-pre-wrap"></div>
+<!-- Audio controls -->
+<div id="audio-controls" class="mt-2 hidden flex space-x-2">
+    <button id="play-audio-btn" class="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-600" disabled>
+        Play Audio
+    </button>
+    <button id="stop-audio-btn" class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 hidden">
+        Stop
+    </button>
+</div>
                         <!-- Language selection for translation -->
                         <div class="mt-4">
                             <label for="language-select" class="block text-sm font-medium text-gray-700 mb-1">Translate to:</label>
@@ -122,9 +132,29 @@
                             </select>
                         </div>
                     </div>
-                    
-                    <div class="mb-4">
-                        <h3 class="font-semibold mb-2">Tip</h3>
+
+                    <!-- Dynamic Crop Calendar -->
+                    <div id="calendar-section" class="mt-6 hidden">
+                        <h3 class="text-lg font-semibold mb-2">Crop Calendar</h3>
+                        <div class="overflow-x-auto">
+                            <table id="calendar-table" class="min-w-full divide-y divide-gray-200 text-sm"></table>
+                        </div>
+                    </div>
+
+                    <!-- Yield Forecast -->
+                    <div id="yield-section" class="mt-6 hidden">
+                        <h3 class="text-lg font-semibold mb-2">Yield Forecast</h3>
+                        <p id="yield-value" class="text-green-700 font-semibold"></p>
+                    </div>
+
+                    <!-- Upcoming Alerts -->
+                    <div id="alerts-section" class="mt-4 hidden">
+                        <h3 class="text-lg font-semibold mb-2">Upcoming Alerts</h3>
+                        <div id="alerts-container" class="flex flex-wrap gap-2"></div>
+                    </div>
+                     
+                     <div class="mb-4">
+                         <h3 class="font-semibold mb-2">Tip</h3>
                         <div id="advice-tip"></div>
                     </div>
                     
@@ -135,7 +165,7 @@
                     </div>
                 </div>
                 
-                <div class="mt-6">
+                <div id="soil-conditions-section" class="mt-6 hidden">
                     <h2 class="text-lg font-semibold mb-2">Soil Conditions</h2>
                     <div class="space-y-2">
                         <div class="flex items-center justify-between">
@@ -163,7 +193,31 @@
         </a>
     </div>
 
+    <!-- Chat Assistant -->
+    <div id="chat-container" class="fixed bottom-4 right-4 w-80 z-50">
+        <button id="chat-toggle" class="bg-green-600 text-white p-3 rounded-full shadow-lg hover:bg-green-700 focus:outline-none">
+            Ask Me Anything
+        </button>
+        <div id="chat-box" class="hidden bg-white rounded-lg shadow-lg flex flex-col h-96 mt-2 overflow-hidden">
+            <div class="flex items-center justify-between bg-green-600 text-white px-3 py-2">
+                <span class="font-semibold">Agro Chat</span>
+                <div class="space-x-2">
+                    <button id="chat-minimize" class="focus:outline-none hover:text-gray-300" title="Minimize">🗕</button>
+                    <button id="chat-close" class="focus:outline-none hover:text-gray-300" title="Close">✖</button>
+                </div>
+            </div>
+            <div id="chat-messages" class="flex-1 p-4 overflow-y-auto bg-gray-50"></div>
+            <form id="chat-form" class="flex border-t">
+                <input id="chat-input" type="text" class="flex-1 px-2 py-1 focus:outline-none" placeholder="Type your question..." autocomplete="off" required>
+                <button type="submit" class="bg-green-600 text-white px-4">Send</button>
+            </form>
+        </div>
+    </div>
+
     <script>
+        // Base URL for backend API (adapts to current host)
+        const API_BASE_URL = window.location.protocol.startsWith('http') ? window.location.origin : 'http://localhost:8000';
+
         // Function to get user's location
         async function getLocation() {
             try {
@@ -191,10 +245,30 @@
                 document.getElementById('locationCoords').textContent = `Latitude: ${lat.toFixed(4)}, Longitude: ${lon.toFixed(4)}`;
                 document.getElementById('locationStatus').textContent = 'Location fetched successfully';
             } catch (error) {
-                console.error('Error getting location:', error);
-                document.getElementById('locationStatus').textContent = 'Error fetching location';
-                document.getElementById('location-error').textContent = error.message;
-                document.getElementById('location-error').classList.remove('hidden');
+                console.warn('Primary geolocation failed:', error);
+                // Attempt fallback using IP-based lookup
+                try {
+                    const resp = await fetch('https://ipapi.co/json/');
+                    if (!resp.ok) throw new Error('IP lookup failed');
+                    const data = await resp.json();
+                    const lat = parseFloat(data.latitude);
+                    const lon = parseFloat(data.longitude);
+                    if (!isNaN(lat) && !isNaN(lon)) {
+                        document.getElementById('latitude').value = lat;
+                        document.getElementById('longitude').value = lon;
+                        document.getElementById('locationCoords').textContent = `Latitude: ${lat.toFixed(4)}, Longitude: ${lon.toFixed(4)} (approx)`;
+                        document.getElementById('locationStatus').textContent = 'Approximate location fetched via IP';
+                        document.getElementById('location-error').classList.add('hidden');
+                        return;
+                    } else {
+                        throw new Error('Invalid coordinates from IP lookup');
+                    }
+                } catch (fallbackErr) {
+                    console.error('IP-based location lookup failed:', fallbackErr);
+                    document.getElementById('locationStatus').textContent = 'Unable to fetch location';
+                    document.getElementById('location-error').textContent = fallbackErr.message || error.message;
+                    document.getElementById('location-error').classList.remove('hidden');
+                }
             }
         }
 
@@ -242,7 +316,7 @@
                 document.getElementById('soilType').textContent = 'Loading...';
 
                 // Use consistent API endpoint
-                const response = await axios.post('http://localhost:8000/predict', {
+                const response = await axios.post(`${API_BASE_URL}/predict`, {
                     crop_type: cropSelect.value,
                     location: {
                         lat: parseFloat(latitude),
@@ -275,6 +349,19 @@
                 document.getElementById('soilMoisture').textContent = `${(soil.moisture || 0) * 100}%`;
                 document.getElementById('soilPH').textContent = (soil.ph || 0).toFixed(1);
                 document.getElementById('soilType').textContent = soil.type || 'Unknown';
+
+                // Render crop calendar and alerts
+                renderCalendar(response.data.calendar || []);
+                renderAlerts(response.data.alerts || []);
+                // Yield forecast
+                const yieldSec = document.getElementById('yield-section');
+                const yieldVal = document.getElementById('yield-value');
+                if (response.data.yield_forecast) {
+                    yieldSec.classList.remove('hidden');
+                    yieldVal.textContent = `Estimated yield this season: ${response.data.yield_forecast} tons/ha`;
+                } else {
+                    yieldSec.classList.add('hidden');
+                }
 
                 // Update date and location
                 const now = new Date();
@@ -326,11 +413,58 @@
 
             try {
                 const targetLang = document.getElementById('language-select').value || 'yo';
-                const response = await axios.post('http://localhost:8000/translate', {
+                const response = await axios.post(`${API_BASE_URL}/translate`, {
                     text: advice,
                     target_language: targetLang
                 });
                 document.getElementById('translation-result').innerHTML = response.data.translation;
+
+                // Generate audio using TTS endpoint
+                const audioControls = document.getElementById('audio-controls');
+                const playBtn = document.getElementById('play-audio-btn');
+                const stopBtn = document.getElementById('stop-audio-btn');
+                playBtn.disabled = true;
+                playBtn.textContent = 'Loading audio...';
+                audioControls.classList.remove('hidden');
+
+                try {
+                    const audioResp = await axios.post(`${API_BASE_URL}/tts`, {
+                        text: response.data.translation,
+                        lang: targetLang
+                    }, { responseType: 'blob' });
+                    const audioUrl = URL.createObjectURL(new Blob([audioResp.data], { type: 'audio/mpeg' }));
+                    let audio = new Audio(audioUrl);
+                    playBtn.disabled = false;
+                    playBtn.textContent = 'Play Audio';
+                    stopBtn.classList.add('hidden');
+
+                    playBtn.onclick = () => {
+                        if (audio.paused) {
+                            audio.play();
+                            playBtn.textContent = 'Pause';
+                            stopBtn.classList.remove('hidden');
+                        } else {
+                            audio.pause();
+                            playBtn.textContent = 'Play Audio';
+                        }
+                    };
+
+                    stopBtn.onclick = () => {
+                        audio.pause();
+                        audio.currentTime = 0;
+                        playBtn.textContent = 'Play Audio';
+                        stopBtn.classList.add('hidden');
+                    };
+
+                    // When audio ends reset buttons
+                    audio.addEventListener('ended', () => {
+                        playBtn.textContent = 'Play Audio';
+                        stopBtn.classList.add('hidden');
+                    });
+                } catch (audioErr) {
+                    console.error('Error generating audio:', audioErr);
+                    playBtn.textContent = 'Audio Unavailable';
+                }
             } catch (error) {
                 console.error('Error translating text:', error);
                 if (error.response && error.response.data && error.response.data.detail) {
@@ -344,39 +478,175 @@
             }
         }
 
-        // Utility to wrap advice sections into card components
+
+
+        // Render crop calendar table
+        function renderCalendar(entries) {
+            const section = document.getElementById('calendar-section');
+            const table = document.getElementById('calendar-table');
+            if (!section || !table) return;
+            if (!entries.length) {
+                section.classList.add('hidden');
+                table.innerHTML = '<p class="text-gray-600">No calendar available.</p>';
+                return;
+            }
+            section.classList.remove('hidden');
+            const header = `
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-4 py-2 text-left font-medium text-gray-500">Date</th>
+                        <th class="px-4 py-2 text-left font-medium text-gray-500">Task</th>
+                        <th class="px-4 py-2 text-left font-medium text-gray-500">Note</th>
+                    </tr>
+                </thead>`;
+            const rows = entries.map(item => `
+                <tr class="divide-x divide-gray-200">
+                    <td class="px-4 py-2 whitespace-nowrap">${item.date}</td>
+                    <td class="px-4 py-2 whitespace-nowrap">${item.task}</td>
+                    <td class="px-4 py-2">${item.note || ''}</td>
+                </tr>`).join('');
+            table.innerHTML = header + `<tbody class="divide-y divide-gray-200">${rows}</tbody>`;
+        }
+
+        // Render upcoming alerts as badges
+        function renderAlerts(alerts) {
+            const section = document.getElementById('alerts-section');
+            const container = document.getElementById('alerts-container');
+            if (!section || !container) return;
+            container.innerHTML = '';
+            if (!alerts.length) {
+                section.classList.add('hidden');
+                return;
+            }
+            section.classList.remove('hidden');
+            alerts.forEach(text => {
+                const badge = document.createElement('span');
+                badge.className = 'inline-block bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-xs';
+                badge.textContent = text;
+                container.appendChild(badge);
+            });
+        }
+ 
+         // Attach translate button listener
+        document.getElementById('translate-btn').addEventListener('click', async (e) => {
+            e.preventDefault();
+            await handleTranslate();
+        });
+        // ------------------ Chat Assistant ------------------
+        const chatToggle = document.getElementById('chat-toggle');
+        const chatBox = document.getElementById('chat-box');
+        const chatForm = document.getElementById('chat-form');
+        const chatInput = document.getElementById('chat-input');
+        const chatMessages = document.getElementById('chat-messages');
+        const chatMinimize = document.getElementById('chat-minimize');
+        const chatClose = document.getElementById('chat-close');
+        let isMinimized = false;
+
+        if (chatToggle) {
+            chatToggle.addEventListener('click', () => {
+                chatBox.classList.toggle('hidden');
+                if (!chatBox.classList.contains('hidden')) {
+                    restoreChat();
+                }
+            });
+        }
+
+        if (chatForm) {
+            chatForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const text = chatInput.value.trim();
+                if (!text) return;
+                appendMessage('user', text);
+                chatInput.value = '';
+                try {
+                    const response = await axios.post(`${API_BASE_URL}/chat`, { question: text });
+                    appendMessage('bot', response.data.answer);
+                } catch (err) {
+                    console.error(err);
+                    appendMessage('bot', 'Sorry, I could not get an answer right now.');
+                }
+            });
+        }
+
+        function appendMessage(role, content) {
+            const msgWrapper = document.createElement('div');
+            msgWrapper.className = role === 'user' ? 'text-right mb-2' : 'text-left mb-2';
+            const bubble = document.createElement('div');
+            bubble.className = (role === 'user')
+                ? 'inline-block bg-gradient-to-br from-green-500 to-green-700 text-white rounded-lg px-3 py-2 text-sm'
+                : 'inline-block bg-gradient-to-br from-indigo-100 to-indigo-200 text-gray-800 rounded-lg px-3 py-2 text-sm';
+            bubble.textContent = content;
+            msgWrapper.appendChild(bubble);
+            chatMessages.appendChild(msgWrapper);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // --- Chat Minimize and Close Controls ---
+        if (chatClose) {
+            chatClose.addEventListener('click', () => {
+                chatBox.classList.add('hidden');
+                restoreChat();
+            });
+        }
+
+        if (chatMinimize) {
+            chatMinimize.addEventListener('click', () => {
+                isMinimized = !isMinimized;
+                chatMessages.classList.toggle('hidden');
+                chatForm.classList.toggle('hidden');
+                chatBox.classList.toggle('h-96');
+                chatBox.classList.toggle('h-16');
+                chatMinimize.textContent = isMinimized ? '🗖' : '🗕';
+            });
+        }
+
+        function restoreChat() {
+            if (isMinimized) {
+                chatMessages.classList.remove('hidden');
+                chatForm.classList.remove('hidden');
+                chatBox.classList.add('h-96');
+                chatBox.classList.remove('h-16');
+                chatMinimize.textContent = '🗕';
+                isMinimized = false;
+            }
+        }
+
+        // ------------------ Load Crop List & Initialize Searchable Dropdown ------------------
+        async function populateCropDropdown() {
+            const cropSelect = document.getElementById('crop');
+            if (!cropSelect) return;
+            try {
+                const resp = await axios.get(`${API_BASE_URL}/crops`);
+                const crops = resp.data || [];
+                cropSelect.innerHTML = '<option value="">Select a crop</option>';
+                crops.forEach(item => {
+                    const opt = document.createElement('option');
+                    opt.value = item.name.toLowerCase();
+                    opt.textContent = item.name;
+                    cropSelect.appendChild(opt);
+                });
+                // Initialize Choices (once)
+                if (!cropSelect.dataset.choices) {
+                    const choices = new Choices(cropSelect, { searchEnabled: true, itemSelectText: '' });
+                    cropSelect.dataset.choices = 'true';
+                }
+            } catch (err) {
+                console.error('Failed to load crops:', err);
+                cropSelect.innerHTML = '<option value="">Error loading crops</option>';
+            }
+        }
+        document.addEventListener('DOMContentLoaded', populateCropDropdown);
+
+        // ------------------ Fixed wrapAdviceInCards utility ------------------
         function wrapAdviceInCards(container) {
             if (!container) return;
-
-            // Style lists for readability
             container.querySelectorAll('ul').forEach(ul => {
                 ul.classList.add('list-disc', 'pl-5', 'space-y-1');
             });
             container.querySelectorAll('ol').forEach(ol => {
                 ol.classList.add('list-decimal', 'pl-5', 'space-y-1');
             });
-
-            // Iterate over child nodes and wrap headings with their content into cards
-            const children = Array.from(container.childNodes);
-            let card = null;
-            children.forEach(node => {
-                if (node.nodeType === 1 && /^H[1-6]$/i.test(node.tagName)) {
-                    // Start a new card whenever we see a heading
-                    card = document.createElement('div');
-                    card.className = 'bg-white rounded-lg shadow-md p-4 mb-4';
-                    container.insertBefore(card, node);
-                }
-                if (card) {
-                    card.appendChild(node);
-                }
-            });
         }
-
-        // Attach translate button listener
-        document.getElementById('translate-btn').addEventListener('click', async (e) => {
-            e.preventDefault();
-            await handleTranslate();
-        });
     </script>
 </body>
 </html>
