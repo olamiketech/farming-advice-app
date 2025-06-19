@@ -8,6 +8,9 @@ import json
 from typing import Optional, Dict, Any, List
 from gtts import gTTS
 import threading
+import re  # Used for stripping HTML tags from crop names
+from functools import lru_cache
+from fastapi.middleware.gzip import GZipMiddleware
 
 # Attempt to import pygame for audio playback; if unavailable, the app will still run without audio support.
 try:
@@ -30,13 +33,17 @@ import openai
 from openai import AsyncOpenAI, OpenAIError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import FileResponse, StreamingResponse
+from fastapi.responses import FileResponse, HTMLResponse, StreamingResponse
 import pathlib
+import os
 import io
 
 load_dotenv()
 
 # Sensitive debug prints removed for security
+
+# Get the directory where this script is located
+BASE_DIR = pathlib.Path(__file__).parent
 
 # Configure CORS
 app = FastAPI(title="AgroPredict AI API")
@@ -48,6 +55,20 @@ app.add_middleware(
     allow_headers=["*"],
     expose_headers=["*"],
 )
+# Enable automatic GZip compression for faster responses
+app.add_middleware(GZipMiddleware, minimum_size=1000)
+
+# Serve static files (CSS, JS, images, etc.)
+app.mount("/static", StaticFiles(directory=str(BASE_DIR / "static")), name="static")
+
+# Serve the main HTML file
+@app.get("/", response_class=HTMLResponse)
+async def read_root():
+    html_path = BASE_DIR / "index.html"
+    if not html_path.exists():
+        raise HTTPException(status_code=404, detail="Frontend not found")
+    with open(html_path, 'r') as f:
+        return HTMLResponse(content=f.read(), status_code=200)
 
 # ---------------------------------------------------------------------------
 # Serve the frontend (index.html) and any static assets so that the SPA and
@@ -120,10 +141,12 @@ if CUSTOM_CROPS_PATH.exists():
             raw_records = json.load(cf)
         for rec in raw_records:
             # Attempt to support different key conventions from dataset
-            name = (rec.get("name") or rec.get("Crop Name") or rec.get("crop_name") or "").strip()
-            if not name:
+            raw_name = (rec.get("name") or rec.get("Crop Name") or rec.get("crop_name") or "").strip()
+            if not raw_name:
                 continue
-            key = name.lower()
+            # Strip any HTML tags to ensure clean dropdown display
+            name_clean = re.sub(r'<[^>]+>', '', raw_name).strip()
+            key = name_clean.lower()
             # Extract ranges with sensible defaults if missing
             ph_min = float(rec.get("ph_min") or rec.get("pH min") or rec.get("pH Range (min)") or 5.5)
             ph_max = float(rec.get("ph_max") or rec.get("pH max") or rec.get("pH Range (max)") or 7.0)
@@ -978,14 +1001,18 @@ async def text_to_speech(payload: dict):
         raise HTTPException(status_code=500, detail="Failed to generate audio")
 
 
+# Cached crop list for faster repeated calls
+@lru_cache(maxsize=1)
+def _cached_crop_list():
+    """Compute and cache the crop dropdown list once at startup."""
+    return sorted([
+        {"name": k.title(), "category": v.get("category", "")} for k, v in CROP_DATA.items()
+    ], key=lambda x: x["name"])
+
 @app.get("/crops")
 async def list_available_crops():
-    """Return a list of all crop names (and categories if available) for the dropdown."""
-    crops = []
-    for key, info in CROP_DATA.items():
-        crops.append({"name": key.title(), "category": info.get("category", "")})
-    # Sort alphabetically for convenience
-    return sorted(crops, key=lambda x: x["name"])
+    """Return cached list of crop names for dropdown."""
+    return _cached_crop_list()
 
 @app.get("/health")
 async def health_check():
