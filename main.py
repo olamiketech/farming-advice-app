@@ -105,6 +105,12 @@ async def serve_frontend():
     """Return the Single-Page Application entry point."""
     return FileResponse(BASE_DIR / "index.html")
 
+# Alias so that links explicitly requesting index.html also work (avoids 404 from browsers or proxies)
+@app.get("/index.html", include_in_schema=False)
+async def serve_frontend_alias():
+    """Alias for explicit index.html requests."""
+    return FileResponse(BASE_DIR / "index.html")
+
 # ---------------- Additional static HTML pages ----------------
 @app.get("/leafdoctor.html", response_class=HTMLResponse, include_in_schema=False)
 async def leafdoctor_page():
