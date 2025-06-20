@@ -92,13 +92,6 @@ async def _shutdown_async_client():
     await async_client.aclose()
 
 # Serve the main HTML file
-@app.get("/", response_class=HTMLResponse)
-async def read_root():
-    html_path = BASE_DIR / "index.html"
-    if not html_path.exists():
-        raise HTTPException(status_code=404, detail="Frontend not found")
-    with open(html_path, 'r') as f:
-        return HTMLResponse(content=f.read(), status_code=200)
 
 # ---------------------------------------------------------------------------
 # Serve the frontend (index.html) and any static assets so that the SPA and
@@ -106,9 +99,6 @@ async def read_root():
 # browser requests to the API from being blocked when the user opens the page
 # after a reboot.
 # ---------------------------------------------------------------------------
-BASE_DIR = pathlib.Path(__file__).resolve().parent
-# Duplicate mount removed to prevent overriding correct static directory
-# app.mount("/static", StaticFiles(directory=BASE_DIR), name="static")
 
 @app.get("/", include_in_schema=False)
 async def serve_frontend():

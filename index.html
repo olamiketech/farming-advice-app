@@ -27,29 +27,32 @@
         window.API_BASE_URL = window.location.origin;
     </script>
 </head>
-<body class="bg-gray-100 min-h-screen font-sans antialiased">
+<body class="bg-gray-100 min-h-screen font-sans antialiased pt-20">
     <!-- Navigation -->
-    <nav class="bg-white shadow">
-        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
-            <a href="index.html" class="text-green-700 font-bold text-lg flex items-center gap-1">
+    <header class="fixed top-0 left-0 w-full z-50 bg-white/90 backdrop-blur-md shadow-md">
+        <div class="max-w-screen-lg mx-auto flex items-center justify-between px-4 py-3">
+            <a href="index.html" class="flex items-center gap-2 text-green-700 font-bold text-lg">
                 <i class="fas fa-seedling"></i>
                 AgroPredict AI
             </a>
             <!-- Mobile nav toggle -->
-            <button id="navToggle" class="sm:hidden text-gray-700 focus:outline-none" aria-label="Toggle navigation">
+            <button id="navToggle" class="sm:hidden text-gray-700 focus:outline-none focus:ring-2 focus:ring-green-600 rounded-md" aria-label="Toggle navigation">
                 <i class="fas fa-bars text-2xl"></i>
             </button>
-
-            <!-- Navigation links -->
-            <div id="navLinks" class="hidden sm:flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-4 mt-4 sm:mt-0">
-                <a href="index.html" class="text-green-600 font-medium">Home</a>
-                <a href="leafdoctor.html" class="text-gray-700 hover:text-green-600">LeafDoctor</a>
-                <a href="about.html" class="text-gray-700 hover:text-green-600">About Us</a>
             </div>
-        </div>
-    </nav>
+<!-- Mobile dropdown -->
+<nav id="navLinks" class="hidden sm:flex flex-col sm:flex-row gap-6 px-4 py-4 sm:py-0 bg-white sm:bg-transparent shadow sm:shadow-none absolute sm:static top-full left-0 w-full z-40">
+                <a href="index.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-green-600 whitespace-nowrap">Home</a>
+                <a href="leafdoctor.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-green-600 whitespace-nowrap">LeafDoctor</a>
+                <a href="about.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-green-600 whitespace-nowrap">About Us</a>
+            </nav>
+</header>
+
+
+
     <div class="container mx-auto px-4 py-4 sm:py-8">
-        <header class="text-center mb-6 sm:mb-8">
+        <!-- Removed old compact header --><!--header class="text-center mb-8"-->
+            <header class="text-center mb-6 sm:mb-8">
             <div class="inline-block p-2 bg-green-50 rounded-full mb-3">
                 <i class="fas fa-leaf text-green-600 text-2xl"></i>
             </div>
@@ -57,7 +60,7 @@
             <p class="text-sm sm:text-base text-gray-600">Your intelligent farming assistant</p>
         </header>
 
-        <div class="bg-white rounded-xl shadow-sm p-4 sm:p-6 mb-6 sm:mb-8 transition-all duration-300 hover:shadow-md">
+        <div class="bg-white rounded-xl shadow p-6 mb-8">
             <form id="cropForm" class="space-y-4">
                 <div class="space-y-1">
                     <label for="crop" class="block text-sm font-medium text-gray-700">
@@ -1148,11 +1151,29 @@
     document.addEventListener('DOMContentLoaded', () => {
         const navToggle = document.getElementById('navToggle');
         const navLinks = document.getElementById('navLinks');
+
+        // Highlight active link
+        navLinks.querySelectorAll('a').forEach(a => {
+            if (a.getAttribute('href') === location.pathname.split('/').pop()) {
+                a.classList.add('text-green-600', 'font-semibold');
+            }
+        });
+
         if (navToggle && navLinks) {
             navToggle.addEventListener('click', () => {
                 navLinks.classList.toggle('hidden');
+                navToggle.innerHTML = navLinks.classList.contains('hidden')
+                    ? '<i class="fas fa-bars text-2xl"></i>'
+                    : '<i class="fas fa-times text-2xl"></i>';
             });
         }
+        // Close menu when a link is clicked (mobile)
+        navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+            if (window.innerWidth < 640) {
+                navLinks.classList.add('hidden');
+                navToggle.innerHTML = '<i class="fas fa-bars text-2xl"></i>';
+            }
+        }));
     });
 </script>
 </body>

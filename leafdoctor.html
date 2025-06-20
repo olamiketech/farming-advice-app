@@ -10,21 +10,26 @@
     <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body class="bg-gray-100 min-h-screen font-sans antialiased">
+<body class="bg-gray-100 min-h-screen font-sans antialiased pt-20">
     <!-- Navigation -->
-    <nav class="bg-white shadow">
-        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
-            <a href="index.html" class="text-green-700 font-bold text-lg flex items-center gap-1">
-                <i class="fas fa-seedling"></i>
-                AgroPredict AI
-            </a>
-            <div class="space-x-4">
-                <a href="index.html" class="text-gray-700 hover:text-green-600">Home</a>
-                <a href="leafdoctor.html" class="text-green-600 font-medium">LeafDoctor</a>
-                <a href="about.html" class="text-gray-700 hover:text-green-600">About Us</a>
-            </div>
-        </div>
+<header class="fixed top-0 left-0 w-full z-50 bg-white/90 backdrop-blur-md shadow-md">
+    <div class="max-w-screen-lg mx-auto flex items-center justify-between px-4 py-3">
+        <a href="index.html" class="flex items-center gap-2 text-green-700 font-bold text-lg">
+            <i class="fas fa-seedling"></i>
+            AgroPredict AI
+        </a>
+        <!-- Mobile nav toggle -->
+        <button id="navToggle" class="sm:hidden text-gray-700 focus:outline-none focus:ring-2 focus:ring-green-600 rounded-md" aria-label="Toggle navigation">
+            <i class="fas fa-bars text-2xl"></i>
+        </button>
+    </div>
+    <!-- Mobile dropdown -->
+    <nav id="navLinks" class="hidden sm:flex flex-col sm:flex-row gap-6 px-4 py-4 sm:py-0 bg-white sm:bg-transparent shadow sm:shadow-none absolute sm:static top-full left-0 w-full z-40">
+        <a href="index.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-green-600 whitespace-nowrap">Home</a>
+        <a href="leafdoctor.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-green-600 whitespace-nowrap">LeafDoctor</a>
+        <a href="about.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-green-600 whitespace-nowrap">About Us</a>
     </nav>
+</header>
 
     <!-- LeafDoctor Hero -->
     <main class="container mx-auto px-4 py-12 text-center">
@@ -57,5 +62,30 @@
             });
         })();
     </script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const navToggle = document.getElementById('navToggle');
+        const navLinks = document.getElementById('navLinks');
+        navLinks.querySelectorAll('a').forEach(a => {
+            if (a.getAttribute('href') === location.pathname.split('/').pop()) {
+                a.classList.add('text-green-600', 'font-semibold');
+            }
+        });
+        if (navToggle && navLinks) {
+            navToggle.addEventListener('click', () => {
+                navLinks.classList.toggle('hidden');
+                navToggle.innerHTML = navLinks.classList.contains('hidden')
+                    ? '<i class="fas fa-bars text-2xl"></i>'
+                    : '<i class="fas fa-times text-2xl"></i>';
+            });
+        }
+        navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+            if (window.innerWidth < 640) {
+                navLinks.classList.add('hidden');
+                navToggle.innerHTML = '<i class="fas fa-bars text-2xl"></i>';
+            }
+        }));
+    });
+</script>
 </body>
 </html>
