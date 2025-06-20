@@ -35,7 +35,13 @@
                 <i class="fas fa-seedling"></i>
                 AgroPredict AI
             </a>
-            <div class="space-x-4">
+            <!-- Mobile nav toggle -->
+            <button id="navToggle" class="sm:hidden text-gray-700 focus:outline-none" aria-label="Toggle navigation">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+
+            <!-- Navigation links -->
+            <div id="navLinks" class="hidden sm:flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-4 mt-4 sm:mt-0">
                 <a href="index.html" class="text-green-600 font-medium">Home</a>
                 <a href="leafdoctor.html" class="text-gray-700 hover:text-green-600">LeafDoctor</a>
                 <a href="about.html" class="text-gray-700 hover:text-green-600">About Us</a>
@@ -373,15 +379,29 @@
                 try {
                     const resp = await axios.get(`${API_BASE_URL}/crops`);
                     const crops = resp.data || [];
-                    crops.forEach(item => {
+                    // Deduplicate and sort crop names alphabetically for a cleaner list
+                    const cropNames = [...new Set(crops.map(c => (c.name || '').trim()))].sort((a, b) => a.localeCompare(b));
+                    // Clear existing dynamically-added options in case loadCrops is called again
+                    while (cropDropdown.options.length > 1) {
+                        cropDropdown.remove(1);
+                    }
+                    cropNames.forEach(name => {
                         const opt = document.createElement('option');
-                        opt.value = (item.name || '').toLowerCase();
-                        opt.textContent = item.name;
+                        opt.value = name.toLowerCase();
+                        opt.textContent = name;
                         cropDropdown.appendChild(opt);
                     });
                     // Activate Choices if available
                     if (window.Choices) {
-                        new Choices(cropDropdown, { searchEnabled: true, itemSelectText: '' });
+                        new Choices(cropDropdown, {
+            searchEnabled: true,
+            searchPlaceholderValue: 'Type crop name…',
+            placeholder: true,
+            placeholderValue: 'Select or type a crop…',
+            itemSelectText: '',
+            shouldSort: true,
+            searchResultLimit: 50
+        });
                     }
                 } catch (err) {
                     console.error('Error loading crops:', err);
@@ -410,6 +430,14 @@
                 const lon = position.coords.longitude;
                 
                 // Store coordinates in hidden inputs
+                // Hide the location controls once we have successfully fetched location so that
+                // the user only sees the "Get Farming Advice" button afterwards.
+                document.getElementById('getLocation').classList.add('hidden');
+                // Optionally collapse the entire location info section except the coordinate display.
+                const locInfo = document.getElementById('locationInfo');
+                if (locInfo) {
+                    locInfo.classList.add('hidden');
+                }
                 document.getElementById('latitude').value = lat;
                 document.getElementById('longitude').value = lon;
                 
@@ -1116,5 +1144,16 @@
             }
     }
     </script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const navToggle = document.getElementById('navToggle');
+        const navLinks = document.getElementById('navLinks');
+        if (navToggle && navLinks) {
+            navToggle.addEventListener('click', () => {
+                navLinks.classList.toggle('hidden');
+            });
+        }
+    });
+</script>
 </body>
 </html>

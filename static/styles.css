@@ -54,6 +54,16 @@ button:disabled {
   cursor: not-allowed;
 }
 
+/* Highlight Choices.js search input */
+.choices__list--dropdown .choices__input--cloned {
+  border: 2px solid var(--primary-color);
+  border-radius: 0.375rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+  width: 100%;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
 /* Results section */
 #results {
   transition: all 0.3s ease-in-out;
