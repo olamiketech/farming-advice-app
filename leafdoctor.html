@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+    <meta name="theme-color" content="#10b981">
+    <title>LeafDoctor | AgroPredict AI</title>
+    <!-- Styles -->
+    <link rel="stylesheet" href="static/styles.css">
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-100 min-h-screen font-sans antialiased">
+    <!-- Navigation -->
+    <nav class="bg-white shadow">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+            <a href="index.html" class="text-green-700 font-bold text-lg flex items-center gap-1">
+                <i class="fas fa-seedling"></i>
+                AgroPredict AI
+            </a>
+            <div class="space-x-4">
+                <a href="index.html" class="text-gray-700 hover:text-green-600">Home</a>
+                <a href="leafdoctor.html" class="text-green-600 font-medium">LeafDoctor</a>
+                <a href="about.html" class="text-gray-700 hover:text-green-600">About Us</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- LeafDoctor Hero -->
+    <main class="container mx-auto px-4 py-12 text-center">
+        <div class="bg-white rounded-xl shadow-sm p-6 sm:p-10 mx-auto max-w-2xl">
+            <h1 class="text-3xl sm:text-4xl font-extrabold text-green-700 mb-4 flex items-center justify-center gap-2">
+                <i class="fas fa-leaf"></i>
+                LeafDoctor
+            </h1>
+            <p class="text-gray-700 mb-6 leading-relaxed">
+                LeafDoctor uses cutting-edge artificial intelligence to identify plant diseases instantly, provide tailored treatment recommendations, and help you maintain thriving plants and crops.
+            </p>
+            <a id="leafdoctor-cta" href="https://leafdoctor.org" class="inline-flex items-center bg-green-600 hover:bg-green-700 text-white font-medium py-3 px-8 rounded-lg transition-colors duration-200">
+                <i class="fas fa-external-link-alt mr-2"></i>
+                Try LeafDoctor Now
+            </a>
+        </div>
+    </main>
+
+    <script>
+        // Open in system browser if running as a PWA
+        (function() {
+            const link = document.getElementById('leafdoctor-cta');
+            if (!link) return;
+            link.addEventListener('click', function(e) {
+                const inStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+                if (inStandalone) {
+                    e.preventDefault();
+                    window.open('https://leafdoctor.org', '_blank', 'noopener');
+                }
+            });
+        })();
+    </script>
+</body>
+</html>

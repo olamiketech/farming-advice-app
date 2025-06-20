@@ -77,12 +77,28 @@ async def read_root():
 # after a reboot.
 # ---------------------------------------------------------------------------
 BASE_DIR = pathlib.Path(__file__).resolve().parent
-app.mount("/static", StaticFiles(directory=BASE_DIR), name="static")
+# Duplicate mount removed to prevent overriding correct static directory
+# app.mount("/static", StaticFiles(directory=BASE_DIR), name="static")
 
 @app.get("/", include_in_schema=False)
 async def serve_frontend():
     """Return the Single-Page Application entry point."""
     return FileResponse(BASE_DIR / "index.html")
+
+# ---------------- Additional static HTML pages ----------------
+@app.get("/leafdoctor.html", response_class=HTMLResponse, include_in_schema=False)
+async def leafdoctor_page():
+    html_path = BASE_DIR / "leafdoctor.html"
+    if html_path.exists():
+        return HTMLResponse(content=html_path.read_text(), status_code=200)
+    raise HTTPException(status_code=404, detail="Page not found")
+
+@app.get("/about.html", response_class=HTMLResponse, include_in_schema=False)
+async def about_page():
+    html_path = BASE_DIR / "about.html"
+    if html_path.exists():
+        return HTMLResponse(content=html_path.read_text(), status_code=200)
+    raise HTTPException(status_code=404, detail="Page not found")
 
 # Initialize OpenAI client (v1+)
 openai_client = AsyncOpenAI(api_key=os.getenv("OPENAI_API_KEY"))

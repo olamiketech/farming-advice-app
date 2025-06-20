@@ -5,6 +5,8 @@ const CACHE_NAME = 'agropredict-cache-v1';
 const APP_SHELL = [
   '/',
   '/index.html',
+  '/leafdoctor.html',
+  '/about.html',
   '/static/styles.css',
   '/static/manifest.json',
   '/static/sw.js',

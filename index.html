@@ -8,7 +8,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <title>AgroPredict AI</title>
     <!-- Preload critical CSS -->
-    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="stylesheet" href="static/styles.css">
     <!-- Load Tailwind from CDN with fallback -->
     <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
     <!-- Choices.js for searchable dropdown -->
@@ -28,6 +28,20 @@
     </script>
 </head>
 <body class="bg-gray-100 min-h-screen font-sans antialiased">
+    <!-- Navigation -->
+    <nav class="bg-white shadow">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+            <a href="index.html" class="text-green-700 font-bold text-lg flex items-center gap-1">
+                <i class="fas fa-seedling"></i>
+                AgroPredict AI
+            </a>
+            <div class="space-x-4">
+                <a href="index.html" class="text-green-600 font-medium">Home</a>
+                <a href="leafdoctor.html" class="text-gray-700 hover:text-green-600">LeafDoctor</a>
+                <a href="about.html" class="text-gray-700 hover:text-green-600">About Us</a>
+            </div>
+        </div>
+    </nav>
     <div class="container mx-auto px-4 py-4 sm:py-8">
         <header class="text-center mb-6 sm:mb-8">
             <div class="inline-block p-2 bg-green-50 rounded-full mb-3">
@@ -266,28 +280,12 @@
         </div>
     </div>
 
-    <!-- LeafDoctor Section -->
-    <div class="bg-white rounded-xl shadow-sm p-6 mt-8 transition-all duration-300 hover:shadow-md">
-        <h2 class="text-2xl font-bold text-green-600 mb-4 flex items-center">
-            <i class="fas fa-leaf mr-2"></i>
-            LeafDoctor
-        </h2>
-        <p class="text-gray-700 mb-6">
-            LeafDoctor uses cutting&#8209;edge artificial intelligence to identify plant diseases instantly, provide tailored treatment recommendations, and help you maintain thriving plants and crops.
-        </p>
-        <a href="https://leafdoctor.org/" 
-           target="_blank" 
-           rel="noopener noreferrer" 
-           class="inline-flex items-center bg-green-600 hover:bg-green-700 text-white font-medium py-2.5 px-6 rounded-lg transition-colors duration-200">
-            <i class="fas fa-external-link-alt mr-2"></i>
-            Try LeafDoctor Now
-        </a>
-    </div>
 
     <!-- Chat Assistant -->
     <div id="chat-container" class="fixed bottom-6 right-4 sm:right-6 z-50 w-full max-w-md">
         <!-- Chat Toggle Button -->
         <button id="chat-toggle" 
+                class="ml-auto flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-green-600 text-white shadow-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
                 class="ml-auto flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-green-600 text-white shadow-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-all duration-200 transform hover:scale-105"
                 aria-label="Open chat"
                 aria-expanded="false">

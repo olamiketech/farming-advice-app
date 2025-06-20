@@ -441,3 +441,65 @@ button:disabled {
     max-width: 100%;
   }
 }
+
+/* --------------------------------------------------
+   Mobile-first UX Enhancements (2025-06-20)
+   -------------------------------------------------- */
+
+/* Global reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* Safe-area support for iOS & modern devices */
+body {
+  padding-top: env(safe-area-inset-top);
+  padding-right: env(safe-area-inset-right);
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-left: env(safe-area-inset-left);
+}
+
+/* Fluid horizontal padding for the main container */
+.container {
+  padding-left: clamp(1rem, 4vw, 2rem);
+  padding-right: clamp(1rem, 4vw, 2rem);
+}
+
+/* Comfortable touch targets */
+button,
+input[type="button"],
+input[type="submit"],
+select {
+  min-height: 48px;
+}
+
+/* Consistent vertical padding across form controls */
+select,
+input,
+textarea {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
+/* Chat optimisations for narrow screens */
+@media (max-width: 480px) {
+  #chat-container {
+    left: 0.75rem;
+    right: 0.75rem;
+    bottom: calc(env(safe-area-inset-bottom) + 0.75rem);
+    max-width: calc(100% - 1.5rem);
+  }
+  #chat-box {
+    height: 70vh;
+    max-height: 70vh;
+  }
+}
+
+/* Subtle elevation on cards */
+.bg-gray-50 {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.bg-gray-50:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
+}
