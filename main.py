@@ -33,6 +33,27 @@ import openai
 from openai import AsyncOpenAI, OpenAIError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
+
+# -----------------------------------------------------------
+# Performance enhancements: pooled HTTP client and cached static files
+# -----------------------------------------------------------
+class CachedStaticFiles(StaticFiles):
+    """Static file handler that adds long-lived Cache-Control headers."""
+
+    def __init__(self, *args, cache_max_age: int = 60 * 60 * 24 * 30, **kwargs):
+        self.cache_max_age = cache_max_age
+        super().__init__(*args, **kwargs)
+
+    async def get_response(self, path: str, scope):
+        response = await super().get_response(path, scope)
+        if response.status_code == 200:
+            response.headers["Cache-Control"] = f"public, max-age={self.cache_max_age}"
+        return response
+
+
+# Re-use a single AsyncClient for external API calls to minimise TCP/TLS handshakes
+# and reduce latency on poor connections.
+async_client = httpx.AsyncClient(timeout=10.0)
 from fastapi.responses import FileResponse, HTMLResponse, StreamingResponse
 import pathlib
 import os
@@ -59,7 +80,16 @@ app.add_middleware(
 app.add_middleware(GZipMiddleware, minimum_size=1000)
 
 # Serve static files (CSS, JS, images, etc.)
-app.mount("/static", StaticFiles(directory=str(BASE_DIR / "static")), name="static")
+app.mount(
+    "/static",
+    CachedStaticFiles(directory=str(BASE_DIR / "static"), cache_max_age=60*60*24*30),
+    name="static",
+)
+
+# Gracefully close the shared HTTPX client on shutdown.
+@app.on_event("shutdown")
+async def _shutdown_async_client():
+    await async_client.aclose()
 
 # Serve the main HTML file
 @app.get("/", response_class=HTMLResponse)
