@@ -1,7 +1,7 @@
 {
-  "name": "AgroPredict AI",
+  "name": "AgroPredict AI — Your Farm-Guide Assistant",
   "short_name": "AgroPredict",
-  "description": "Offline-capable farming advice assistant",
+  "description": "AgroPredict AI — Your Farm-Guide Assistant. Offline-capable farming advice platform.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#10b981",
