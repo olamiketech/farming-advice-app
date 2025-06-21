@@ -446,12 +446,13 @@
                 
                 // Update display
                 document.getElementById('locationCoords').textContent = `Latitude: ${lat.toFixed(4)}, Longitude: ${lon.toFixed(4)}`;
+                document.getElementById('locationDisplay').classList.remove('hidden');
                 document.getElementById('locationStatus').textContent = 'Location fetched successfully';
             } catch (error) {
                 console.warn('Primary geolocation failed:', error);
                 // Attempt fallback using IP-based lookup
                 try {
-                    const resp = await fetch('https://ipapi.co/json/');
+                    const resp = await fetch('https://ipinfo.io/json');
                     if (!resp.ok) throw new Error('IP lookup failed');
                     const data = await resp.json();
                     const lat = parseFloat(data.latitude);
@@ -460,6 +461,7 @@
                         document.getElementById('latitude').value = lat;
                         document.getElementById('longitude').value = lon;
                         document.getElementById('locationCoords').textContent = `Latitude: ${lat.toFixed(4)}, Longitude: ${lon.toFixed(4)} (approx)`;
+                        document.getElementById('locationDisplay').classList.remove('hidden');
                         document.getElementById('locationStatus').textContent = 'Approximate location fetched via IP';
                         document.getElementById('location-error').classList.add('hidden');
                         return;
