@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farming Advice UI Demo</title>
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body class="bg-gray-50">
+    <div class="container mx-auto p-4 max-w-4xl">
+        <h1 class="text-2xl font-bold mb-6 text-green-600">
+            <i class="fas fa-seedling mr-2"></i>
+            Improved Farming Advice Display Demo
+        </h1>
+        
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-4">
+            <h2 class="text-lg font-semibold mb-4">Original Advice (Plain Text)</h2>
+            <div class="bg-gray-900 text-gray-100 p-4 rounded font-mono text-sm overflow-x-auto">
+                <pre>## 1. Current Conditions
+- Temperature: 23.8°C
+- Humidity: 55%
+- Wind Speed: 2.9 km/h
+- Solar Radiation: 18.0 MJ/m²/day
+- Soil Moisture: 70.0%
+- Soil pH: 6.0
+- Soil Type: Loam
+
+## 2. Specific Farming Actions
+- Monitor soil moisture regularly and adjust irrigation as needed
+- Apply organic mulch around the base of the trees
+- Prune any damaged or diseased branches
+- Conduct regular soil tests to monitor pH levels
+
+## 3. Warnings or Concerns
+- Be cautious of overwatering, as it can lead to root rot
+- Monitor for any signs of pest infestations or diseases
+
+## 4. Explanation of Recommended Actions
+- Monitoring soil moisture ensures adequate water without waterlogging
+- Mulching helps retain soil moisture and regulates temperature
+- Pruning maintains tree health and productivity
+
+## 5. Voice Guidance (Farmer Friendly)
+- Remember to check your soil moisture regularly
+- Keep an eye out for any pests or diseases</pre>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-lg p-6">
+            <h2 class="text-lg font-semibold mb-4">Improved Advice (Responsive Cards)</h2>
+            <div id="advice-text" class="max-w-full"></div>
+        </div>
+    </div>
+
+    <script>
+        // Simulate the improved wrapAdviceInCards function
+        function wrapAdviceInCards(container) {
+            if (!container) return;
+            
+            // Define section configurations with icons and colors
+            const sectionConfig = {
+                'current conditions': { 
+                    icon: 'fa-cloud-sun', 
+                    bgColor: 'bg-gradient-to-br from-blue-50 to-cyan-50', 
+                    borderColor: 'border-blue-200',
+                    iconColor: 'text-blue-600'
+                },
+                'specific farming actions': { 
+                    icon: 'fa-tasks', 
+                    bgColor: 'bg-gradient-to-br from-green-50 to-emerald-50', 
+                    borderColor: 'border-green-200',
+                    iconColor: 'text-green-600'
+                },
+                'warnings': { 
+                    icon: 'fa-exclamation-triangle', 
+                    bgColor: 'bg-gradient-to-br from-amber-50 to-yellow-50', 
+                    borderColor: 'border-amber-200',
+                    iconColor: 'text-amber-600'
+                },
+                'explanation': { 
+                    icon: 'fa-info-circle', 
+                    bgColor: 'bg-gradient-to-br from-purple-50 to-indigo-50', 
+                    borderColor: 'border-purple-200',
+                    iconColor: 'text-purple-600'
+                },
+                'voice guidance': { 
+                    icon: 'fa-microphone', 
+                    bgColor: 'bg-gradient-to-br from-pink-50 to-rose-50', 
+                    borderColor: 'border-pink-200',
+                    iconColor: 'text-pink-600'
+                },
+                'default': { 
+                    icon: 'fa-seedling', 
+                    bgColor: 'bg-white', 
+                    borderColor: 'border-gray-200',
+                    iconColor: 'text-gray-600'
+                }
+            };
+
+            // Process the HTML content
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = container.innerHTML;
+            
+            // Find all h2 elements (section headers)
+            const sections = [];
+            let currentSection = null;
+            
+            Array.from(tempDiv.childNodes).forEach(node => {
+                if (node.nodeType === Node.ELEMENT_NODE && node.tagName === 'H2') {
+                    // Start a new section
+                    if (currentSection) {
+                        sections.push(currentSection);
+                    }
+                    currentSection = {
+                        title: node.textContent,
+                        titleElement: node,
+                        content: []
+                    };
+                } else if (currentSection) {
+                    currentSection.content.push(node);
+                } else {
+                    // Content before first h2
+                    if (!sections[0]) {
+                        sections.push({ title: '', titleElement: null, content: [] });
+                    }
+                    sections[0].content.push(node);
+                }
+            });
+            
+            if (currentSection) {
+                sections.push(currentSection);
+            }
+
+            // Clear container and rebuild with enhanced cards
+            container.innerHTML = '';
+            
+            sections.forEach((section, index) => {
+                // Determine section type and get config
+                const sectionKey = Object.keys(sectionConfig).find(key => 
+                    section.title.toLowerCase().includes(key)
+                ) || 'default';
+                const config = sectionConfig[sectionKey];
+
+                // Create card container
+                const card = document.createElement('div');
+                card.className = `${config.bgColor} border-2 ${config.borderColor} rounded-xl p-4 sm:p-6 mb-4 shadow-sm hover:shadow-md transition-shadow duration-200`;
+                
+                // Add collapsible functionality for mobile
+                const isMainContent = index === 0 || !section.title;
+                
+                if (section.title) {
+                    // Create header with icon
+                    const header = document.createElement('div');
+                    header.className = 'flex items-center justify-between cursor-pointer select-none';
+                    
+                    const titleContainer = document.createElement('div');
+                    titleContainer.className = 'flex items-center gap-3';
+                    
+                    // Add icon
+                    const icon = document.createElement('i');
+                    icon.className = `fas ${config.icon} ${config.iconColor} text-lg sm:text-xl`;
+                    titleContainer.appendChild(icon);
+                    
+                    // Add title
+                    const title = document.createElement('h3');
+                    title.className = 'text-base sm:text-lg font-semibold text-gray-800';
+                    title.textContent = section.title;
+                    titleContainer.appendChild(title);
+                    
+                    header.appendChild(titleContainer);
+                    
+                    // Add expand/collapse icon for mobile
+                    const expandIcon = document.createElement('i');
+                    expandIcon.className = 'fas fa-chevron-down text-gray-500 transition-transform duration-200 sm:hidden';
+                    header.appendChild(expandIcon);
+                    
+                    card.appendChild(header);
+                    
+                    // Create content container
+                    const contentDiv = document.createElement('div');
+                    contentDiv.className = `mt-4 space-y-2 ${isMainContent ? '' : 'sm:block'}`;
+                    
+                    // Add collapsible behavior on mobile
+                    if (!isMainContent) {
+                        contentDiv.classList.add('hidden');
+                        header.addEventListener('click', () => {
+                            contentDiv.classList.toggle('hidden');
+                            expandIcon.classList.toggle('rotate-180');
+                        });
+                    }
+                    
+                    // Process content
+                    section.content.forEach(node => {
+                        if (node.nodeType === Node.ELEMENT_NODE) {
+                            // Style lists
+                            if (node.tagName === 'UL' || node.tagName === 'OL') {
+                                node.className = 'space-y-2 ml-4';
+                                Array.from(node.querySelectorAll('li')).forEach(li => {
+                                    li.className = 'text-gray-700 text-sm sm:text-base leading-relaxed flex items-start';
+                                    // Add bullet icon for better visual
+                                    const bullet = document.createElement('span');
+                                    bullet.className = `mr-2 ${config.iconColor} mt-1 flex-shrink-0`;
+                                    bullet.innerHTML = node.tagName === 'UL' ? '•' : '';
+                                    li.insertBefore(bullet, li.firstChild);
+                                });
+                            }
+                            // Style paragraphs
+                            else if (node.tagName === 'P') {
+                                node.className = 'text-gray-700 text-sm sm:text-base leading-relaxed';
+                            }
+                            // Style code blocks
+                            else if (node.tagName === 'PRE') {
+                                node.className = 'bg-gray-100 p-3 rounded-lg overflow-x-auto text-xs sm:text-sm';
+                            }
+                            contentDiv.appendChild(node.cloneNode(true));
+                        } else if (node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {
+                            const p = document.createElement('p');
+                            p.className = 'text-gray-700 text-sm sm:text-base leading-relaxed';
+                            p.textContent = node.textContent;
+                            contentDiv.appendChild(p);
+                        }
+                    });
+                    
+                    card.appendChild(contentDiv);
+                } else {
+                    // Handle content without title
+                    section.content.forEach(node => {
+                        if (node.nodeType === Node.ELEMENT_NODE) {
+                            node.className = node.className || 'text-gray-700 text-sm sm:text-base leading-relaxed';
+                            card.appendChild(node.cloneNode(true));
+                        } else if (node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {
+                            const p = document.createElement('p');
+                            p.className = 'text-gray-700 text-sm sm:text-base leading-relaxed';
+                            p.textContent = node.textContent;
+                            card.appendChild(p);
+                        }
+                    });
+                }
+                
+                container.appendChild(card);
+            });
+            
+            // Add a quick summary card at the top for mobile users
+            if (sections.length > 1) {
+                const summaryCard = document.createElement('div');
+                summaryCard.className = 'bg-gradient-to-r from-green-500 to-green-600 text-white rounded-xl p-4 mb-4 sm:hidden';
+                summaryCard.innerHTML = `
+                    <div class="flex items-center gap-2 mb-2">
+                        <i class="fas fa-lightbulb text-yellow-300"></i>
+                        <h3 class="font-semibold">Quick Actions</h3>
+                    </div>
+                    <p class="text-sm">Tap on sections below to expand and see detailed advice</p>
+                `;
+                container.insertBefore(summaryCard, container.firstChild);
+            }
+        }
+
+        // Simulate advice content
+        const adviceMarkdown = `## 1. Current Conditions
+- Temperature: 23.8°C
+- Humidity: 55%
+- Wind Speed: 2.9 km/h
+- Solar Radiation: 18.0 MJ/m²/day
+- Soil Moisture: 70.0%
+- Soil pH: 6.0
+- Soil Type: Loam
+
+## 2. Specific Farming Actions
+- Monitor soil moisture regularly and adjust irrigation as needed to maintain optimal levels
+- Apply organic mulch around the base of the trees to conserve soil moisture and regulate temperature
+- Prune any damaged or diseased branches to promote healthy growth
+- Conduct regular soil tests to monitor pH levels and adjust as necessary
+
+## 3. Warnings or Concerns
+- Be cautious of overwatering, as it can lead to root rot in your crops
+- Monitor for any signs of pest infestations or diseases and take prompt action if detected
+- Watch for weather changes that might affect your planting schedule
+
+## 4. Explanation of Recommended Actions
+- Monitoring soil moisture ensures that the trees receive adequate water without risking waterlogging
+- Mulching helps retain soil moisture and regulates temperature, promoting healthy growth
+- Pruning maintains tree health and productivity
+- Regular soil tests and pH adjustments ensure optimal growing conditions
+
+## 5. Voice Guidance (Farmer Friendly)
+- Remember to check your soil moisture regularly and adjust watering accordingly
+- Keep an eye out for any pests or diseases, and don't forget to mulch around your trees for healthy growth
+- Your soil conditions look good, but keep monitoring to maintain optimal growing conditions`;
+
+        // Apply the improved formatting
+        const container = document.getElementById('advice-text');
+        if (marked && marked.parse) {
+            container.innerHTML = marked.parse(adviceMarkdown);
+        } else {
+            container.innerHTML = adviceMarkdown.replace(/## /g, '<h2>').replace(/\n/g, '<br>');
+        }
+        wrapAdviceInCards(container);
+    </script>
+</body>
+</html>

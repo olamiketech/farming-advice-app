@@ -6,19 +6,76 @@
     <meta name="theme-color" content="#10b981">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <title>AgroPredict AI — Your Farm-Guide Assistant</title>
-    <!-- Preload critical CSS -->
-    <link rel="stylesheet" href="static/styles.css">
-    <!-- Load Tailwind from CDN with fallback -->
+    <meta name="description" content="AgroPredict AI - Smart farming assistant powered by AI. Get personalized crop advice, weather forecasts, and agricultural insights.">
+    <title>AgroPredict AI — Smart Farming Assistant</title>
+    
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Modern font stack -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Modern Custom Styles -->
+    <link rel="stylesheet" href="static/styles-modern.css">
     <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                        'display': ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'emerald': {
+                            50: '#ecfdf5',
+                            500: '#10b981',
+                            600: '#059669',
+                            700: '#047857',
+                        },
+                        'sky': {
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                        },
+                        'amber': {
+                            500: '#f59e0b',
+                            600: '#d97706',
+                        }
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'glow': 'glow 2s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        glow: {
+                            '0%, 100%': { opacity: 1 },
+                            '50%': { opacity: 0.8 },
+                        },
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="static/styles-modern.css">
+    
     <!-- Choices.js for searchable dropdown -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    
     <!-- Markdown parser -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <!-- PWA manifest -->
     <link rel="manifest" href="/static/manifest.json">
     
@@ -27,93 +84,218 @@
         window.API_BASE_URL = window.location.origin;
     </script>
 </head>
-<body class="bg-gray-100 min-h-screen font-sans antialiased pt-20">
-    <!-- Navigation -->
-    <header class="fixed top-0 left-0 w-full z-50 bg-white/90 backdrop-blur-md shadow-md">
-        <div class="max-w-screen-lg mx-auto flex items-center justify-between px-4 py-3">
-            <a href="index.html" class="flex items-center gap-2 text-green-700 font-bold text-lg">
-                <i class="fas fa-seedling"></i>
-                AgroPredict AI
-            </a>
-            <!-- Mobile nav toggle -->
-            <button id="navToggle" class="sm:hidden text-gray-700 focus:outline-none focus:ring-2 focus:ring-green-600 rounded-md" aria-label="Toggle navigation">
-                <i class="fas fa-bars text-2xl"></i>
-            </button>
+<body class="bg-gradient-to-br from-emerald-50 via-white to-sky-50 min-h-screen font-sans antialiased">
+    <!-- Modern Navigation with Glass Effect -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-xl border-b border-white/20 shadow-lg">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <a href="index.html" class="flex items-center space-x-3 group">
+                    <div class="relative">
+                        <div class="absolute inset-0 bg-gradient-to-r from-emerald-500 to-emerald-600 rounded-lg blur-lg opacity-75 group-hover:opacity-100 transition-opacity"></div>
+                        <div class="relative bg-gradient-to-r from-emerald-500 to-emerald-600 text-white p-2 rounded-lg transform group-hover:scale-110 transition-transform">
+                            <i class="fas fa-seedling text-xl"></i>
+                        </div>
+                    </div>
+                    <span class="font-display font-bold text-xl bg-gradient-to-r from-emerald-600 to-emerald-700 bg-clip-text text-transparent">
+                        AgroPredict AI
+                    </span>
+                </a>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-1">
+                    <a href="index.html" class="nav-link active px-4 py-2 rounded-lg text-gray-700 hover:text-emerald-600 hover:bg-emerald-50 transition-all duration-200 font-medium">
+                        <i class="fas fa-home mr-2"></i>Home
+                    </a>
+                    <a href="leafdoctor.html" class="nav-link px-4 py-2 rounded-lg text-gray-700 hover:text-emerald-600 hover:bg-emerald-50 transition-all duration-200 font-medium">
+                        <i class="fas fa-leaf mr-2"></i>LeafDoctor
+                    </a>
+                    <a href="about.html" class="nav-link px-4 py-2 rounded-lg text-gray-700 hover:text-emerald-600 hover:bg-emerald-50 transition-all duration-200 font-medium">
+                        <i class="fas fa-info-circle mr-2"></i>About
+                    </a>
+                    <button class="ml-4 px-4 py-2 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-lg hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 font-medium">
+                        <i class="fas fa-rocket mr-2"></i>Get Started
+                    </button>
+                </div>
+                
+                <!-- Mobile menu button -->
+                <button id="navToggle" class="md:hidden p-2 rounded-lg text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
             </div>
-<!-- Mobile dropdown -->
-<nav id="navLinks" class="hidden sm:flex flex-col sm:flex-row gap-6 px-4 py-4 sm:py-0 bg-white sm:bg-transparent shadow sm:shadow-none absolute sm:static top-full left-0 w-full z-40">
-                <a href="index.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-green-600 whitespace-nowrap">Home</a>
-                <a href="leafdoctor.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-green-600 whitespace-nowrap">LeafDoctor</a>
-                <a href="about.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-green-600 whitespace-nowrap">About Us</a>
-            </nav>
-</header>
-
-
-
-    <div class="container mx-auto px-4 py-4 sm:py-8">
-        <!-- Removed old compact header --><!--header class="text-center mb-8"-->
-            <header class="text-center mb-6 sm:mb-8">
-            <div class="inline-block p-2 bg-green-50 rounded-full mb-3">
-                <i class="fas fa-leaf text-green-600 text-2xl"></i>
+            
+            <!-- Mobile Navigation -->
+            <div id="mobileMenu" class="hidden md:hidden pb-4">
+                <a href="index.html" class="block px-4 py-2 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 rounded-lg transition-colors">
+                    <i class="fas fa-home mr-2"></i>Home
+                </a>
+                <a href="leafdoctor.html" class="block px-4 py-2 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 rounded-lg transition-colors">
+                    <i class="fas fa-leaf mr-2"></i>LeafDoctor
+                </a>
+                <a href="about.html" class="block px-4 py-2 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 rounded-lg transition-colors">
+                    <i class="fas fa-info-circle mr-2"></i>About
+                </a>
+                <button class="w-full mt-2 px-4 py-2 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-lg hover:shadow-lg transition-all duration-200 font-medium text-left">
+                    <i class="fas fa-rocket mr-2"></i>Get Started
+                </button>
             </div>
-            <h1 class="text-2xl sm:text-3xl font-bold text-green-700 mb-1">AgroPredict AI</h1>
-            <p class="text-sm sm:text-base text-gray-600">Your Farm-Guide Assistant</p>
-        </header>
+        </nav>
+    </header>
 
-        <div class="bg-white rounded-xl shadow p-6 mb-8">
-            <form id="cropForm" class="space-y-4">
-                <div class="space-y-1">
-                    <label for="crop" class="block text-sm font-medium text-gray-700">
-                        <i class="fas fa-seedling mr-1 text-green-600"></i>
-                        Crop Type
+
+
+    <!-- Hero Section with Modern Design -->
+    <section class="relative pt-24 pb-12 px-4 overflow-hidden">
+        <!-- Animated Background Elements -->
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="absolute top-20 left-10 w-72 h-72 bg-emerald-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-float"></div>
+            <div class="absolute top-40 right-10 w-72 h-72 bg-sky-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-float" style="animation-delay: 2s;"></div>
+            <div class="absolute -bottom-8 left-20 w-72 h-72 bg-amber-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-float" style="animation-delay: 4s;"></div>
+        </div>
+        
+        <div class="relative max-w-7xl mx-auto text-center">
+            <!-- Hero Content -->
+            <div class="mb-8">
+                <div class="inline-flex items-center px-4 py-2 bg-emerald-100 text-emerald-700 rounded-full text-sm font-medium mb-6">
+                    <span class="relative flex h-2 w-2 mr-2">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                    </span>
+                    AI-Powered Agricultural Intelligence
+                </div>
+                
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-display font-bold text-gray-900 mb-6">
+                    Smart Farming
+                    <span class="block text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-sky-600">
+                        Starts Here
+                    </span>
+                </h1>
+                
+                <p class="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+                    Harness the power of AI to optimize your crop yields, predict weather patterns, 
+                    and get personalized farming advice tailored to your location and soil conditions.
+                </p>
+                
+                <!-- Feature Pills -->
+                <div class="flex flex-wrap justify-center gap-3 mb-8">
+                    <div class="flex items-center px-4 py-2 bg-white/80 backdrop-blur-sm rounded-full shadow-sm">
+                        <i class="fas fa-chart-line text-emerald-600 mr-2"></i>
+                        <span class="text-sm font-medium text-gray-700">Yield Prediction</span>
+                    </div>
+                    <div class="flex items-center px-4 py-2 bg-white/80 backdrop-blur-sm rounded-full shadow-sm">
+                        <i class="fas fa-cloud-sun text-sky-600 mr-2"></i>
+                        <span class="text-sm font-medium text-gray-700">Weather Forecast</span>
+                    </div>
+                    <div class="flex items-center px-4 py-2 bg-white/80 backdrop-blur-sm rounded-full shadow-sm">
+                        <i class="fas fa-bug text-amber-600 mr-2"></i>
+                        <span class="text-sm font-medium text-gray-700">Pest Control</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Main Content Container -->
+    <div class="max-w-7xl mx-auto px-4 pb-12">
+
+        <!-- Main Form Card with Modern Glass Effect -->
+        <div class="bg-white/90 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-8 mb-8">
+            <!-- Form Header -->
+            <div class="text-center mb-8">
+                <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl shadow-lg mb-4">
+                    <i class="fas fa-seedling text-white text-2xl"></i>
+                </div>
+                <h2 class="text-2xl font-display font-bold text-gray-900 mb-2">Get Personalized Crop Advice</h2>
+                <p class="text-gray-600">Enter your crop details and location for AI-powered insights</p>
+            </div>
+            
+            <form id="cropForm" class="space-y-6">
+                <!-- Crop Selection -->
+                <div class="group">
+                    <label for="crop" class="block text-sm font-semibold text-gray-700 mb-2">
+                        <i class="fas fa-seedling text-emerald-600 mr-2"></i>
+                        Select Your Crop
                     </label>
                     <select id="crop" name="crop" 
-                            class="form-select mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring focus:ring-green-200 focus:ring-opacity-50 transition duration-150 ease-in-out py-2.5 text-base" 
+                            class="form-select block w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 transition-all duration-200 hover:bg-gray-100" 
                             required>
                         <option value="" disabled selected>Select or type a crop...</option>
                     </select>
                 </div>
                 
-                <div id="locationInfo" class="space-y-2">
-                    <label class="block text-sm font-medium text-gray-700">
-                        <i class="fas fa-map-marker-alt mr-1 text-blue-600"></i>
+                <!-- Location Input with Icon -->
+                <div class="group">
+                    <label for="location" class="block text-sm font-semibold text-gray-700 mb-2">
+                        <i class="fas fa-location-dot text-sky-600 mr-2"></i>
                         Your Location
                     </label>
-                    <div class="flex flex-col sm:flex-row gap-2">
-                        <div class="flex-1 flex items-center bg-gray-50 rounded-lg px-3 py-2 text-sm text-gray-600">
-                            <i class="fas fa-info-circle mr-2 text-blue-500"></i>
-                            <span id="locationStatus">Click below to get location</span>
+                    <div class="relative">
+                        <input type="text" id="location" name="location" 
+                               placeholder="Enter city or coordinates" 
+                               autocomplete="off" 
+                               class="block w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:border-sky-500 focus:ring-2 focus:ring-sky-200 transition-all duration-200 hover:bg-gray-100">
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                            <i class="fas fa-map-marker-alt text-gray-400"></i>
                         </div>
-                        <button id="getLocation" 
-                                type="button"
-                                class="flex-shrink-0 inline-flex items-center justify-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-200">
-                            <i class="fas fa-location-arrow mr-2"></i>
-                            <span>Get Location</span>
+                    </div>
+                </div>
+                
+                <!-- Location Detection Card -->
+                <div id="locationInfo" class="bg-gradient-to-r from-sky-50 to-emerald-50 rounded-xl p-4 border border-sky-100">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="font-medium text-gray-700 mb-1">Use Current Location</p>
+                            <p class="text-sm text-gray-600">Get precise local weather and soil data</p>
+                        </div>
+                        <button type="button" id="getLocationBtn" 
+                                class="px-6 py-3 bg-gradient-to-r from-sky-500 to-sky-600 text-white font-medium rounded-xl hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 flex items-center">
+                            <i class="fas fa-location-crosshairs mr-2"></i>
+                            <span>Detect</span>
                         </button>
                     </div>
-                    <div id="locationDisplay" class="text-sm text-gray-600 mt-2 hidden">
-                        <span class="font-medium">Current Location:</span>
-                        <span id="locationCoords" class="ml-1"></span>
-                    </div>
-                    <div id="location-error" class="text-red-500 text-sm mt-1 hidden"></div>
+                    <span id="locationStatus" class="text-xs text-gray-500 mt-2 block"></span>
                 </div>
                 
                 <input type="hidden" id="latitude" name="latitude">
                 <input type="hidden" id="longitude" name="longitude">
+                <input type="hidden" id="location" name="location">
                 
-                <div class="pt-2">
-                    <button id="get-advice" type="submit" 
-                            class="w-full flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-200">
-                        <i class="fas fa-chart-line mr-2"></i>
-                        Get Farming Advice
-                    </button>
-                </div>
+                <!-- Submit Button with Gradient -->
+                <button type="submit" id="submitBtn" 
+                        class="w-full py-4 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white font-semibold rounded-xl hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed group">
+                    <span class="flex items-center justify-center">
+                        <i class="fas fa-magic mr-2 group-hover:animate-pulse"></i>
+                        Get AI-Powered Insights
+                    </span>
+                </button>
             </form>
         </div>
 
         <!-- Results Section -->
-        <div id="results" class="bg-white rounded-xl shadow-sm p-4 sm:p-6 mb-6 sm:mb-8 hidden transition-all duration-300 transform hover:shadow-md">
-            <div class="space-y-6">
+        <div id="results" class="hidden">
+            <div class="bg-white/90 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-8">
+                <!-- Results Header -->
+                <div class="flex items-center justify-between mb-6">
+                    <div>
+                        <h2 class="text-2xl font-display font-bold text-gray-900">AI Analysis Results</h2>
+                        <p class="text-gray-600 mt-1">Personalized recommendations for your crop</p>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <span class="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full text-sm font-medium">
+                            <i class="fas fa-check-circle mr-1"></i>
+                            Updated
+                        </span>
+                    </div>
+                </div>
+                
+                <div id="loadingIndicator" class="hidden text-center py-12">
+                    <div class="relative inline-flex">
+                        <div class="w-16 h-16 bg-emerald-500 rounded-full animate-ping"></div>
+                        <div class="w-16 h-16 bg-emerald-500 rounded-full absolute top-0 left-0 animate-pulse"></div>
+                    </div>
+                    <p class="mt-6 text-gray-600 font-medium">Analyzing your crop data with AI...</p>
+                </div>
+                
                 <!-- Weather Metrics Grid -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     <!-- Temperature -->
@@ -215,7 +397,7 @@
                     
                     <div class="mb-4">
                         <h3 class="font-semibold mb-2">Advice</h3>
-                        <div id="advice-text" class="prose prose-gray mx-auto text-justify"></div>
+                        <div id="advice-text" class="max-w-full"></div>
                         <div id="translation-result" class="mt-4 text-blue-700 whitespace-pre-wrap"></div>
 <!-- Audio controls -->
 <div id="audio-controls" class="mt-2 hidden flex space-x-2">
@@ -377,13 +559,15 @@
             let welcomeShown = false;
             const WELCOME_TEXT = "Hello! I'm your farming assistant. I can help with crop advice, pest identification, and growing tips. What would you like to know?";
 
-            // Fetch crop list from backend and initialise Choices.js searchable dropdown
+            // Load crop list and initialise Choices.js searchable dropdown
             async function loadCrops() {
                 try {
-                    const resp = await axios.get(`${API_BASE_URL}/crops`);
-                    const crops = resp.data || [];
-                    // Deduplicate and sort crop names alphabetically for a cleaner list
-                    const cropNames = [...new Set(crops.map(c => (c.name || '').trim()))].sort((a, b) => a.localeCompare(b));
+                    // Load crops from the API endpoint instead of static file
+                    const response = await fetch(`${window.API_BASE_URL}/crops`);
+                    if (!response.ok) throw new Error('Failed to load crops from API');
+                    const crops = await response.json();
+                    // The API already returns sorted and deduplicated crops
+                    const cropNames = crops.map(c => (c.name || '').trim());
                     // Clear existing dynamically-added options in case loadCrops is called again
                     while (cropDropdown.options.length > 1) {
                         cropDropdown.remove(1);
@@ -397,96 +581,435 @@
                     // Activate Choices if available
                     if (window.Choices) {
                         new Choices(cropDropdown, {
-            searchEnabled: true,
-            searchPlaceholderValue: 'Type crop name…',
-            placeholder: true,
-            placeholderValue: 'Select or type a crop…',
-            itemSelectText: '',
-            shouldSort: true,
-            searchResultLimit: 50
-        });
+                            searchEnabled: true,
+                            searchPlaceholderValue: 'Type crop name…',
+                            placeholder: true,
+                            placeholderValue: 'Select or type a crop…',
+                            itemSelectText: '',
+                            shouldSort: true,
+                            searchResultLimit: 50
+                        });
                     }
                 } catch (err) {
                     console.error('Error loading crops:', err);
+                    // Fallback: Load basic crops if crops.json fails
+                    const basicCrops = [
+                        {name: "Wheat"}, {name: "Rice"}, {name: "Corn"}, {name: "Maize"}, 
+                        {name: "Cotton"}, {name: "Soybean"}, {name: "Potato"}, {name: "Tomato"}, 
+                        {name: "Onion"}, {name: "Cabbage"}, {name: "Apple"}, {name: "Banana"}
+                    ];
+                    
+                    // Clear and add basic options
+                    while (cropDropdown.options.length > 1) {
+                        cropDropdown.remove(1);
+                    }
+                    basicCrops.forEach(crop => {
+                        const option = document.createElement('option');
+                        option.value = crop.name.toLowerCase();
+                        option.textContent = crop.name;
+                        cropDropdown.appendChild(option);
+                    });
+                    
+                    // Still try to initialize Choices.js with the fallback data
+                    if (window.Choices) {
+                        new Choices(cropDropdown, {
+                            searchEnabled: true,
+                            searchPlaceholderValue: 'Type crop name…',
+                            placeholder: true,
+                            placeholderValue: 'Select or type a crop…',
+                            itemSelectText: '',
+                            shouldSort: true,
+                            searchResultLimit: 50
+                        });
+                    }
                 }
             }
             // Kick off crop loading immediately
             loadCrops();
+            
+        // Mobile menu toggle functionality
+        const navToggle = document.getElementById('navToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        if (navToggle && mobileMenu) {
+            navToggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+        // Function to wrap advice in responsive cards
+        function wrapAdviceInCards(container) {
+            const content = container.innerHTML;
+            if (!content || content.trim() === '') return;
+
+            // Parse sections from the advice content
+            const sections = [];
+            const lines = content.split('\n');
+            let currentSection = null;
+            
+            lines.forEach(line => {
+                // Check for section headers (## or bold text)
+                if (line.startsWith('## ') || line.includes('<strong>') || line.includes('**')) {
+                    if (currentSection) sections.push(currentSection);
+                    currentSection = { title: line.replace(/##\s*|<\/?strong>|\*\*/g, '').trim(), content: [] };
+                } else if (currentSection) {
+                    currentSection.content.push(line);
+                } else {
+                    // Content before first section
+                    if (!sections.find(s => s.title === 'Overview')) {
+                        sections.unshift({ title: 'Overview', content: [line] });
+                    } else {
+                        sections[0].content.push(line);
+                    }
+                }
+            });
+            if (currentSection) sections.push(currentSection);
+
+            // Define section icons and colors
+            const sectionConfig = {
+                'Current Conditions': { icon: 'fas fa-cloud-sun', gradient: 'from-blue-500 to-sky-400' },
+                'Weather Conditions': { icon: 'fas fa-cloud-sun', gradient: 'from-blue-500 to-sky-400' },
+                'Specific Farming Actions': { icon: 'fas fa-tasks', gradient: 'from-green-500 to-emerald-400' },
+                'Farming Actions': { icon: 'fas fa-tasks', gradient: 'from-green-500 to-emerald-400' },
+                'Warnings': { icon: 'fas fa-exclamation-triangle', gradient: 'from-red-500 to-orange-400' },
+                'Warning': { icon: 'fas fa-exclamation-triangle', gradient: 'from-red-500 to-orange-400' },
+                'Explanation': { icon: 'fas fa-info-circle', gradient: 'from-purple-500 to-indigo-400' },
+                'Voice Guidance': { icon: 'fas fa-microphone', gradient: 'from-teal-500 to-cyan-400' },
+                'Overview': { icon: 'fas fa-seedling', gradient: 'from-yellow-500 to-amber-400' },
+                'Recommendations': { icon: 'fas fa-lightbulb', gradient: 'from-indigo-500 to-purple-400' }
+            };
+
+            // Create card HTML
+            let cardsHTML = '<div class="space-y-4">';
+            
+            // Add Quick Actions card for mobile
+            const actionSection = sections.find(s => 
+                s.title.includes('Actions') || s.title.includes('Recommendations')
+            );
+            if (actionSection) {
+                const quickActions = actionSection.content
+                    .filter(line => line.trim().startsWith('•') || line.trim().startsWith('-') || line.trim().startsWith('*'))
+                    .slice(0, 3)
+                    .map(line => line.replace(/^[•\-\*]\s*/, '').trim());
+                
+                if (quickActions.length > 0) {
+                    cardsHTML += `
+                        <div class="md:hidden bg-gradient-to-r from-emerald-500 to-green-400 rounded-lg p-4 text-white shadow-lg">
+                            <h3 class="font-bold text-lg mb-2">
+                                <i class="fas fa-bolt mr-2"></i>Quick Actions
+                            </h3>
+                            <ul class="space-y-1 text-sm">
+                                ${quickActions.map(action => `<li class="flex items-start"><span class="mr-2">→</span>${action}</li>`).join('')}
+                            </ul>
+                        </div>
+                    `;
+                }
+            }
+
+            // Create cards for each section
+            sections.forEach((section, index) => {
+                const config = sectionConfig[section.title] || 
+                              Object.values(sectionConfig).find(c => 
+                                  section.title.toLowerCase().includes(Object.keys(sectionConfig).find(k => 
+                                      sectionConfig[k] === c).toLowerCase())
+                              ) || 
+                              { icon: 'fas fa-file-alt', gradient: 'from-gray-500 to-gray-400' };
+                
+                const contentHTML = section.content
+                    .join('\n')
+                    .replace(/•\s*/g, '<li class="flex items-start"><span class="text-white/80 mr-2">•</span><span>')
+                    .replace(/<\/li>\n(?!<li)/g, '</span></li>\n')
+                    .replace(/(<li[^>]*>.*<\/span><\/li>)/g, '</span></li><li class="flex items-start"><span class="text-white/80 mr-2">•</span><span>');
+                
+                const isCollapsible = window.innerWidth < 768 && index > 1;
+                const collapseId = `section-${index}`;
+                
+                cardsHTML += `
+                    <div class="advice-card bg-gradient-to-r ${config.gradient} rounded-lg shadow-lg overflow-hidden 
+                                transform transition-all duration-300 hover:scale-[1.02] hover:shadow-xl">
+                        <div class="p-5 text-white">
+                            <h3 class="font-bold text-xl mb-3 flex items-center justify-between cursor-pointer"
+                                ${isCollapsible ? `onclick="document.getElementById('${collapseId}').classList.toggle('hidden'); this.querySelector('.fa-chevron-down').classList.toggle('rotate-180')"` : ''}>
+                                <span>
+                                    <i class="${config.icon} mr-3 text-2xl"></i>
+                                    ${section.title}
+                                </span>
+                                ${isCollapsible ? '<i class="fas fa-chevron-down transform transition-transform duration-300 md:hidden"></i>' : ''}
+                            </h3>
+                            <div id="${collapseId}" class="prose prose-invert max-w-none 
+                                        ${isCollapsible ? 'hidden md:block' : ''}">
+                                ${contentHTML.includes('<li') ? 
+                                    `<ul class="space-y-2 text-white/90">${contentHTML}</ul>` : 
+                                    `<p class="text-white/90 leading-relaxed">${contentHTML}</p>`
+                                }
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            cardsHTML += '</div>';
+            container.innerHTML = cardsHTML;
+        }
 
         // Function to get user's location
         async function getLocation() {
+            console.log('Starting location detection...');
+            console.log('Protocol:', window.location.protocol);
+            console.log('Hostname:', window.location.hostname);
+            
+            // Check if we're on a proper protocol for geolocation
+            const isFileProtocol = window.location.protocol === 'file:';
+            const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+            const isHTTPS = window.location.protocol === 'https:';
+            
+            if (isFileProtocol) {
+                console.warn('Geolocation not available with file:// protocol. Please run a local server. Falling back to IP-based location.');
+                return await getLocationByIP();
+            }
+            
+            if (!isHTTPS && !isLocalhost) {
+                console.warn('Geolocation requires HTTPS or localhost. Falling back to IP-based location.');
+                return await getLocationByIP();
+            }
+            
             try {
                 // Check if geolocation is supported
                 if (!navigator.geolocation) {
+                    console.error('Geolocation not supported by browser');
                     throw new Error('Geolocation is not supported by your browser');
                 }
+                
+                console.log('Geolocation API available, requesting position...');
 
-                // Request location
+                // Request location with timeout
                 const position = await new Promise((resolve, reject) => {
+                    const timeoutId = setTimeout(() => {
+                        reject(new Error('Location request timed out'));
+                    }, 15000);
+                    
                     navigator.geolocation.getCurrentPosition(
-                        (pos) => resolve(pos),
-                        (err) => reject(new Error('Error getting location'))
+                        (pos) => {
+                            clearTimeout(timeoutId);
+                            console.log('Position received:', pos);
+                            resolve(pos);
+                        },
+                        (err) => {
+                            clearTimeout(timeoutId);
+                            console.error('Geolocation error code:', err.code);
+                            console.error('Geolocation error message:', err.message);
+                            reject(new Error(err.message || 'Unable to get location'));
+                        },
+                        {
+                            enableHighAccuracy: true,  // Use high accuracy for better location
+                            timeout: 30000,  // Increase timeout to 30 seconds
+                            maximumAge: 60000  // Allow cached position up to 1 minute old
+                        }
                     );
                 });
 
                 const lat = position.coords.latitude;
                 const lon = position.coords.longitude;
+                console.log('Coordinates obtained:', lat, lon);
                 
-                // Store coordinates in hidden inputs
-                // Hide the location controls once we have successfully fetched location so that
-                // the user only sees the "Get Farming Advice" button afterwards.
-                document.getElementById('getLocation').classList.add('hidden');
-                // Optionally collapse the entire location info section except the coordinate display.
-                const locInfo = document.getElementById('locationInfo');
-                if (locInfo) {
-                    locInfo.classList.add('hidden');
+                // Update all location-related fields with null checks
+                const locationInput = document.getElementById('location');
+                if (locationInput) {
+                    locationInput.value = `${lat.toFixed(4)}, ${lon.toFixed(4)}`;
+                    console.log('Updated location field');
+                } else {
+                    console.warn('Location input field not found');
                 }
-                document.getElementById('latitude').value = lat;
-                document.getElementById('longitude').value = lon;
                 
-                // Update display
-                document.getElementById('locationCoords').textContent = `Latitude: ${lat.toFixed(4)}, Longitude: ${lon.toFixed(4)}`;
-                document.getElementById('locationDisplay').classList.remove('hidden');
-                document.getElementById('locationStatus').textContent = 'Location fetched successfully';
+                const latInput = document.getElementById('latitude');
+                if (latInput) {
+                    latInput.value = lat;
+                    console.log('Updated latitude field');
+                } else {
+                    console.warn('Latitude input field not found');
+                }
+                
+                const lonInput = document.getElementById('longitude');
+                if (lonInput) {
+                    lonInput.value = lon;
+                    console.log('Updated longitude field');
+                } else {
+                    console.warn('Longitude input field not found');
+                }
+                
+                // Update status message
+                const locationStatus = document.getElementById('locationStatus');
+                if (locationStatus) {
+                    locationStatus.textContent = '✓ Location detected successfully';
+                    locationStatus.classList.remove('text-gray-500', 'text-red-600', 'text-yellow-600');
+                    locationStatus.classList.add('text-green-600');
+                }
             } catch (error) {
                 console.warn('Primary geolocation failed:', error);
                 // Attempt fallback using IP-based lookup
-                try {
-                    const resp = await fetch('https://ipinfo.io/json');
-                    if (!resp.ok) throw new Error('IP lookup failed');
-                    const data = await resp.json();
-                    const lat = parseFloat(data.latitude);
-                    const lon = parseFloat(data.longitude);
-                    if (!isNaN(lat) && !isNaN(lon)) {
-                        document.getElementById('latitude').value = lat;
-                        document.getElementById('longitude').value = lon;
-                        document.getElementById('locationCoords').textContent = `Latitude: ${lat.toFixed(4)}, Longitude: ${lon.toFixed(4)} (approx)`;
-                        document.getElementById('locationDisplay').classList.remove('hidden');
-                        document.getElementById('locationStatus').textContent = 'Approximate location fetched via IP';
-                        document.getElementById('location-error').classList.add('hidden');
-                        return;
-                    } else {
-                        throw new Error('Invalid coordinates from IP lookup');
+                await getLocationByIP();
+            }
+        }
+        
+        // Separate function for IP-based location
+        async function getLocationByIP() {
+            console.log('Attempting IP-based location...');
+            try {
+                const resp = await fetch('https://ipapi.co/json/');
+                if (!resp.ok) throw new Error('IP lookup failed');
+                const data = await resp.json();
+                console.log('IP location data:', data);
+                
+                const lat = parseFloat(data.latitude);
+                const lon = parseFloat(data.longitude);
+                
+                if (!isNaN(lat) && !isNaN(lon)) {
+                    // Update location fields
+                    const locationInput = document.getElementById('location');
+                    if (locationInput) {
+                        locationInput.value = `${lat.toFixed(4)}, ${lon.toFixed(4)}`;
                     }
-                } catch (fallbackErr) {
-                    console.error('IP-based location lookup failed:', fallbackErr);
-                    document.getElementById('locationStatus').textContent = 'Unable to fetch location';
-                    document.getElementById('location-error').textContent = fallbackErr.message || error.message;
-                    document.getElementById('location-error').classList.remove('hidden');
+                    
+                    const latInput = document.getElementById('latitude');
+                    if (latInput) {
+                        latInput.value = lat;
+                    }
+                    
+                    const lonInput = document.getElementById('longitude');
+                    if (lonInput) {
+                        lonInput.value = lon;
+                    }
+                    
+                    // Update status
+                    const locStatus = document.getElementById('locationStatus');
+                    if (locStatus) {
+                        // Provide helpful message for location issues
+                        if (error.message.includes('network service') || error.message.includes('timed out')) {
+                            locStatus.innerHTML = `⚠️ GPS unavailable. Using approximate location.<br>
+                                <small class="text-xs">Tip: Allow location access in browser & system settings</small>`;
+                            locStatus.classList.add('text-yellow-600');
+                        } else {
+                            locStatus.textContent = `Failed: ${error.message}`;
+                            locStatus.classList.add('text-red-600');
+                        }
+                        locStatus.classList.remove('text-gray-500', 'text-green-600');
+                    }
+                    
+                    console.log('Location set via IP:', lat, lon);
+                    return { lat, lon };
+                } else {
+                    throw new Error('Invalid coordinates from IP lookup');
                 }
+            } catch (error) {
+                console.error('IP-based location lookup failed:', error);
+                
+                // Try a different IP service as backup
+                try {
+                    const resp2 = await fetch('https://ip-api.com/json/');
+                    const data2 = await resp2.json();
+                    console.log('Backup IP location data:', data2);
+                    
+                    if (data2.status === 'success' && data2.lat && data2.lon) {
+                        const lat = parseFloat(data2.lat);
+                        const lon = parseFloat(data2.lon);
+                        
+                        // Update fields
+                        const locationInput = document.getElementById('location');
+                        if (locationInput) {
+                            locationInput.value = `${lat.toFixed(4)}, ${lon.toFixed(4)}`;
+                        }
+                        
+                        const latInput = document.getElementById('latitude');
+                        if (latInput) {
+                            latInput.value = lat;
+                        }
+                        
+                        const lonInput = document.getElementById('longitude');
+                        if (lonInput) {
+                            lonInput.value = lon;
+                        }
+                        
+                        const locStatus = document.getElementById('locationStatus');
+                        if (locStatus) {
+                            locStatus.textContent = '⚠ Approximate location via IP';
+                            locStatus.classList.remove('text-gray-500', 'text-red-600', 'text-green-600');
+                            locStatus.classList.add('text-yellow-600');
+                        }
+                        
+                        return { lat, lon };
+                    }
+                } catch (err2) {
+                    console.error('Backup IP service also failed:', err2);
+                }
+                
+                // All methods failed
+                const locStatus = document.getElementById('locationStatus');
+                if (locStatus) {
+                    locStatus.textContent = '✗ Unable to detect location';
+                    locStatus.classList.remove('text-gray-500', 'text-green-600', 'text-yellow-600');
+                    locStatus.classList.add('text-red-600');
+                }
+                
+                // Provide manual entry suggestion
+                const locationInput = document.getElementById('location');
+                if (locationInput) {
+                    locationInput.placeholder = 'Enter city or coordinates manually';
+                    locationInput.focus();
+                }
+                
+                alert('Unable to detect location automatically. Please enter your location manually or try again.');
             }
         }
 
         // Attach event listeners
-        document.getElementById('getLocation').addEventListener('click', async (e) => {
-            e.preventDefault();
-            await getLocation();
-        });
+        // Wire up location detection button
+        const getLocationBtn = document.getElementById('getLocationBtn');
+        if (getLocationBtn) {
+            console.log('Location button found, attaching event listener');
+            getLocationBtn.addEventListener('click', async (e) => {
+                e.preventDefault();
+                console.log('Location button clicked');
+                
+                // Update button state
+                getLocationBtn.disabled = true;
+                const originalContent = getLocationBtn.innerHTML;
+                getLocationBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Detecting...';
+                
+                try {
+                    await getLocation();
+                } catch (error) {
+                    console.error('Location detection failed:', error.message);
+                    const locStatus = document.getElementById('locationStatus');
+                    if (locStatus) {
+                        // Provide helpful message for location issues
+                        if (error.message.includes('network service') || error.message.includes('timed out')) {
+                            locStatus.innerHTML = `⚠️ GPS unavailable. Using approximate location.<br>
+                                <small class="text-xs">Tip: Allow location access in browser & system settings</small>`;
+                            locStatus.classList.add('text-yellow-600');
+                        } else {
+                            locStatus.textContent = `Failed: ${error.message}`;
+                            locStatus.classList.add('text-red-600');
+                        }
+                        locStatus.classList.remove('text-gray-500', 'text-green-600');
+                    }
+                } finally {
+                    // Restore button state
+                    getLocationBtn.disabled = false;
+                    getLocationBtn.innerHTML = originalContent;
+                }
+            });
+        } else {
+            console.error('Location button not found in DOM');
+        }
 
-        document.getElementById('get-advice').addEventListener('click', async (e) => {
-            e.preventDefault();
-            await handleGetAdvice();
-        });
+        // Wire up the submit button for getting AI advice
+        const submitBtn = document.getElementById('submitBtn');
+        if (submitBtn) {
+            submitBtn.addEventListener('click', async (e) => {
+                e.preventDefault();
+                await handleGetAdvice();
+            });
+        }
 
         async function handleGetAdvice() {
             const cropSelect = document.getElementById('crop');
@@ -504,8 +1027,10 @@
             }
 
             // Show loading state
-            document.getElementById('get-advice').disabled = true;
-            document.getElementById('get-advice').textContent = 'Fetching advice...';
+            const submitBtn = document.getElementById('submitBtn');
+            const originalText = submitBtn.querySelector('span').innerHTML;
+            submitBtn.disabled = true;
+            submitBtn.querySelector('span').innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Processing...';
             document.getElementById('results').classList.remove('hidden');
             document.getElementById('advice').classList.add('hidden');
 
@@ -587,6 +1112,7 @@
                         const cachedData = JSON.parse(cached);
                         const adviceContainer = document.getElementById('advice-text');
                         adviceContainer.innerHTML = typeof marked !== 'undefined' ? marked.parse(cachedData.advice) : cachedData.advice;
+                        wrapAdviceInCards(adviceContainer);
                         document.getElementById('advice').classList.remove('hidden');
                     } catch(e) { console.warn('Failed to parse cached advice', e); }
                 }
@@ -601,8 +1127,11 @@
                 document.getElementById('soilType').textContent = 'Error';
                 
                 // Reset button
-                document.getElementById('get-advice').disabled = false;
-                document.getElementById('get-advice').textContent = 'Get Advice';
+                const submitBtnCatch = document.getElementById('submitBtn');
+                if (submitBtnCatch && submitBtnCatch.querySelector('span')) {
+                    submitBtnCatch.disabled = false;
+                    submitBtnCatch.querySelector('span').innerHTML = '<i class="fas fa-magic mr-2"></i>Get AI-Powered Insights';
+                }
                 // Show detailed error message
                 if (error.response && error.response.data && error.response.data.detail) {
                     alert(`Error: ${error.response.data.detail}`);
@@ -611,8 +1140,11 @@
                 }
             } finally {
                 // Reset button
-                document.getElementById('get-advice').disabled = false;
-                document.getElementById('get-advice').textContent = 'Get Advice';
+                const submitBtnFinally = document.getElementById('submitBtn');
+                if (submitBtnFinally && submitBtnFinally.querySelector('span')) {
+                    submitBtnFinally.disabled = false;
+                    submitBtnFinally.querySelector('span').innerHTML = '<i class="fas fa-magic mr-2"></i>Get AI-Powered Insights';
+                }
             }
         }
         
@@ -700,25 +1232,203 @@
         // Helper: wrap advice paragraphs in styled cards
         function wrapAdviceInCards(container) {
             if (!container) return;
-            // Collect meaningful child nodes (elements or non-empty text)
-            const nodes = Array.from(container.childNodes).filter(n =>
-                (n.nodeType === Node.ELEMENT_NODE) ||
-                (n.nodeType === Node.TEXT_NODE && n.textContent.trim() !== '')
-            );
-            if (!nodes.length) return;
-
-            // Clear container and rebuild with card wrappers
-            container.innerHTML = '';
-            nodes.forEach(node => {
-                const card = document.createElement('div');
-                card.className = 'bg-white shadow-md rounded-lg p-4 mb-4';
-                if (node.nodeType === Node.ELEMENT_NODE) {
-                    card.appendChild(node);
-                } else {
-                    card.textContent = node.textContent;
+            
+            // Define section configurations with icons and colors
+            const sectionConfig = {
+                'current conditions': { 
+                    icon: 'fa-cloud-sun', 
+                    bgColor: 'bg-gradient-to-br from-blue-50 to-cyan-50', 
+                    borderColor: 'border-blue-200',
+                    iconColor: 'text-blue-600'
+                },
+                'specific farming actions': { 
+                    icon: 'fa-tasks', 
+                    bgColor: 'bg-gradient-to-br from-green-50 to-emerald-50', 
+                    borderColor: 'border-green-200',
+                    iconColor: 'text-green-600'
+                },
+                'warnings': { 
+                    icon: 'fa-exclamation-triangle', 
+                    bgColor: 'bg-gradient-to-br from-amber-50 to-yellow-50', 
+                    borderColor: 'border-amber-200',
+                    iconColor: 'text-amber-600'
+                },
+                'explanation': { 
+                    icon: 'fa-info-circle', 
+                    bgColor: 'bg-gradient-to-br from-purple-50 to-indigo-50', 
+                    borderColor: 'border-purple-200',
+                    iconColor: 'text-purple-600'
+                },
+                'voice guidance': { 
+                    icon: 'fa-microphone', 
+                    bgColor: 'bg-gradient-to-br from-pink-50 to-rose-50', 
+                    borderColor: 'border-pink-200',
+                    iconColor: 'text-pink-600'
+                },
+                'default': { 
+                    icon: 'fa-seedling', 
+                    bgColor: 'bg-white', 
+                    borderColor: 'border-gray-200',
+                    iconColor: 'text-gray-600'
                 }
+            };
+
+            // Process the HTML content
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = container.innerHTML;
+            
+            // Find all h2 elements (section headers)
+            const sections = [];
+            let currentSection = null;
+            
+            Array.from(tempDiv.childNodes).forEach(node => {
+                if (node.nodeType === Node.ELEMENT_NODE && node.tagName === 'H2') {
+                    // Start a new section
+                    if (currentSection) {
+                        sections.push(currentSection);
+                    }
+                    currentSection = {
+                        title: node.textContent,
+                        titleElement: node,
+                        content: []
+                    };
+                } else if (currentSection) {
+                    currentSection.content.push(node);
+                } else {
+                    // Content before first h2
+                    if (!sections[0]) {
+                        sections.push({ title: '', titleElement: null, content: [] });
+                    }
+                    sections[0].content.push(node);
+                }
+            });
+            
+            if (currentSection) {
+                sections.push(currentSection);
+            }
+
+            // Clear container and rebuild with enhanced cards
+            container.innerHTML = '';
+            
+            sections.forEach((section, index) => {
+                // Determine section type and get config
+                const sectionKey = Object.keys(sectionConfig).find(key => 
+                    section.title.toLowerCase().includes(key)
+                ) || 'default';
+                const config = sectionConfig[sectionKey];
+
+                // Create card container
+                const card = document.createElement('div');
+                card.className = `${config.bgColor} border-2 ${config.borderColor} rounded-xl p-4 sm:p-6 mb-4 shadow-sm hover:shadow-md transition-shadow duration-200`;
+                
+                // Add collapsible functionality for mobile
+                const isMainContent = index === 0 || !section.title;
+                
+                if (section.title) {
+                    // Create header with icon
+                    const header = document.createElement('div');
+                    header.className = 'flex items-center justify-between cursor-pointer select-none';
+                    
+                    const titleContainer = document.createElement('div');
+                    titleContainer.className = 'flex items-center gap-3';
+                    
+                    // Add icon
+                    const icon = document.createElement('i');
+                    icon.className = `fas ${config.icon} ${config.iconColor} text-lg sm:text-xl`;
+                    titleContainer.appendChild(icon);
+                    
+                    // Add title
+                    const title = document.createElement('h3');
+                    title.className = 'text-base sm:text-lg font-semibold text-gray-800';
+                    title.textContent = section.title;
+                    titleContainer.appendChild(title);
+                    
+                    header.appendChild(titleContainer);
+                    
+                    // Add expand/collapse icon for mobile
+                    const expandIcon = document.createElement('i');
+                    expandIcon.className = 'fas fa-chevron-down text-gray-500 transition-transform duration-200 sm:hidden';
+                    header.appendChild(expandIcon);
+                    
+                    card.appendChild(header);
+                    
+                    // Create content container
+                    const contentDiv = document.createElement('div');
+                    contentDiv.className = `mt-4 space-y-2 ${isMainContent ? '' : 'sm:block'}`;
+                    
+                    // Add collapsible behavior on mobile
+                    if (!isMainContent) {
+                        contentDiv.classList.add('hidden');
+                        header.addEventListener('click', () => {
+                            contentDiv.classList.toggle('hidden');
+                            expandIcon.classList.toggle('rotate-180');
+                        });
+                    }
+                    
+                    // Process content
+                    section.content.forEach(node => {
+                        if (node.nodeType === Node.ELEMENT_NODE) {
+                            // Style lists
+                            if (node.tagName === 'UL' || node.tagName === 'OL') {
+                                node.className = 'space-y-2 ml-4';
+                                Array.from(node.querySelectorAll('li')).forEach(li => {
+                                    li.className = 'text-gray-700 text-sm sm:text-base leading-relaxed flex items-start';
+                                    // Add bullet icon for better visual
+                                    const bullet = document.createElement('span');
+                                    bullet.className = `mr-2 ${config.iconColor} mt-1 flex-shrink-0`;
+                                    bullet.innerHTML = node.tagName === 'UL' ? '•' : '';
+                                    li.insertBefore(bullet, li.firstChild);
+                                });
+                            }
+                            // Style paragraphs
+                            else if (node.tagName === 'P') {
+                                node.className = 'text-gray-700 text-sm sm:text-base leading-relaxed';
+                            }
+                            // Style code blocks
+                            else if (node.tagName === 'PRE') {
+                                node.className = 'bg-gray-100 p-3 rounded-lg overflow-x-auto text-xs sm:text-sm';
+                            }
+                            contentDiv.appendChild(node.cloneNode(true));
+                        } else if (node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {
+                            const p = document.createElement('p');
+                            p.className = 'text-gray-700 text-sm sm:text-base leading-relaxed';
+                            p.textContent = node.textContent;
+                            contentDiv.appendChild(p);
+                        }
+                    });
+                    
+                    card.appendChild(contentDiv);
+                } else {
+                    // Handle content without title
+                    section.content.forEach(node => {
+                        if (node.nodeType === Node.ELEMENT_NODE) {
+                            node.className = node.className || 'text-gray-700 text-sm sm:text-base leading-relaxed';
+                            card.appendChild(node.cloneNode(true));
+                        } else if (node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {
+                            const p = document.createElement('p');
+                            p.className = 'text-gray-700 text-sm sm:text-base leading-relaxed';
+                            p.textContent = node.textContent;
+                            card.appendChild(p);
+                        }
+                    });
+                }
+                
                 container.appendChild(card);
             });
+            
+            // Add a quick summary card at the top for mobile users
+            if (sections.length > 1) {
+                const summaryCard = document.createElement('div');
+                summaryCard.className = 'bg-gradient-to-r from-green-500 to-green-600 text-white rounded-xl p-4 mb-4 sm:hidden';
+                summaryCard.innerHTML = `
+                    <div class="flex items-center gap-2 mb-2">
+                        <i class="fas fa-lightbulb text-yellow-300"></i>
+                        <h3 class="font-semibold">Quick Actions</h3>
+                    </div>
+                    <p class="text-sm">Tap on sections below to expand and see detailed advice</p>
+                `;
+                container.insertBefore(summaryCard, container.firstChild);
+            }
         }
 
         // Render crop calendar table
@@ -1014,7 +1724,11 @@
         chatToggle.addEventListener('mouseenter', () => {
             isHovering = true;
             chatToggle.classList.add('animate-bounce');
-            chatToggle.focus();
+            setTimeout(() => {
+                if (isHovering) {
+                    chatToggle.classList.remove('animate-bounce');
+                }
+            }, 1000);
         });
             
             // Add a new message to the chat
@@ -1177,6 +1891,328 @@
             }
         }));
     });
+</script>
+<script>
+    // Function to get user's location
+    async function getLocation() {
+        console.log('Starting location detection...');
+        console.log('Protocol:', window.location.protocol);
+        console.log('Hostname:', window.location.hostname);
+        
+        // Check if we're on a proper protocol for geolocation
+        const isFileProtocol = window.location.protocol === 'file:';
+        const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+        const isHTTPS = window.location.protocol === 'https:';
+        
+        if (isFileProtocol) {
+            console.warn('Geolocation not available with file:// protocol. Please run a local server. Falling back to IP-based location.');
+            return await getLocationByIP();
+        }
+        
+        if (!isHTTPS && !isLocalhost) {
+            console.warn('Geolocation requires HTTPS or localhost. Falling back to IP-based location.');
+            return await getLocationByIP();
+        }
+        
+        try {
+            // Check if geolocation is supported
+            if (!navigator.geolocation) {
+                console.error('Geolocation not supported by browser');
+                throw new Error('Geolocation is not supported by your browser');
+            }
+            
+            console.log('Geolocation API available, requesting position...');
+
+            // Request location with timeout
+            const position = await new Promise((resolve, reject) => {
+                const timeoutId = setTimeout(() => {
+                    reject(new Error('Location request timed out'));
+                }, 15000);
+                
+                navigator.geolocation.getCurrentPosition(
+                    (pos) => {
+                        clearTimeout(timeoutId);
+                        console.log('Position received:', pos);
+                        resolve(pos);
+                    },
+                    (err) => {
+                        clearTimeout(timeoutId);
+                        console.error('Geolocation error code:', err.code);
+                        console.error('Geolocation error message:', err.message);
+                        reject(new Error(err.message || 'Unable to get location'));
+                    },
+                    {
+                        enableHighAccuracy: true,  // Use high accuracy for better location
+                        timeout: 30000,  // Increase timeout to 30 seconds
+                        maximumAge: 60000  // Allow cached position up to 1 minute old
+                    }
+                );
+            });
+
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
+            console.log('Coordinates obtained:', lat, lon);
+            
+            // Update all location-related fields with null checks
+            const locationInput = document.getElementById('location');
+            if (locationInput) {
+                locationInput.value = `${lat.toFixed(4)}, ${lon.toFixed(4)}`;
+                console.log('Updated location field');
+            } else {
+                console.warn('Location input field not found');
+            }
+            
+            const latInput = document.getElementById('latitude');
+            if (latInput) {
+                latInput.value = lat;
+                console.log('Updated latitude field');
+            } else {
+                console.warn('Latitude input field not found');
+            }
+            
+            const lonInput = document.getElementById('longitude');
+            if (lonInput) {
+                lonInput.value = lon;
+                console.log('Updated longitude field');
+            } else {
+                console.warn('Longitude input field not found');
+            }
+            
+            // Update status message
+            const locationStatus = document.getElementById('locationStatus');
+            if (locationStatus) {
+                locationStatus.textContent = '✓ Location detected successfully';
+                locationStatus.classList.remove('text-gray-500', 'text-red-600', 'text-yellow-600');
+                locationStatus.classList.add('text-green-600');
+            }
+        } catch (error) {
+            console.warn('Primary geolocation failed:', error);
+            // Attempt fallback using IP-based lookup
+            await getLocationByIP();
+        }
+    }
+    
+    // Separate function for IP-based location
+    async function getLocationByIP() {
+        console.log('Attempting IP-based location...');
+        try {
+            const resp = await fetch('https://ipapi.co/json/');
+            if (!resp.ok) throw new Error('IP lookup failed');
+            const data = await resp.json();
+            console.log('IP location data:', data);
+            
+            const lat = parseFloat(data.latitude);
+            const lon = parseFloat(data.longitude);
+            
+            if (!isNaN(lat) && !isNaN(lon)) {
+                // Update location fields
+                const locationInput = document.getElementById('location');
+                if (locationInput) {
+                    locationInput.value = `${lat.toFixed(4)}, ${lon.toFixed(4)}`;
+                }
+                
+                const latInput = document.getElementById('latitude');
+                if (latInput) {
+                    latInput.value = lat;
+                }
+                
+                const lonInput = document.getElementById('longitude');
+                if (lonInput) {
+                    lonInput.value = lon;
+                }
+                
+                // Update status
+                const locStatus = document.getElementById('locationStatus');
+                if (locStatus) {
+                    // Provide helpful message for location issues
+                    if (error.message.includes('network service') || error.message.includes('timed out')) {
+                        locStatus.innerHTML = `⚠️ GPS unavailable. Using approximate location.<br>
+                            <small class="text-xs">Tip: Allow location access in browser & system settings</small>`;
+                        locStatus.classList.add('text-yellow-600');
+                    } else {
+                        locStatus.textContent = `Failed: ${error.message}`;
+                        locStatus.classList.add('text-red-600');
+                    }
+                    locStatus.classList.remove('text-gray-500', 'text-green-600');
+                }
+                
+                console.log('Location set via IP:', lat, lon);
+                return { lat, lon };
+            } else {
+                throw new Error('Invalid coordinates from IP lookup');
+            }
+        } catch (error) {
+            console.error('IP-based location lookup failed:', error);
+            
+            // Try a different IP service as backup
+            try {
+                const resp2 = await fetch('https://ip-api.com/json/');
+                const data2 = await resp2.json();
+                console.log('Backup IP location data:', data2);
+                
+                if (data2.status === 'success' && data2.lat && data2.lon) {
+                    const lat = parseFloat(data2.lat);
+                    const lon = parseFloat(data2.lon);
+                    
+                    // Update fields
+                    const locationInput = document.getElementById('location');
+                    if (locationInput) {
+                        locationInput.value = `${lat.toFixed(4)}, ${lon.toFixed(4)}`;
+                    }
+                    
+                    const latInput = document.getElementById('latitude');
+                    if (latInput) {
+                        latInput.value = lat;
+                    }
+                    
+                    const lonInput = document.getElementById('longitude');
+                    if (lonInput) {
+                        lonInput.value = lon;
+                    }
+                    
+                    const locStatus = document.getElementById('locationStatus');
+                    if (locStatus) {
+                        locStatus.textContent = '⚠ Approximate location via IP';
+                        locStatus.classList.remove('text-gray-500', 'text-red-600', 'text-green-600');
+                        locStatus.classList.add('text-yellow-600');
+                    }
+                    
+                    return { lat, lon };
+                }
+            } catch (err2) {
+                console.error('Backup IP service also failed:', err2);
+            }
+            
+            // All methods failed
+            const locStatus = document.getElementById('locationStatus');
+            if (locStatus) {
+                locStatus.textContent = '✗ Unable to detect location';
+                locStatus.classList.remove('text-gray-500', 'text-green-600', 'text-yellow-600');
+                locStatus.classList.add('text-red-600');
+            }
+            
+            // Provide manual entry suggestion
+            const locationInput = document.getElementById('location');
+            if (locationInput) {
+                locationInput.placeholder = 'Enter city or coordinates manually';
+                locationInput.focus();
+            }
+            
+            alert('Unable to detect location automatically. Please enter your location manually or try again.');
+        }
+    }
+
+    // Function to geocode city name to coordinates
+    async function geocodeLocation(locationText) {
+        try {
+            // First, check if it's already coordinates (lat, lon format)
+            const coordPattern = /^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?),\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$/;
+            if (coordPattern.test(locationText.trim())) {
+                const [lat, lon] = locationText.split(',').map(coord => parseFloat(coord.trim()));
+                return { lat, lon, source: 'manual_coords' };
+            }
+            
+            // Otherwise, treat as city/address and geocode it
+            console.log('Geocoding location:', locationText);
+            
+            // Using OpenStreetMap's Nominatim API (free, no API key required)
+            const response = await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(locationText)}&format=json&limit=1`);
+            
+            if (!response.ok) {
+                throw new Error('Geocoding service unavailable');
+            }
+            
+            const data = await response.json();
+            
+            if (data && data.length > 0) {
+                const lat = parseFloat(data[0].lat);
+                const lon = parseFloat(data[0].lon);
+                const displayName = data[0].display_name;
+                
+                console.log('Geocoded to:', lat, lon, displayName);
+                return { lat, lon, displayName, source: 'geocoded' };
+            } else {
+                throw new Error('Location not found');
+            }
+        } catch (error) {
+            console.error('Geocoding error:', error);
+            throw error;
+        }
+    }
+
+    // Function to process location input and update coordinates
+    async function processLocationInput() {
+        const locationInput = document.getElementById('locationInput');
+        const locationStatus = document.getElementById('locationStatus');
+        const latInput = document.getElementById('latitude');
+        const lonInput = document.getElementById('longitude');
+        
+        if (!locationInput || !locationInput.value.trim()) {
+            if (locationStatus) {
+                locationStatus.textContent = '⚠️ Please enter a location or use detection';
+                locationStatus.className = 'text-xs text-yellow-600 mt-2 block';
+            }
+            return false;
+        }
+        
+        try {
+            // Show processing status
+            if (locationStatus) {
+                locationStatus.innerHTML = '<i class="fas fa-spinner fa-spin mr-1"></i> Processing location...';
+                locationStatus.className = 'text-xs text-blue-600 mt-2 block';
+            }
+            
+            const result = await geocodeLocation(locationInput.value);
+            
+            // Update hidden coordinate fields
+            if (latInput) latInput.value = result.lat;
+            if (lonInput) lonInput.value = result.lon;
+            
+            // Update status
+            if (locationStatus) {
+                if (result.source === 'manual_coords') {
+                    locationStatus.innerHTML = `✓ Coordinates set: ${result.lat.toFixed(4)}, ${result.lon.toFixed(4)}`;
+                } else {
+                    locationStatus.innerHTML = `✓ Location found: ${result.displayName || 'Geocoded successfully'}`;
+                }
+                locationStatus.className = 'text-xs text-green-600 mt-2 block';
+            }
+            
+            return true;
+        } catch (error) {
+            // Show error
+            if (locationStatus) {
+                locationStatus.innerHTML = `❌ ${error.message}. Please check your input or use detection.`;
+                locationStatus.className = 'text-xs text-red-600 mt-2 block';
+            }
+            return false;
+        }
+    }
+
+    // Add event listener for location input to process on blur or Enter
+    document.addEventListener('DOMContentLoaded', function() {
+        const locationInput = document.getElementById('locationInput');
+        if (locationInput) {
+            // Process when user finishes typing (on blur)
+            locationInput.addEventListener('blur', async function() {
+                if (this.value.trim()) {
+                    await processLocationInput();
+                }
+            });
+            
+            // Process on Enter key
+            locationInput.addEventListener('keypress', async function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    if (this.value.trim()) {
+                        await processLocationInput();
+                    }
+                }
+            });
+        }
+    });
+
+    // Mobile menu toggle functionality
 </script>
 </body>
 </html>
