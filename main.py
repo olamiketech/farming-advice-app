@@ -112,9 +112,9 @@ async def serve_frontend_alias():
     return FileResponse(BASE_DIR / "index.html")
 
 # ---------------- Additional static HTML pages ----------------
-@app.get("/leafdoctor.html", response_class=HTMLResponse, include_in_schema=False)
-async def leafdoctor_page():
-    html_path = BASE_DIR / "leafdoctor.html"
+@app.get("/cropitel.html", response_class=HTMLResponse, include_in_schema=False)
+async def cropitel_page():
+    html_path = BASE_DIR / "cropitel.html"
     if html_path.exists():
         return HTMLResponse(content=html_path.read_text(), status_code=200)
     raise HTTPException(status_code=404, detail="Page not found")

@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+    <meta name="theme-color" content="#10b981">
+    <title>CropItel | AI-Powered Spray Decision Support</title>
+    <!-- Styles -->
+    <link rel="stylesheet" href="static/styles.css">
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .gradient-text {
+            background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-bg {
+            background-image: linear-gradient(to right bottom, rgba(236, 253, 245, 0.9), rgba(255, 255, 255, 0.9)), url('https://images.unsplash.com/photo-1574943320219-553eb213f72d?auto=format&fit=crop&q=80&w=2000');
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 min-h-screen font-sans antialiased pt-20">
+    <!-- Navigation -->
+    <header class="fixed top-0 left-0 w-full z-50 bg-white/90 backdrop-blur-md shadow-sm">
+        <div class="max-w-screen-xl mx-auto flex items-center justify-between px-4 py-3">
+            <a href="index.html" class="flex items-center gap-2 text-emerald-700 font-bold text-xl">
+                <i class="fas fa-seedling"></i>
+                CropItel
+            </a>
+            <!-- Mobile nav toggle -->
+            <button id="navToggle"
+                class="sm:hidden text-gray-700 focus:outline-none focus:ring-2 focus:ring-emerald-600 rounded-md"
+                aria-label="Toggle navigation">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+            <!-- Desktop nav -->
+            <nav id="navLinks"
+                class="hidden sm:flex flex-col sm:flex-row gap-6 px-4 py-4 sm:py-0 bg-white sm:bg-transparent shadow-lg sm:shadow-none absolute sm:static top-full left-0 w-full z-40 items-center">
+                <a href="index.html"
+                    class="block px-4 py-2 sm:p-0 text-gray-600 hover:text-emerald-600 font-medium transition-colors w-full sm:w-auto">Home</a>
+                <a href="cropitel.html"
+                    class="block px-4 py-2 sm:p-0 text-emerald-600 font-bold transition-colors w-full sm:w-auto">CropItel</a>
+                <a href="about.html"
+                    class="block px-4 py-2 sm:p-0 text-gray-600 hover:text-emerald-600 font-medium transition-colors w-full sm:w-auto">About</a>
+                <a href="https://cropitel-production.up.railway.app/" target="_blank"
+                    class="block mt-2 sm:mt-0 px-6 py-2 bg-emerald-600 text-white rounded-full font-medium hover:bg-emerald-700 transition-colors w-full sm:w-auto text-center shadow-md">Scan
+                    Now</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-bg py-20 lg:py-32 overflow-hidden">
+        <div class="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="space-y-8 animate-fade-in-up">
+                    <div
+                        class="inline-flex items-center px-4 py-2 rounded-full bg-emerald-100 text-emerald-800 font-semibold text-sm">
+                        <i class="fas fa-chart-line mr-2"></i> Economic decision support for UK wheat farmers
+                    </div>
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 leading-tight">
+                        Smarter Decisions.<br>
+                        <span class="gradient-text">Stronger Returns.</span>
+                    </h1>
+                    <p class="text-lg md:text-xl text-gray-700 max-w-2xl leading-relaxed">
+                        CropItel uses AI vision and real-time weather data to calculate the financial viability of
+                        fungicide spraying on your wheat crop — helping you spend only when it pays.
+                    </p>
+                    <ul class="space-y-3 text-gray-700 font-medium">
+                        <li class="flex items-center"><i class="fas fa-check-circle text-emerald-500 mr-3 text-xl"></i>
+                            Septoria tritici detection on wheat leaves</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-emerald-500 mr-3 text-xl"></i>
+                            Weather-aware spread risk assessment</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-emerald-500 mr-3 text-xl"></i>
+                            ROI calculator — spray cost vs. potential loss</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-emerald-500 mr-3 text-xl"></i>
+                            Growth stage-aware recommendations (T1–T3)</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-emerald-500 mr-3 text-xl"></i>
+                            Works offline for field use</li>
+                    </ul>
+                    <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                        <a href="https://cropitel-production.up.railway.app/" target="_blank"
+                            class="inline-flex justify-center items-center px-8 py-4 bg-emerald-600 text-white font-bold rounded-xl hover:bg-emerald-700 hover:shadow-lg transition-all transform hover:-translate-y-1 text-lg">
+                            <i class="fas fa-camera mr-2"></i> Scan Your Wheat
+                        </a>
+                        <a href="#how-it-works"
+                            class="inline-flex justify-center items-center px-8 py-4 bg-white text-emerald-700 font-bold rounded-xl border-2 border-emerald-200 hover:border-emerald-600 hover:bg-emerald-50 transition-all text-lg">
+                            Learn How It Works
+                        </a>
+                    </div>
+                </div>
+                <!-- Interactive Demo Mockup -->
+                <div class="relative mx-auto w-full max-w-md hidden lg:block">
+                    <div
+                        class="bg-white rounded-3xl shadow-2xl overflow-hidden border-4 border-gray-100 relative z-10 transform transition duration-500 hover:scale-105">
+                        <div class="bg-emerald-600 text-white p-4 text-center">
+                            <h3 class="font-bold text-lg">Wheat Leaf Scan</h3>
+                            <p class="text-emerald-100 text-sm">Growth Stage: T2</p>
+                        </div>
+                        <div class="p-6">
+                            <div
+                                class="bg-red-50 text-red-700 p-4 rounded-xl mb-4 border border-red-100 flex items-start gap-4">
+                                <i class="fas fa-exclamation-triangle mt-1 text-xl"></i>
+                                <div>
+                                    <h4 class="font-bold">Septoria Detected — 15%</h4>
+                                    <p class="text-sm mt-1 mb-2">High Confidence. Weather favors spread.</p>
+                                    <span class="bg-red-200 text-red-800 text-xs px-2 py-1 rounded font-bold">High
+                                        Risk</span>
+                                </div>
+                            </div>
+                            <div class="bg-emerald-50 p-4 rounded-xl border border-emerald-100">
+                                <h4 class="font-bold text-emerald-900 mb-2">Economic Analysis</h4>
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-sm text-gray-600">Potential Loss</span>
+                                    <span class="font-bold text-red-600">£63.75/ha</span>
+                                </div>
+                                <div class="flex justify-between items-center mb-3">
+                                    <span class="text-sm text-gray-600">Spray Cost</span>
+                                    <span class="font-bold text-gray-900">£35.00/ha</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2 mb-4">
+                                    <div class="bg-emerald-500 h-2 rounded-full" style="width: 70%"></div>
+                                </div>
+                                <p class="text-emerald-800 font-bold text-sm text-center">SPRAY RECOMMENDED</p>
+                            </div>
+                            <button
+                                class="w-full mt-4 bg-gray-900 text-white py-3 rounded-xl font-bold hover:bg-gray-800 transition-colors">
+                                View Full Economics
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Decorative blobs -->
+                    <div
+                        class="absolute top-0 -left-12 w-32 h-32 bg-emerald-200 rounded-full mix-blend-multiply filter blur-2xl opacity-70 animate-blob">
+                    </div>
+                    <div
+                        class="absolute -bottom-8 -right-8 w-40 h-40 bg-green-300 rounded-full mix-blend-multiply filter blur-2xl opacity-70 animate-blob animation-delay-2000">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose CropItel -->
+    <section class="py-20 bg-white">
+        <div class="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Why Choose CropItel?</h2>
+                <p class="text-lg text-gray-600">Economic decision support designed specifically for UK wheat farmers —
+                    know when spraying pays off.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Feature 1 -->
+                <div
+                    class="bg-gray-50 rounded-2xl p-8 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100">
+                    <div
+                        class="w-14 h-14 bg-emerald-100 text-emerald-600 rounded-xl flex items-center justify-center text-2xl mb-6 shadow-sm">
+                        <i class="fas fa-microscope"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Disease Severity %</h3>
+                    <p class="text-gray-600">AI vision detects Septoria tritici on wheat leaves and returns a precise
+                        infection severity percentage.</p>
+                </div>
+                <!-- Feature 2 -->
+                <div
+                    class="bg-gray-50 rounded-2xl p-8 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100">
+                    <div
+                        class="w-14 h-14 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center text-2xl mb-6 shadow-sm">
+                        <i class="fas fa-cloud-rain"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Weather Risk</h3>
+                    <p class="text-gray-600">Real-time 48-hour weather forecast assesses humidity and rain to calculate
+                        disease spread risk.</p>
+                </div>
+                <!-- Feature 3 -->
+                <div
+                    class="bg-gray-50 rounded-2xl p-8 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100">
+                    <div
+                        class="w-14 h-14 bg-yellow-100 text-yellow-600 rounded-xl flex items-center justify-center text-2xl mb-6 shadow-sm">
+                        <i class="fas fa-pound-sign"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">ROI Calculator</h3>
+                    <p class="text-gray-600">Compares potential yield loss against spray application cost to give a
+                        clear financial recommendation.</p>
+                </div>
+                <!-- Feature 4 -->
+                <div
+                    class="bg-gray-50 rounded-2xl p-8 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100">
+                    <div
+                        class="w-14 h-14 bg-purple-100 text-purple-600 rounded-xl flex items-center justify-center text-2xl mb-6 shadow-sm">
+                        <i class="fas fa-wifi"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Works Offline</h3>
+                    <p class="text-gray-600">Use CropItel in the field without internet. Weather data syncs when you're
+                        back online.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="py-20 bg-emerald-900 text-white">
+        <div class="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">How CropItel Works</h2>
+                <p class="text-lg text-emerald-100">Our advanced AI platform makes wheat disease assessment and spray
+                    decisions simple and data-driven</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-emerald-800 p-6 rounded-2xl border border-emerald-700 relative overflow-hidden">
+                    <div class="text-6xl font-black text-emerald-900/50 absolute -right-2 -top-2">1</div>
+                    <i class="fas fa-camera text-3xl text-emerald-300 mb-4 relative z-10"></i>
+                    <h3 class="text-xl font-bold mb-2 relative z-10">Upload a Photo</h3>
+                    <p class="text-emerald-100 text-sm relative z-10">Take a photo of your wheat leaf showing symptoms
+                        using your smartphone.</p>
+                </div>
+
+                <div class="bg-emerald-800 p-6 rounded-2xl border border-emerald-700 relative overflow-hidden">
+                    <div class="text-6xl font-black text-emerald-900/50 absolute -right-2 -top-2">2</div>
+                    <i class="fas fa-brain text-3xl text-emerald-300 mb-4 relative z-10"></i>
+                    <h3 class="text-xl font-bold mb-2 relative z-10">AI Analysis</h3>
+                    <p class="text-emerald-100 text-sm relative z-10">Our AI instantly detects Septoria tritici and
+                        calculates exact severity percentage.</p>
+                </div>
+
+                <div class="bg-emerald-800 p-6 rounded-2xl border border-emerald-700 relative overflow-hidden">
+                    <div class="text-6xl font-black text-emerald-900/50 absolute -right-2 -top-2">3</div>
+                    <i class="fas fa-chart-pie text-3xl text-emerald-300 mb-4 relative z-10"></i>
+                    <h3 class="text-xl font-bold mb-2 relative z-10">Detailed Results</h3>
+                    <p class="text-emerald-100 text-sm relative z-10">View weather risks and potential yield loss paired
+                        with local economic data.</p>
+                </div>
+
+                <div class="bg-emerald-800 p-6 rounded-2xl border border-emerald-700 relative overflow-hidden">
+                    <div class="text-6xl font-black text-emerald-900/50 absolute -right-2 -top-2">4</div>
+                    <i class="fas fa-bullseye text-3xl text-emerald-300 mb-4 relative z-10"></i>
+                    <h3 class="text-xl font-bold mb-2 relative z-10">Spray Decision</h3>
+                    <p class="text-emerald-100 text-sm relative z-10">Get a clear financial recommendation: spray to
+                        protect ROI or hold to save costs.</p>
+                </div>
+            </div>
+
+            <div class="mt-12 text-center">
+                <a href="https://cropitel-production.up.railway.app/" target="_blank"
+                    class="inline-flex items-center px-8 py-4 bg-white text-emerald-900 font-bold rounded-xl hover:bg-gray-100 hover:shadow-lg transition-all text-lg">
+                    Try the Simple Process Now
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-emerald-600 font-bold tracking-wider uppercase text-sm mb-2 block">Trusted by
+                    Farmers</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">What Our Users Say</h2>
+                <p class="text-lg text-gray-600">Discover how CropItel is helping UK wheat farmers make smarter,
+                    data-driven spray decisions.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div
+                            class="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center text-emerald-700 font-bold text-xl">
+                            CA
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-900">Chelsea Adeyeye</h4>
+                            <p class="text-sm text-gray-500">Agricultural Consultant</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 italic">"I recommend CropItel to all my farming clients. The severity
+                        scoring and economic analysis allows for precise spray timing, and the history tracking makes it
+                        easy to monitor trends across seasons."</p>
+                </div>
+                <!-- Testimonial 2 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div
+                            class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-blue-700 font-bold text-xl">
+                            RO
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-900">Rotimi Omojola</h4>
+                            <p class="text-sm text-gray-500">Greenhouse Manager</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 italic">"Managing a large operation comes with many challenges, but CropItel
+                        has simplified disease management significantly. The offline capabilities are particularly
+                        valuable when scouting fields with poor connectivity."</p>
+                </div>
+                <!-- Testimonial 3 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div
+                            class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center text-purple-700 font-bold text-xl">
+                            ET
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-900">Emma Thompson</h4>
+                            <p class="text-sm text-gray-500">Commercial Farmer</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 italic">"CropItel has transformed the way we make spray decisions on our
+                        wheat farm. The AI severity scoring combined with the economic calculator has saved us thousands
+                        in unnecessary fungicide costs this season."</p>
+                </div>
+                <!-- Testimonial 4 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div
+                            class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center text-orange-700 font-bold text-xl">
+                            DC
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-900">David Chen</h4>
+                            <p class="text-sm text-gray-500">Arable Farmer</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 italic">"As a mid-sized arable farmer, every spray decision is a financial
+                        one. CropItel gives me the confidence data I need to decide whether to spray or hold. The ROI
+                        calculator alone has paid for itself many times over."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Founder Section -->
+    <section class="py-20 bg-white border-t border-gray-100">
+        <div class="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div
+                class="max-w-4xl mx-auto bg-emerald-50 rounded-3xl overflow-hidden shadow-sm border border-emerald-100">
+                <div class="grid grid-cols-1 md:grid-cols-5 items-center">
+                    <div
+                        class="md:col-span-2 bg-emerald-100 h-full p-8 flex flex-col justify-center items-center text-center">
+                        <div
+                            class="w-32 h-32 bg-emerald-600 rounded-full flex items-center justify-center text-white text-5xl font-bold shadow-lg mb-4">
+                            HS
+                        </div>
+                        <h3 class="text-2xl font-bold text-emerald-900">Hannah Salami</h3>
+                        <p class="text-emerald-700 font-medium">Founder & CEO</p>
+                        <p class="text-xs text-emerald-600 mt-2">BSc Agric Economics</p>
+                        <p class="text-xs text-emerald-600">MSc Business Analytics</p>
+                        <div class="flex gap-4 mt-6">
+                            <a href="#"
+                                class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-emerald-600 hover:bg-emerald-600 hover:text-white transition-colors shadow-sm"><i
+                                    class="fab fa-linkedin-in"></i></a>
+                            <a href="#"
+                                class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-emerald-600 hover:bg-emerald-600 hover:text-white transition-colors shadow-sm"><i
+                                    class="fab fa-tiktok"></i></a>
+                        </div>
+                    </div>
+                    <div class="md:col-span-3 p-8 md:p-12">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-6">About CropItel</h2>
+                        <h4 class="text-xl font-bold text-emerald-700 mb-4">Empowering UK wheat farmers with AI-driven
+                            economic decision support</h4>
+                        <p class="text-gray-700 mb-4 leading-relaxed">
+                            Hannah is the visionary behind CropItel. Her unique blend of agricultural expertise and data
+                            analytics drives the innovation at the heart of our platform.
+                        </p>
+                        <p class="text-gray-700 mb-6 leading-relaxed">
+                            She created CropItel to turn complex disease and weather data into clear, profitable
+                            recommendations — making precision agriculture accessible to every wheat farmer across the
+                            UK.
+                        </p>
+                        <div class="bg-white p-4 rounded-xl border-l-4 border-emerald-500 shadow-sm">
+                            <strong class="text-gray-900 block mb-1">Our Mission</strong>
+                            <span class="text-sm text-gray-600">To turn complex disease data, weather forecasts, and
+                                market prices into clear, actionable spray-or-hold decisions that protect both your crop
+                                and your bottom line.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-24 bg-gradient-to-br from-gray-900 to-emerald-900 text-white relative overflow-hidden">
+        <div class="absolute inset-0 bg-black/20"></div>
+        <div class="max-w-screen-md mx-auto px-4 text-center relative z-10">
+            <h2 class="text-4xl md:text-5xl font-bold mb-6">Join UK Wheat Farmers Using CropItel</h2>
+            <p class="text-xl text-emerald-100 mb-10">Start making data-driven spray decisions today. Create your free
+                account and unlock powerful economic insights for your wheat crop.</p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="https://cropitel-production.up.railway.app/" target="_blank"
+                    class="px-8 py-4 bg-emerald-500 text-white font-bold rounded-xl hover:bg-emerald-400 hover:shadow-lg hover:shadow-emerald-500/30 transition-all text-lg flex items-center justify-center">
+                    Create Free Account
+                </a>
+                <a href="https://cropitel-production.up.railway.app/" target="_blank"
+                    class="px-8 py-4 bg-transparent border-2 border-emerald-400 text-emerald-100 font-bold rounded-xl hover:bg-emerald-800 transition-all text-lg flex items-center justify-center">
+                    Login
+                </a>
+            </div>
+            <p class="mt-6 text-sm text-emerald-300">Free to get started • No credit card required • Instant ROI
+                insights</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-50 py-12 border-t border-gray-200">
+        <div
+            class="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-2 text-emerald-700 font-bold text-xl">
+                <i class="fas fa-seedling"></i>
+                CropItel
+            </div>
+            <p class="text-gray-500 text-sm">© 2026 CropItel. Empowering UK Wheat Farmers.</p>
+            <div class="flex gap-4">
+                <a href="#" class="text-gray-400 hover:text-emerald-600 transition-colors"><i
+                        class="fab fa-twitter text-xl"></i></a>
+                <a href="#" class="text-gray-400 hover:text-emerald-600 transition-colors"><i
+                        class="fab fa-linkedin text-xl"></i></a>
+                <a href="#" class="text-gray-400 hover:text-emerald-600 transition-colors"><i
+                        class="fab fa-facebook text-xl"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const navToggle = document.getElementById('navToggle');
+            const navLinks = document.getElementById('navLinks');
+
+            navToggle.addEventListener('click', () => {
+                navLinks.classList.toggle('hidden');
+            });
+
+            // Highlight current path in nav
+            const links = navLinks.querySelectorAll('a');
+            links.forEach(link => {
+                if (link.getAttribute('href') === 'cropitel.html') {
+                    link.classList.add('text-emerald-600', 'font-bold');
+                    link.classList.remove('text-gray-600');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

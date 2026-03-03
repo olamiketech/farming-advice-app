@@ -1,21 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
     <meta name="theme-color" content="#10b981">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="description" content="AgroPredict AI - Smart farming assistant powered by AI. Get personalized crop advice, weather forecasts, and agricultural insights.">
+    <meta name="description"
+        content="AgroPredict AI - Smart farming assistant powered by AI. Get personalized crop advice, weather forecasts, and agricultural insights.">
     <title>AgroPredict AI — Smart Farming Assistant</title>
-    
+
     <!-- Preconnect to external domains -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    
+
     <!-- Modern font stack -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap"
+        rel="stylesheet">
+
     <!-- Modern Custom Styles -->
     <link rel="stylesheet" href="static/styles-modern.css">
     <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
@@ -61,29 +65,30 @@
             }
         }
     </script>
-    
+
     <!-- Custom styles -->
     <link rel="stylesheet" href="static/styles-modern.css">
-    
+
     <!-- Choices.js for searchable dropdown -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    
+
     <!-- Markdown parser -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    
+
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <!-- PWA manifest -->
     <link rel="manifest" href="/static/manifest.json">
-    
+
     <!-- Base URL for API calls -->
     <script>
         window.API_BASE_URL = window.location.origin;
     </script>
 </head>
+
 <body class="bg-gradient-to-br from-emerald-50 via-white to-sky-50 min-h-screen font-sans antialiased">
     <!-- Modern Navigation with Glass Effect -->
     <header class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-xl border-b border-white/20 shadow-lg">
@@ -92,50 +97,63 @@
                 <!-- Logo -->
                 <a href="index.html" class="flex items-center space-x-3 group">
                     <div class="relative">
-                        <div class="absolute inset-0 bg-gradient-to-r from-emerald-500 to-emerald-600 rounded-lg blur-lg opacity-75 group-hover:opacity-100 transition-opacity"></div>
-                        <div class="relative bg-gradient-to-r from-emerald-500 to-emerald-600 text-white p-2 rounded-lg transform group-hover:scale-110 transition-transform">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-r from-emerald-500 to-emerald-600 rounded-lg blur-lg opacity-75 group-hover:opacity-100 transition-opacity">
+                        </div>
+                        <div
+                            class="relative bg-gradient-to-r from-emerald-500 to-emerald-600 text-white p-2 rounded-lg transform group-hover:scale-110 transition-transform">
                             <i class="fas fa-seedling text-xl"></i>
                         </div>
                     </div>
-                    <span class="font-display font-bold text-xl bg-gradient-to-r from-emerald-600 to-emerald-700 bg-clip-text text-transparent">
+                    <span
+                        class="font-display font-bold text-xl bg-gradient-to-r from-emerald-600 to-emerald-700 bg-clip-text text-transparent">
                         AgroPredict AI
                     </span>
                 </a>
-                
+
                 <!-- Desktop Navigation -->
                 <div class="hidden md:flex items-center space-x-1">
-                    <a href="index.html" class="nav-link active px-4 py-2 rounded-lg text-gray-700 hover:text-emerald-600 hover:bg-emerald-50 transition-all duration-200 font-medium">
+                    <a href="index.html"
+                        class="nav-link active px-4 py-2 rounded-lg text-gray-700 hover:text-emerald-600 hover:bg-emerald-50 transition-all duration-200 font-medium">
                         <i class="fas fa-home mr-2"></i>Home
                     </a>
-                    <a href="leafdoctor.html" class="nav-link px-4 py-2 rounded-lg text-gray-700 hover:text-emerald-600 hover:bg-emerald-50 transition-all duration-200 font-medium">
-                        <i class="fas fa-leaf mr-2"></i>LeafDoctor
+                    <a href="cropitel.html"
+                        class="nav-link px-4 py-2 rounded-lg text-gray-700 hover:text-emerald-600 hover:bg-emerald-50 transition-all duration-200 font-medium">
+                        <i class="fas fa-leaf mr-2"></i>CropItel
                     </a>
-                    <a href="about.html" class="nav-link px-4 py-2 rounded-lg text-gray-700 hover:text-emerald-600 hover:bg-emerald-50 transition-all duration-200 font-medium">
+                    <a href="about.html"
+                        class="nav-link px-4 py-2 rounded-lg text-gray-700 hover:text-emerald-600 hover:bg-emerald-50 transition-all duration-200 font-medium">
                         <i class="fas fa-info-circle mr-2"></i>About
                     </a>
-                    <button class="ml-4 px-4 py-2 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-lg hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 font-medium">
+                    <button
+                        class="ml-4 px-4 py-2 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-lg hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 font-medium">
                         <i class="fas fa-rocket mr-2"></i>Get Started
                     </button>
                 </div>
-                
+
                 <!-- Mobile menu button -->
-                <button id="navToggle" class="md:hidden p-2 rounded-lg text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                <button id="navToggle"
+                    class="md:hidden p-2 rounded-lg text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-emerald-500">
                     <i class="fas fa-bars text-xl"></i>
                 </button>
             </div>
-            
+
             <!-- Mobile Navigation -->
             <div id="mobileMenu" class="hidden md:hidden pb-4">
-                <a href="index.html" class="block px-4 py-2 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 rounded-lg transition-colors">
+                <a href="index.html"
+                    class="block px-4 py-2 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 rounded-lg transition-colors">
                     <i class="fas fa-home mr-2"></i>Home
                 </a>
-                <a href="leafdoctor.html" class="block px-4 py-2 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 rounded-lg transition-colors">
-                    <i class="fas fa-leaf mr-2"></i>LeafDoctor
+                <a href="cropitel.html"
+                    class="block px-4 py-2 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 rounded-lg transition-colors">
+                    <i class="fas fa-leaf mr-2"></i>CropItel
                 </a>
-                <a href="about.html" class="block px-4 py-2 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 rounded-lg transition-colors">
+                <a href="about.html"
+                    class="block px-4 py-2 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 rounded-lg transition-colors">
                     <i class="fas fa-info-circle mr-2"></i>About
                 </a>
-                <button class="w-full mt-2 px-4 py-2 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-lg hover:shadow-lg transition-all duration-200 font-medium text-left">
+                <button
+                    class="w-full mt-2 px-4 py-2 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-lg hover:shadow-lg transition-all duration-200 font-medium text-left">
                     <i class="fas fa-rocket mr-2"></i>Get Started
                 </button>
             </div>
@@ -148,34 +166,40 @@
     <section class="relative pt-24 pb-12 px-4 overflow-hidden">
         <!-- Animated Background Elements -->
         <div class="absolute inset-0 overflow-hidden">
-            <div class="absolute top-20 left-10 w-72 h-72 bg-emerald-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-float"></div>
-            <div class="absolute top-40 right-10 w-72 h-72 bg-sky-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-float" style="animation-delay: 2s;"></div>
-            <div class="absolute -bottom-8 left-20 w-72 h-72 bg-amber-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-float" style="animation-delay: 4s;"></div>
+            <div
+                class="absolute top-20 left-10 w-72 h-72 bg-emerald-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-float">
+            </div>
+            <div class="absolute top-40 right-10 w-72 h-72 bg-sky-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-float"
+                style="animation-delay: 2s;"></div>
+            <div class="absolute -bottom-8 left-20 w-72 h-72 bg-amber-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-float"
+                style="animation-delay: 4s;"></div>
         </div>
-        
+
         <div class="relative max-w-7xl mx-auto text-center">
             <!-- Hero Content -->
             <div class="mb-8">
-                <div class="inline-flex items-center px-4 py-2 bg-emerald-100 text-emerald-700 rounded-full text-sm font-medium mb-6">
+                <div
+                    class="inline-flex items-center px-4 py-2 bg-emerald-100 text-emerald-700 rounded-full text-sm font-medium mb-6">
                     <span class="relative flex h-2 w-2 mr-2">
-                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                        <span
+                            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                         <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                     </span>
                     AI-Powered Agricultural Intelligence
                 </div>
-                
+
                 <h1 class="text-4xl sm:text-5xl lg:text-6xl font-display font-bold text-gray-900 mb-6">
                     Smart Farming
                     <span class="block text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-sky-600">
                         Starts Here
                     </span>
                 </h1>
-                
+
                 <p class="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto mb-8">
-                    Harness the power of AI to optimize your crop yields, predict weather patterns, 
+                    Harness the power of AI to optimize your crop yields, predict weather patterns,
                     and get personalized farming advice tailored to your location and soil conditions.
                 </p>
-                
+
                 <!-- Feature Pills -->
                 <div class="flex flex-wrap justify-center gap-3 mb-8">
                     <div class="flex items-center px-4 py-2 bg-white/80 backdrop-blur-sm rounded-full shadow-sm">
@@ -194,7 +218,7 @@
             </div>
         </div>
     </section>
-    
+
     <!-- Main Content Container -->
     <div class="max-w-7xl mx-auto px-4 pb-12">
 
@@ -202,13 +226,14 @@
         <div class="bg-white/90 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-8 mb-8">
             <!-- Form Header -->
             <div class="text-center mb-8">
-                <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl shadow-lg mb-4">
+                <div
+                    class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl shadow-lg mb-4">
                     <i class="fas fa-seedling text-white text-2xl"></i>
                 </div>
                 <h2 class="text-2xl font-display font-bold text-gray-900 mb-2">Get Personalized Crop Advice</h2>
                 <p class="text-gray-600">Enter your crop details and location for AI-powered insights</p>
             </div>
-            
+
             <form id="cropForm" class="space-y-6">
                 <!-- Crop Selection -->
                 <div class="group">
@@ -216,13 +241,13 @@
                         <i class="fas fa-seedling text-emerald-600 mr-2"></i>
                         Select Your Crop
                     </label>
-                    <select id="crop" name="crop" 
-                            class="form-select block w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 transition-all duration-200 hover:bg-gray-100" 
-                            required>
+                    <select id="crop" name="crop"
+                        class="form-select block w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 transition-all duration-200 hover:bg-gray-100"
+                        required>
                         <option value="" disabled selected>Select or type a crop...</option>
                     </select>
                 </div>
-                
+
                 <!-- Location Input with Icon -->
                 <div class="group">
                     <label for="location" class="block text-sm font-semibold text-gray-700 mb-2">
@@ -230,39 +255,38 @@
                         Your Location
                     </label>
                     <div class="relative">
-                        <input type="text" id="location" name="location" 
-                               placeholder="Enter city or coordinates" 
-                               autocomplete="off" 
-                               class="block w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:border-sky-500 focus:ring-2 focus:ring-sky-200 transition-all duration-200 hover:bg-gray-100">
+                        <input type="text" id="location" name="location" placeholder="Enter city or coordinates"
+                            autocomplete="off"
+                            class="block w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:border-sky-500 focus:ring-2 focus:ring-sky-200 transition-all duration-200 hover:bg-gray-100">
                         <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                             <i class="fas fa-map-marker-alt text-gray-400"></i>
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Location Detection Card -->
-                <div id="locationInfo" class="bg-gradient-to-r from-sky-50 to-emerald-50 rounded-xl p-4 border border-sky-100">
+                <div id="locationInfo"
+                    class="bg-gradient-to-r from-sky-50 to-emerald-50 rounded-xl p-4 border border-sky-100">
                     <div class="flex items-center justify-between">
                         <div>
                             <p class="font-medium text-gray-700 mb-1">Use Current Location</p>
                             <p class="text-sm text-gray-600">Get precise local weather and soil data</p>
                         </div>
-                        <button type="button" id="getLocationBtn" 
-                                class="px-6 py-3 bg-gradient-to-r from-sky-500 to-sky-600 text-white font-medium rounded-xl hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 flex items-center">
+                        <button type="button" id="getLocationBtn"
+                            class="px-6 py-3 bg-gradient-to-r from-sky-500 to-sky-600 text-white font-medium rounded-xl hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 flex items-center">
                             <i class="fas fa-location-crosshairs mr-2"></i>
                             <span>Detect</span>
                         </button>
                     </div>
                     <span id="locationStatus" class="text-xs text-gray-500 mt-2 block"></span>
                 </div>
-                
+
                 <input type="hidden" id="latitude" name="latitude">
                 <input type="hidden" id="longitude" name="longitude">
-                <input type="hidden" id="location" name="location">
-                
+
                 <!-- Submit Button with Gradient -->
-                <button type="submit" id="submitBtn" 
-                        class="w-full py-4 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white font-semibold rounded-xl hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed group">
+                <button type="submit" id="submitBtn"
+                    class="w-full py-4 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white font-semibold rounded-xl hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed group">
                     <span class="flex items-center justify-center">
                         <i class="fas fa-magic mr-2 group-hover:animate-pulse"></i>
                         Get AI-Powered Insights
@@ -287,7 +311,7 @@
                         </span>
                     </div>
                 </div>
-                
+
                 <div id="loadingIndicator" class="hidden text-center py-12">
                     <div class="relative inline-flex">
                         <div class="w-16 h-16 bg-emerald-500 rounded-full animate-ping"></div>
@@ -295,7 +319,7 @@
                     </div>
                     <p class="mt-6 text-gray-600 font-medium">Analyzing your crop data with AI...</p>
                 </div>
-                
+
                 <!-- Weather Metrics Grid -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     <!-- Temperature -->
@@ -308,7 +332,7 @@
                             <span id="temperature" class="text-gray-800 font-semibold">--°C</span>
                         </div>
                     </div>
-                    
+
                     <!-- Rainfall -->
                     <div class="bg-gray-50 p-4 rounded-lg border border-gray-100">
                         <div class="flex items-center justify-between">
@@ -319,7 +343,7 @@
                             <span id="rainfall" class="text-gray-800 font-semibold">-- mm</span>
                         </div>
                     </div>
-                    
+
                     <!-- Humidity -->
                     <div class="bg-gray-50 p-4 rounded-lg border border-gray-100">
                         <div class="flex items-center justify-between">
@@ -330,7 +354,7 @@
                             <span id="humidity" class="text-gray-800 font-semibold">--%</span>
                         </div>
                     </div>
-                    
+
                     <!-- Wind Speed -->
                     <div class="bg-gray-50 p-4 rounded-lg border border-gray-100">
                         <div class="flex items-center justify-between">
@@ -341,7 +365,7 @@
                             <span id="windSpeed" class="text-gray-800 font-semibold">-- km/h</span>
                         </div>
                     </div>
-                    
+
                     <!-- Solar Radiation -->
                     <div class="bg-gray-50 p-4 rounded-lg border border-gray-100">
                         <div class="flex items-center justify-between">
@@ -352,7 +376,7 @@
                             <span id="solarRadiation" class="text-gray-800 font-semibold">-- W/m²</span>
                         </div>
                     </div>
-                    
+
                     <!-- Soil Moisture -->
                     <div class="bg-gray-50 p-4 rounded-lg border border-gray-100">
                         <div class="flex items-center justify-between">
@@ -364,9 +388,10 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Advisory Card -->
-                <div id="advice" class="bg-gradient-to-br from-green-50 to-blue-50 rounded-xl p-6 border border-green-100 hidden mx-auto w-full max-w-3xl mt-8">
+                <div id="advice"
+                    class="bg-gradient-to-br from-green-50 to-blue-50 rounded-xl p-6 border border-green-100 hidden mx-auto w-full max-w-3xl mt-8">
                     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4">
                         <h2 class="text-xl font-bold text-gray-800 mb-2 sm:mb-0">
                             <i class="fas fa-clipboard-check text-green-600 mr-2"></i>
@@ -383,111 +408,114 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- Weather Summary hidden -->
-                        <!-- Weather Summary heading removed -->
-                        <ul class="space-y-2 hidden">
-                            <li><span class="font-medium">Temperature:</span> <span id="weather-temp"></span></li>
-                            <li><span class="font-medium">Sunshine:</span> <span id="weather-sunshine"></span></li>
-                            <li><span class="font-medium">Humidity:</span> <span id="weather-humidity"></span></li>
-                            <li><span class="font-medium">Wind Speed:</span> <span id="weather-wind"></span></li>
-                            <li><span class="font-medium">Rain:</span> <span id="weather-rain"></span></li>
-                        </ul>
-                    </div>
-                    
-                    <div class="mb-4">
-                        <h3 class="font-semibold mb-2">Advice</h3>
-                        <div id="advice-text" class="max-w-full"></div>
-                        <div id="translation-result" class="mt-4 text-blue-700 whitespace-pre-wrap"></div>
-<!-- Audio controls -->
-<div id="audio-controls" class="mt-2 hidden flex space-x-2">
-    <button id="play-audio-btn" class="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-600" disabled>
-        Play Audio
-    </button>
-    <button id="stop-audio-btn" class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 hidden">
-        Stop
-    </button>
-</div>
-                        <!-- Language selection for translation -->
-                        <div class="mt-4">
-                            <label for="language-select" class="block text-sm font-medium text-gray-700 mb-1">Translate to:</label>
-                            <select id="language-select" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                <option value="yo">Yoruba</option>
-                                <option value="ha">Hausa</option>
-                                <option value="ig">Igbo</option>
-                                <option value="fr">French</option>
-                                <option value="es">Spanish</option>
-                            </select>
-                        </div>
-                    </div>
+                    <!-- Weather Summary heading removed -->
+                    <ul class="space-y-2 hidden">
+                        <li><span class="font-medium">Temperature:</span> <span id="weather-temp"></span></li>
+                        <li><span class="font-medium">Sunshine:</span> <span id="weather-sunshine"></span></li>
+                        <li><span class="font-medium">Humidity:</span> <span id="weather-humidity"></span></li>
+                        <li><span class="font-medium">Wind Speed:</span> <span id="weather-wind"></span></li>
+                        <li><span class="font-medium">Rain:</span> <span id="weather-rain"></span></li>
+                    </ul>
+                </div>
 
-                    <!-- Dynamic Crop Calendar -->
-                    <div id="calendar-section" class="mt-6 hidden">
-                        <h3 class="text-lg font-semibold mb-2">Crop Calendar</h3>
-                        <div class="overflow-x-auto">
-                            <table id="calendar-table" class="min-w-full divide-y divide-gray-200 text-sm"></table>
-                        </div>
-                    </div>
-
-                    <!-- Yield Forecast -->
-                    <div id="yield-section" class="mt-6 hidden">
-                        <h3 class="text-lg font-semibold mb-2">Yield Forecast</h3>
-                        <p id="yield-value" class="text-green-700 font-semibold"></p>
-                    </div>
-
-                    <!-- Upcoming Alerts -->
-                    <div id="alerts-section" class="mt-4 hidden">
-                        <h3 class="text-lg font-semibold mb-2">Upcoming Alerts</h3>
-                        <div id="alerts-container" class="flex flex-wrap gap-2"></div>
-                    </div>
-                     
-                     <div class="mb-4">
-                         <h3 class="font-semibold mb-2">Tip</h3>
-                        <div id="advice-tip"></div>
-                    </div>
-                    
-                    <div class="flex justify-end gap-2">
-                        <button id="download-btn" class="px-4 py-2 bg-indigo-500 text-white rounded hover:bg-indigo-600">Download Advice</button>
-                        <button id="translate-btn" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-                            <span class="text-white">Translate to Local Language</span>
+                <div class="mb-4">
+                    <h3 class="font-semibold mb-2">Advice</h3>
+                    <div id="advice-text" class="max-w-full"></div>
+                    <div id="translation-result" class="mt-4 text-blue-700 whitespace-pre-wrap"></div>
+                    <!-- Audio controls -->
+                    <div id="audio-controls" class="mt-2 hidden flex space-x-2">
+                        <button id="play-audio-btn"
+                            class="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-600" disabled>
+                            Play Audio
+                        </button>
+                        <button id="stop-audio-btn"
+                            class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 hidden">
+                            Stop
                         </button>
                     </div>
+                    <!-- Language selection for translation -->
+                    <div class="mt-4">
+                        <label for="language-select" class="block text-sm font-medium text-gray-700 mb-1">Translate
+                            to:</label>
+                        <select id="language-select"
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                            <option value="yo">Yoruba</option>
+                            <option value="ha">Hausa</option>
+                            <option value="ig">Igbo</option>
+                            <option value="fr">French</option>
+                            <option value="es">Spanish</option>
+                        </select>
+                    </div>
                 </div>
-                
-                <div id="soil-conditions-section" class="mt-6 hidden">
-                    <h2 class="text-lg font-semibold mb-2">Soil Conditions</h2>
-                    <div class="space-y-2">
-                        <div class="flex items-center justify-between">
-                            <span class="text-sm text-gray-600">pH Level</span>
-                            <span id="soilPH" class="text-green-600 font-semibold">Loading...</span>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <span class="text-sm text-gray-600">Soil Type</span>
-                            <span id="soilType" class="text-green-600 font-semibold">Loading...</span>
-                        </div>
+
+                <!-- Dynamic Crop Calendar -->
+                <div id="calendar-section" class="mt-6 hidden">
+                    <h3 class="text-lg font-semibold mb-2">Crop Calendar</h3>
+                    <div class="overflow-x-auto">
+                        <table id="calendar-table" class="min-w-full divide-y divide-gray-200 text-sm"></table>
+                    </div>
+                </div>
+
+                <!-- Yield Forecast -->
+                <div id="yield-section" class="mt-6 hidden">
+                    <h3 class="text-lg font-semibold mb-2">Yield Forecast</h3>
+                    <p id="yield-value" class="text-green-700 font-semibold"></p>
+                </div>
+
+                <!-- Upcoming Alerts -->
+                <div id="alerts-section" class="mt-4 hidden">
+                    <h3 class="text-lg font-semibold mb-2">Upcoming Alerts</h3>
+                    <div id="alerts-container" class="flex flex-wrap gap-2"></div>
+                </div>
+
+                <div class="mb-4">
+                    <h3 class="font-semibold mb-2">Tip</h3>
+                    <div id="advice-tip"></div>
+                </div>
+
+                <div class="flex justify-end gap-2">
+                    <button id="download-btn"
+                        class="px-4 py-2 bg-indigo-500 text-white rounded hover:bg-indigo-600">Download Advice</button>
+                    <button id="translate-btn" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+                        <span class="text-white">Translate to Local Language</span>
+                    </button>
+                </div>
+            </div>
+
+            <div id="soil-conditions-section" class="mt-6 hidden">
+                <h2 class="text-lg font-semibold mb-2">Soil Conditions</h2>
+                <div class="space-y-2">
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm text-gray-600">pH Level</span>
+                        <span id="soilPH" class="text-green-600 font-semibold">Loading...</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm text-gray-600">Soil Type</span>
+                        <span id="soilType" class="text-green-600 font-semibold">Loading...</span>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 
 
     <!-- Chat Assistant -->
     <div id="chat-container" class="fixed bottom-6 right-4 sm:right-6 z-50 w-full max-w-md">
         <!-- Chat Toggle Button -->
-        <button id="chat-toggle" 
-                class="ml-auto flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-green-600 text-white shadow-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
-                class="ml-auto flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-green-600 text-white shadow-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-all duration-200 transform hover:scale-105"
-                aria-label="Open chat"
-                aria-expanded="false">
+        <button id="chat-toggle"
+            class="ml-auto flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-green-600 text-white shadow-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+            class="ml-auto flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-green-600 text-white shadow-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-all duration-200 transform hover:scale-105"
+            aria-label="Open chat" aria-expanded="false">
             <i class="fas fa-comment-dots text-xl sm:text-2xl"></i>
         </button>
-        
+
         <!-- Chat Box -->
-        <div id="chat-box" class="hidden absolute bottom-20 right-0 w-full max-w-md h-96 sm:h-[32rem] bg-white rounded-xl shadow-xl overflow-hidden flex flex-col border border-gray-200"
-             role="dialog"
-             aria-labelledby="chat-title"
-             aria-modal="true">
+        <div id="chat-box"
+            class="hidden absolute bottom-20 right-0 w-full max-w-md h-96 sm:h-[32rem] bg-white rounded-xl shadow-xl overflow-hidden flex flex-col border border-gray-200"
+            role="dialog" aria-labelledby="chat-title" aria-modal="true">
             <!-- Chat Header -->
             <div class="bg-green-600 text-white px-4 py-3 flex items-center justify-between">
                 <div class="flex items-center">
@@ -495,42 +523,37 @@
                     <h2 id="chat-title" class="font-medium">AgroPredict Assistant</h2>
                 </div>
                 <div class="flex items-center space-x-2">
-                    <button id="minimize-chat" 
-                            class="text-white hover:text-gray-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-green-600 rounded-full p-1" 
-                            aria-label="Minimize chat">
+                    <button id="minimize-chat"
+                        class="text-white hover:text-gray-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-green-600 rounded-full p-1"
+                        aria-label="Minimize chat">
                         <i class="fas fa-window-minimize" aria-hidden="true"></i>
                     </button>
-                    <button id="close-chat" 
-                            class="text-white hover:text-gray-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-green-600 rounded-full p-1"
-                            aria-label="Close chat">
+                    <button id="close-chat"
+                        class="text-white hover:text-gray-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-green-600 rounded-full p-1"
+                        aria-label="Close chat">
                         <i class="fas fa-times" aria-hidden="true"></i>
                     </button>
                 </div>
             </div>
-            
+
             <!-- Chat Messages -->
-            <div id="chat-messages" 
-                 class="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50"
-                 role="log"
-                 aria-live="polite">
+            <div id="chat-messages" class="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50" role="log"
+                aria-live="polite">
                 <div class="text-center text-sm text-gray-500 py-4">
                     Hello! I'm your farming assistant. How can I help you today?
                 </div>
             </div>
-            
+
             <!-- Chat Input -->
             <div class="border-t border-gray-200 bg-white p-3">
                 <form id="chat-form" class="flex items-center space-x-2">
-                    <input type="text" 
-                           id="chat-input" 
-                           class="flex-1 border border-gray-300 rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent" 
-                           placeholder="Type your message..." 
-                           autocomplete="off"
-                           aria-label="Type your message"
-                           aria-required="true">
-                    <button type="submit" 
-                            class="bg-green-600 text-white p-2 rounded-full hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
-                            aria-label="Send message">
+                    <input type="text" id="chat-input"
+                        class="flex-1 border border-gray-300 rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                        placeholder="Type your message..." autocomplete="off" aria-label="Type your message"
+                        aria-required="true">
+                    <button type="submit"
+                        class="bg-green-600 text-white p-2 rounded-full hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+                        aria-label="Send message">
                         <i class="fas fa-paper-plane" aria-hidden="true"></i>
                     </button>
                 </form>
@@ -552,87 +575,87 @@
         const chatClose = document.getElementById('close-chat');
         let isMinimized = false;
 
-            // ---- Crop dropdown setup ----
-            const cropDropdown = document.getElementById('crop');
+        // ---- Crop dropdown setup ----
+        const cropDropdown = document.getElementById('crop');
 
-            // Guard to avoid duplicate welcome messages
-            let welcomeShown = false;
-            const WELCOME_TEXT = "Hello! I'm your farming assistant. I can help with crop advice, pest identification, and growing tips. What would you like to know?";
+        // Guard to avoid duplicate welcome messages
+        let welcomeShown = false;
+        const WELCOME_TEXT = "Hello! I'm your farming assistant. I can help with crop advice, pest identification, and growing tips. What would you like to know?";
 
-            // Load crop list and initialise Choices.js searchable dropdown
-            async function loadCrops() {
-                try {
-                    // Load crops from the API endpoint instead of static file
-                    const response = await fetch(`${window.API_BASE_URL}/crops`);
-                    if (!response.ok) throw new Error('Failed to load crops from API');
-                    const crops = await response.json();
-                    // The API already returns sorted and deduplicated crops
-                    const cropNames = crops.map(c => (c.name || '').trim());
-                    // Clear existing dynamically-added options in case loadCrops is called again
-                    while (cropDropdown.options.length > 1) {
-                        cropDropdown.remove(1);
-                    }
-                    cropNames.forEach(name => {
-                        const opt = document.createElement('option');
-                        opt.value = name.toLowerCase();
-                        opt.textContent = name;
-                        cropDropdown.appendChild(opt);
+        // Load crop list and initialise Choices.js searchable dropdown
+        async function loadCrops() {
+            try {
+                // Load crops from the API endpoint instead of static file
+                const response = await fetch(`${window.API_BASE_URL}/crops`);
+                if (!response.ok) throw new Error('Failed to load crops from API');
+                const crops = await response.json();
+                // The API already returns sorted and deduplicated crops
+                const cropNames = crops.map(c => (c.name || '').trim());
+                // Clear existing dynamically-added options in case loadCrops is called again
+                while (cropDropdown.options.length > 1) {
+                    cropDropdown.remove(1);
+                }
+                cropNames.forEach(name => {
+                    const opt = document.createElement('option');
+                    opt.value = name.toLowerCase();
+                    opt.textContent = name;
+                    cropDropdown.appendChild(opt);
+                });
+                // Activate Choices if available
+                if (window.Choices) {
+                    new Choices(cropDropdown, {
+                        searchEnabled: true,
+                        searchPlaceholderValue: 'Type crop name…',
+                        placeholder: true,
+                        placeholderValue: 'Select or type a crop…',
+                        itemSelectText: '',
+                        shouldSort: true,
+                        searchResultLimit: 50
                     });
-                    // Activate Choices if available
-                    if (window.Choices) {
-                        new Choices(cropDropdown, {
-                            searchEnabled: true,
-                            searchPlaceholderValue: 'Type crop name…',
-                            placeholder: true,
-                            placeholderValue: 'Select or type a crop…',
-                            itemSelectText: '',
-                            shouldSort: true,
-                            searchResultLimit: 50
-                        });
-                    }
-                } catch (err) {
-                    console.error('Error loading crops:', err);
-                    // Fallback: Load basic crops if crops.json fails
-                    const basicCrops = [
-                        {name: "Wheat"}, {name: "Rice"}, {name: "Corn"}, {name: "Maize"}, 
-                        {name: "Cotton"}, {name: "Soybean"}, {name: "Potato"}, {name: "Tomato"}, 
-                        {name: "Onion"}, {name: "Cabbage"}, {name: "Apple"}, {name: "Banana"}
-                    ];
-                    
-                    // Clear and add basic options
-                    while (cropDropdown.options.length > 1) {
-                        cropDropdown.remove(1);
-                    }
-                    basicCrops.forEach(crop => {
-                        const option = document.createElement('option');
-                        option.value = crop.name.toLowerCase();
-                        option.textContent = crop.name;
-                        cropDropdown.appendChild(option);
+                }
+            } catch (err) {
+                console.error('Error loading crops:', err);
+                // Fallback: Load basic crops if crops.json fails
+                const basicCrops = [
+                    { name: "Wheat" }, { name: "Rice" }, { name: "Corn" }, { name: "Maize" },
+                    { name: "Cotton" }, { name: "Soybean" }, { name: "Potato" }, { name: "Tomato" },
+                    { name: "Onion" }, { name: "Cabbage" }, { name: "Apple" }, { name: "Banana" }
+                ];
+
+                // Clear and add basic options
+                while (cropDropdown.options.length > 1) {
+                    cropDropdown.remove(1);
+                }
+                basicCrops.forEach(crop => {
+                    const option = document.createElement('option');
+                    option.value = crop.name.toLowerCase();
+                    option.textContent = crop.name;
+                    cropDropdown.appendChild(option);
+                });
+
+                // Still try to initialize Choices.js with the fallback data
+                if (window.Choices) {
+                    new Choices(cropDropdown, {
+                        searchEnabled: true,
+                        searchPlaceholderValue: 'Type crop name…',
+                        placeholder: true,
+                        placeholderValue: 'Select or type a crop…',
+                        itemSelectText: '',
+                        shouldSort: true,
+                        searchResultLimit: 50
                     });
-                    
-                    // Still try to initialize Choices.js with the fallback data
-                    if (window.Choices) {
-                        new Choices(cropDropdown, {
-                            searchEnabled: true,
-                            searchPlaceholderValue: 'Type crop name…',
-                            placeholder: true,
-                            placeholderValue: 'Select or type a crop…',
-                            itemSelectText: '',
-                            shouldSort: true,
-                            searchResultLimit: 50
-                        });
-                    }
                 }
             }
-            // Kick off crop loading immediately
-            loadCrops();
-            
+        }
+        // Kick off crop loading immediately
+        loadCrops();
+
         // Mobile menu toggle functionality
         const navToggle = document.getElementById('navToggle');
         const mobileMenu = document.getElementById('mobileMenu');
-        
+
         if (navToggle && mobileMenu) {
-            navToggle.addEventListener('click', function(e) {
+            navToggle.addEventListener('click', function (e) {
                 e.preventDefault();
                 mobileMenu.classList.toggle('hidden');
             });
@@ -646,7 +669,7 @@
             const sections = [];
             const lines = content.split('\n');
             let currentSection = null;
-            
+
             lines.forEach(line => {
                 // Check for section headers (## or bold text)
                 if (line.startsWith('## ') || line.includes('<strong>') || line.includes('**')) {
@@ -681,9 +704,9 @@
 
             // Create card HTML
             let cardsHTML = '<div class="space-y-4">';
-            
+
             // Add Quick Actions card for mobile
-            const actionSection = sections.find(s => 
+            const actionSection = sections.find(s =>
                 s.title.includes('Actions') || s.title.includes('Recommendations')
             );
             if (actionSection) {
@@ -691,7 +714,7 @@
                     .filter(line => line.trim().startsWith('•') || line.trim().startsWith('-') || line.trim().startsWith('*'))
                     .slice(0, 3)
                     .map(line => line.replace(/^[•\-\*]\s*/, '').trim());
-                
+
                 if (quickActions.length > 0) {
                     cardsHTML += `
                         <div class="md:hidden bg-gradient-to-r from-emerald-500 to-green-400 rounded-lg p-4 text-white shadow-lg">
@@ -708,22 +731,22 @@
 
             // Create cards for each section
             sections.forEach((section, index) => {
-                const config = sectionConfig[section.title] || 
-                              Object.values(sectionConfig).find(c => 
-                                  section.title.toLowerCase().includes(Object.keys(sectionConfig).find(k => 
-                                      sectionConfig[k] === c).toLowerCase())
-                              ) || 
-                              { icon: 'fas fa-file-alt', gradient: 'from-gray-500 to-gray-400' };
-                
+                const config = sectionConfig[section.title] ||
+                    Object.values(sectionConfig).find(c =>
+                        section.title.toLowerCase().includes(Object.keys(sectionConfig).find(k =>
+                            sectionConfig[k] === c).toLowerCase())
+                    ) ||
+                    { icon: 'fas fa-file-alt', gradient: 'from-gray-500 to-gray-400' };
+
                 const contentHTML = section.content
                     .join('\n')
                     .replace(/•\s*/g, '<li class="flex items-start"><span class="text-white/80 mr-2">•</span><span>')
                     .replace(/<\/li>\n(?!<li)/g, '</span></li>\n')
                     .replace(/(<li[^>]*>.*<\/span><\/li>)/g, '</span></li><li class="flex items-start"><span class="text-white/80 mr-2">•</span><span>');
-                
+
                 const isCollapsible = window.innerWidth < 768 && index > 1;
                 const collapseId = `section-${index}`;
-                
+
                 cardsHTML += `
                     <div class="advice-card bg-gradient-to-r ${config.gradient} rounded-lg shadow-lg overflow-hidden 
                                 transform transition-all duration-300 hover:scale-[1.02] hover:shadow-xl">
@@ -738,16 +761,16 @@
                             </h3>
                             <div id="${collapseId}" class="prose prose-invert max-w-none 
                                         ${isCollapsible ? 'hidden md:block' : ''}">
-                                ${contentHTML.includes('<li') ? 
-                                    `<ul class="space-y-2 text-white/90">${contentHTML}</ul>` : 
-                                    `<p class="text-white/90 leading-relaxed">${contentHTML}</p>`
-                                }
+                                ${contentHTML.includes('<li') ?
+                        `<ul class="space-y-2 text-white/90">${contentHTML}</ul>` :
+                        `<p class="text-white/90 leading-relaxed">${contentHTML}</p>`
+                    }
                             </div>
                         </div>
                     </div>
                 `;
             });
-            
+
             cardsHTML += '</div>';
             container.innerHTML = cardsHTML;
         }
@@ -757,29 +780,29 @@
             console.log('Starting location detection...');
             console.log('Protocol:', window.location.protocol);
             console.log('Hostname:', window.location.hostname);
-            
+
             // Check if we're on a proper protocol for geolocation
             const isFileProtocol = window.location.protocol === 'file:';
             const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
             const isHTTPS = window.location.protocol === 'https:';
-            
+
             if (isFileProtocol) {
                 console.warn('Geolocation not available with file:// protocol. Please run a local server. Falling back to IP-based location.');
                 return await getLocationByIP();
             }
-            
+
             if (!isHTTPS && !isLocalhost) {
                 console.warn('Geolocation requires HTTPS or localhost. Falling back to IP-based location.');
                 return await getLocationByIP();
             }
-            
+
             try {
                 // Check if geolocation is supported
                 if (!navigator.geolocation) {
                     console.error('Geolocation not supported by browser');
                     throw new Error('Geolocation is not supported by your browser');
                 }
-                
+
                 console.log('Geolocation API available, requesting position...');
 
                 // Request location with timeout
@@ -787,7 +810,7 @@
                     const timeoutId = setTimeout(() => {
                         reject(new Error('Location request timed out'));
                     }, 15000);
-                    
+
                     navigator.geolocation.getCurrentPosition(
                         (pos) => {
                             clearTimeout(timeoutId);
@@ -811,7 +834,7 @@
                 const lat = position.coords.latitude;
                 const lon = position.coords.longitude;
                 console.log('Coordinates obtained:', lat, lon);
-                
+
                 // Update all location-related fields with null checks
                 const locationInput = document.getElementById('location');
                 if (locationInput) {
@@ -820,7 +843,7 @@
                 } else {
                     console.warn('Location input field not found');
                 }
-                
+
                 const latInput = document.getElementById('latitude');
                 if (latInput) {
                     latInput.value = lat;
@@ -828,7 +851,7 @@
                 } else {
                     console.warn('Latitude input field not found');
                 }
-                
+
                 const lonInput = document.getElementById('longitude');
                 if (lonInput) {
                     lonInput.value = lon;
@@ -836,7 +859,7 @@
                 } else {
                     console.warn('Longitude input field not found');
                 }
-                
+
                 // Update status message
                 const locationStatus = document.getElementById('locationStatus');
                 if (locationStatus) {
@@ -850,7 +873,7 @@
                 await getLocationByIP();
             }
         }
-        
+
         // Separate function for IP-based location
         async function getLocationByIP() {
             console.log('Attempting IP-based location...');
@@ -859,42 +882,35 @@
                 if (!resp.ok) throw new Error('IP lookup failed');
                 const data = await resp.json();
                 console.log('IP location data:', data);
-                
+
                 const lat = parseFloat(data.latitude);
                 const lon = parseFloat(data.longitude);
-                
+
                 if (!isNaN(lat) && !isNaN(lon)) {
                     // Update location fields
                     const locationInput = document.getElementById('location');
                     if (locationInput) {
                         locationInput.value = `${lat.toFixed(4)}, ${lon.toFixed(4)}`;
                     }
-                    
+
                     const latInput = document.getElementById('latitude');
                     if (latInput) {
                         latInput.value = lat;
                     }
-                    
+
                     const lonInput = document.getElementById('longitude');
                     if (lonInput) {
                         lonInput.value = lon;
                     }
-                    
+
                     // Update status
                     const locStatus = document.getElementById('locationStatus');
                     if (locStatus) {
-                        // Provide helpful message for location issues
-                        if (error.message.includes('network service') || error.message.includes('timed out')) {
-                            locStatus.innerHTML = `⚠️ GPS unavailable. Using approximate location.<br>
-                                <small class="text-xs">Tip: Allow location access in browser & system settings</small>`;
-                            locStatus.classList.add('text-yellow-600');
-                        } else {
-                            locStatus.textContent = `Failed: ${error.message}`;
-                            locStatus.classList.add('text-red-600');
-                        }
-                        locStatus.classList.remove('text-gray-500', 'text-green-600');
+                        locStatus.textContent = '⚠ Approximate location via IP';
+                        locStatus.classList.remove('text-gray-500', 'text-red-600');
+                        locStatus.classList.add('text-yellow-600');
                     }
-                    
+
                     console.log('Location set via IP:', lat, lon);
                     return { lat, lon };
                 } else {
@@ -902,46 +918,46 @@
                 }
             } catch (error) {
                 console.error('IP-based location lookup failed:', error);
-                
+
                 // Try a different IP service as backup
                 try {
                     const resp2 = await fetch('https://ip-api.com/json/');
                     const data2 = await resp2.json();
                     console.log('Backup IP location data:', data2);
-                    
+
                     if (data2.status === 'success' && data2.lat && data2.lon) {
                         const lat = parseFloat(data2.lat);
                         const lon = parseFloat(data2.lon);
-                        
+
                         // Update fields
                         const locationInput = document.getElementById('location');
                         if (locationInput) {
                             locationInput.value = `${lat.toFixed(4)}, ${lon.toFixed(4)}`;
                         }
-                        
+
                         const latInput = document.getElementById('latitude');
                         if (latInput) {
                             latInput.value = lat;
                         }
-                        
+
                         const lonInput = document.getElementById('longitude');
                         if (lonInput) {
                             lonInput.value = lon;
                         }
-                        
+
                         const locStatus = document.getElementById('locationStatus');
                         if (locStatus) {
                             locStatus.textContent = '⚠ Approximate location via IP';
                             locStatus.classList.remove('text-gray-500', 'text-red-600', 'text-green-600');
                             locStatus.classList.add('text-yellow-600');
                         }
-                        
+
                         return { lat, lon };
                     }
                 } catch (err2) {
                     console.error('Backup IP service also failed:', err2);
                 }
-                
+
                 // All methods failed
                 const locStatus = document.getElementById('locationStatus');
                 if (locStatus) {
@@ -949,14 +965,14 @@
                     locStatus.classList.remove('text-gray-500', 'text-green-600', 'text-yellow-600');
                     locStatus.classList.add('text-red-600');
                 }
-                
+
                 // Provide manual entry suggestion
                 const locationInput = document.getElementById('location');
                 if (locationInput) {
                     locationInput.placeholder = 'Enter city or coordinates manually';
                     locationInput.focus();
                 }
-                
+
                 alert('Unable to detect location automatically. Please enter your location manually or try again.');
             }
         }
@@ -969,12 +985,12 @@
             getLocationBtn.addEventListener('click', async (e) => {
                 e.preventDefault();
                 console.log('Location button clicked');
-                
+
                 // Update button state
                 getLocationBtn.disabled = true;
                 const originalContent = getLocationBtn.innerHTML;
                 getLocationBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Detecting...';
-                
+
                 try {
                     await getLocation();
                 } catch (error) {
@@ -1015,7 +1031,7 @@
             const cropSelect = document.getElementById('crop');
             const latitude = document.getElementById('latitude').value;
             const longitude = document.getElementById('longitude').value;
-            
+
             if (!latitude || !longitude) {
                 alert('Please get your location first');
                 return;
@@ -1063,11 +1079,11 @@
                 const adviceContainer = document.getElementById('advice-text');
                 adviceContainer.innerHTML = adviceHtml;
                 wrapAdviceInCards(adviceContainer);
-                    // Clear previous translation
-                    document.getElementById('translation-result').textContent = '';
+                // Clear previous translation
+                document.getElementById('translation-result').textContent = '';
                 // Cache latest advice for offline use
-                try { localStorage.setItem('lastAdvice', JSON.stringify(response.data)); } catch(e) { console.warn('Unable to cache advice', e); }
-                
+                try { localStorage.setItem('lastAdvice', JSON.stringify(response.data)); } catch (e) { console.warn('Unable to cache advice', e); }
+
                 // Update weather data
                 const weather = response.data.weather || {};
                 document.getElementById('temperature').textContent = weather.temperature || 'N/A';
@@ -1075,7 +1091,7 @@
                 document.getElementById('humidity').textContent = `${weather.humidity || 'N/A'}%`;
                 document.getElementById('windSpeed').textContent = weather.wind_speed || 'N/A';
                 document.getElementById('solarRadiation').textContent = weather.sunshine || 'N/A';
-                
+
                 // Update soil data
                 const soil = response.data.soil || {};
                 document.getElementById('soilMoisture').textContent = `${(soil.moisture || 0) * 100}%`;
@@ -1114,7 +1130,7 @@
                         adviceContainer.innerHTML = typeof marked !== 'undefined' ? marked.parse(cachedData.advice) : cachedData.advice;
                         wrapAdviceInCards(adviceContainer);
                         document.getElementById('advice').classList.remove('hidden');
-                    } catch(e) { console.warn('Failed to parse cached advice', e); }
+                    } catch (e) { console.warn('Failed to parse cached advice', e); }
                 }
                 // Clear loading states and show error
                 document.getElementById('temperature').textContent = 'Error';
@@ -1125,7 +1141,7 @@
                 document.getElementById('soilMoisture').textContent = 'Error';
                 document.getElementById('soilPH').textContent = 'Error';
                 document.getElementById('soilType').textContent = 'Error';
-                
+
                 // Reset button
                 const submitBtnCatch = document.getElementById('submitBtn');
                 if (submitBtnCatch && submitBtnCatch.querySelector('span')) {
@@ -1147,7 +1163,7 @@
                 }
             }
         }
-        
+
         // Function to handle translation requests
         async function handleTranslate() {
             const advice = document.getElementById('advice-text').innerText.trim();
@@ -1232,42 +1248,42 @@
         // Helper: wrap advice paragraphs in styled cards
         function wrapAdviceInCards(container) {
             if (!container) return;
-            
+
             // Define section configurations with icons and colors
             const sectionConfig = {
-                'current conditions': { 
-                    icon: 'fa-cloud-sun', 
-                    bgColor: 'bg-gradient-to-br from-blue-50 to-cyan-50', 
+                'current conditions': {
+                    icon: 'fa-cloud-sun',
+                    bgColor: 'bg-gradient-to-br from-blue-50 to-cyan-50',
                     borderColor: 'border-blue-200',
                     iconColor: 'text-blue-600'
                 },
-                'specific farming actions': { 
-                    icon: 'fa-tasks', 
-                    bgColor: 'bg-gradient-to-br from-green-50 to-emerald-50', 
+                'specific farming actions': {
+                    icon: 'fa-tasks',
+                    bgColor: 'bg-gradient-to-br from-green-50 to-emerald-50',
                     borderColor: 'border-green-200',
                     iconColor: 'text-green-600'
                 },
-                'warnings': { 
-                    icon: 'fa-exclamation-triangle', 
-                    bgColor: 'bg-gradient-to-br from-amber-50 to-yellow-50', 
+                'warnings': {
+                    icon: 'fa-exclamation-triangle',
+                    bgColor: 'bg-gradient-to-br from-amber-50 to-yellow-50',
                     borderColor: 'border-amber-200',
                     iconColor: 'text-amber-600'
                 },
-                'explanation': { 
-                    icon: 'fa-info-circle', 
-                    bgColor: 'bg-gradient-to-br from-purple-50 to-indigo-50', 
+                'explanation': {
+                    icon: 'fa-info-circle',
+                    bgColor: 'bg-gradient-to-br from-purple-50 to-indigo-50',
                     borderColor: 'border-purple-200',
                     iconColor: 'text-purple-600'
                 },
-                'voice guidance': { 
-                    icon: 'fa-microphone', 
-                    bgColor: 'bg-gradient-to-br from-pink-50 to-rose-50', 
+                'voice guidance': {
+                    icon: 'fa-microphone',
+                    bgColor: 'bg-gradient-to-br from-pink-50 to-rose-50',
                     borderColor: 'border-pink-200',
                     iconColor: 'text-pink-600'
                 },
-                'default': { 
-                    icon: 'fa-seedling', 
-                    bgColor: 'bg-white', 
+                'default': {
+                    icon: 'fa-seedling',
+                    bgColor: 'bg-white',
                     borderColor: 'border-gray-200',
                     iconColor: 'text-gray-600'
                 }
@@ -1276,11 +1292,11 @@
             // Process the HTML content
             const tempDiv = document.createElement('div');
             tempDiv.innerHTML = container.innerHTML;
-            
+
             // Find all h2 elements (section headers)
             const sections = [];
             let currentSection = null;
-            
+
             Array.from(tempDiv.childNodes).forEach(node => {
                 if (node.nodeType === Node.ELEMENT_NODE && node.tagName === 'H2') {
                     // Start a new section
@@ -1302,17 +1318,17 @@
                     sections[0].content.push(node);
                 }
             });
-            
+
             if (currentSection) {
                 sections.push(currentSection);
             }
 
             // Clear container and rebuild with enhanced cards
             container.innerHTML = '';
-            
+
             sections.forEach((section, index) => {
                 // Determine section type and get config
-                const sectionKey = Object.keys(sectionConfig).find(key => 
+                const sectionKey = Object.keys(sectionConfig).find(key =>
                     section.title.toLowerCase().includes(key)
                 ) || 'default';
                 const config = sectionConfig[sectionKey];
@@ -1320,42 +1336,42 @@
                 // Create card container
                 const card = document.createElement('div');
                 card.className = `${config.bgColor} border-2 ${config.borderColor} rounded-xl p-4 sm:p-6 mb-4 shadow-sm hover:shadow-md transition-shadow duration-200`;
-                
+
                 // Add collapsible functionality for mobile
                 const isMainContent = index === 0 || !section.title;
-                
+
                 if (section.title) {
                     // Create header with icon
                     const header = document.createElement('div');
                     header.className = 'flex items-center justify-between cursor-pointer select-none';
-                    
+
                     const titleContainer = document.createElement('div');
                     titleContainer.className = 'flex items-center gap-3';
-                    
+
                     // Add icon
                     const icon = document.createElement('i');
                     icon.className = `fas ${config.icon} ${config.iconColor} text-lg sm:text-xl`;
                     titleContainer.appendChild(icon);
-                    
+
                     // Add title
                     const title = document.createElement('h3');
                     title.className = 'text-base sm:text-lg font-semibold text-gray-800';
                     title.textContent = section.title;
                     titleContainer.appendChild(title);
-                    
+
                     header.appendChild(titleContainer);
-                    
+
                     // Add expand/collapse icon for mobile
                     const expandIcon = document.createElement('i');
                     expandIcon.className = 'fas fa-chevron-down text-gray-500 transition-transform duration-200 sm:hidden';
                     header.appendChild(expandIcon);
-                    
+
                     card.appendChild(header);
-                    
+
                     // Create content container
                     const contentDiv = document.createElement('div');
                     contentDiv.className = `mt-4 space-y-2 ${isMainContent ? '' : 'sm:block'}`;
-                    
+
                     // Add collapsible behavior on mobile
                     if (!isMainContent) {
                         contentDiv.classList.add('hidden');
@@ -1364,7 +1380,7 @@
                             expandIcon.classList.toggle('rotate-180');
                         });
                     }
-                    
+
                     // Process content
                     section.content.forEach(node => {
                         if (node.nodeType === Node.ELEMENT_NODE) {
@@ -1396,7 +1412,7 @@
                             contentDiv.appendChild(p);
                         }
                     });
-                    
+
                     card.appendChild(contentDiv);
                 } else {
                     // Handle content without title
@@ -1412,10 +1428,10 @@
                         }
                     });
                 }
-                
+
                 container.appendChild(card);
             });
-            
+
             // Add a quick summary card at the top for mobile users
             if (sections.length > 1) {
                 const summaryCard = document.createElement('div');
@@ -1477,8 +1493,8 @@
                 container.appendChild(badge);
             });
         }
- 
-         // Attach translate button listener
+
+        // Attach translate button listener
         document.getElementById('translate-btn').addEventListener('click', async (e) => {
             e.preventDefault();
             await handleTranslate();
@@ -1546,213 +1562,211 @@
                 isMinimized = false;
             }
         }
-    
-    // Toggle chat visibility
-    function toggleChat() {
-        // If the chat is currently minimized, restore it without hiding
-        if (isMinimized) {
-            chatBox.style.transform = '';
-            chatMessages.classList.remove('hidden');
-            chatForm.classList.remove('hidden');
-            chatMinimize.setAttribute('aria-label', 'Minimize chat');
-            chatMinimize.innerHTML = '<i class="fas fa-window-minimize" aria-hidden="true"></i>';
+
+        // Toggle chat visibility
+        function toggleChat() {
+            // If the chat is currently minimized, restore it without hiding
+            if (isMinimized) {
+                chatBox.style.transform = '';
+                chatMessages.classList.remove('hidden');
+                chatForm.classList.remove('hidden');
+                chatMinimize.setAttribute('aria-label', 'Minimize chat');
+                chatMinimize.innerHTML = '<i class="fas fa-window-minimize" aria-hidden="true"></i>';
+                isMinimized = false;
+                chatToggle.setAttribute('aria-expanded', 'true');
+                chatInput.focus();
+                return;
+            }
+
+            // Otherwise toggle visibility normally
+            const isHidden = chatBox.classList.toggle('hidden');
+            chatToggle.setAttribute('aria-expanded', !isHidden);
+            if (!isHidden) {
+                chatInput.focus();
+            }
+        }
+
+        // Minimize / restore chat
+        function minimizeChat() {
+            if (!isMinimized) {
+                // Minimize
+                chatMessages.classList.add('hidden');
+                chatForm.classList.add('hidden');
+                chatBox.style.transform = 'translateY(calc(100% - 50px))';
+                chatMinimize.setAttribute('aria-label', 'Restore chat');
+                chatMinimize.innerHTML = '<i class="fas fa-window-restore" aria-hidden="true"></i>';
+                isMinimized = true;
+                chatToggle.focus();
+            } else {
+                // Restore
+                chatBox.style.transform = '';
+                chatMessages.classList.remove('hidden');
+                chatForm.classList.remove('hidden');
+                chatMinimize.setAttribute('aria-label', 'Minimize chat');
+                chatMinimize.innerHTML = '<i class="fas fa-window-minimize" aria-hidden="true"></i>';
+                isMinimized = false;
+                chatInput.focus();
+            }
+        }
+
+        // Close chat
+        function closeChat() {
+            chatBox.classList.add('hidden');
+            chatToggle.setAttribute('aria-expanded', 'false');
             isMinimized = false;
-            chatToggle.setAttribute('aria-expanded', 'true');
-            chatInput.focus();
-            return;
-        }
-
-        // Otherwise toggle visibility normally
-        const isHidden = chatBox.classList.toggle('hidden');
-        chatToggle.setAttribute('aria-expanded', !isHidden);
-        if (!isHidden) {
-            chatInput.focus();
-        }
-    }
-
-    // Minimize / restore chat
-    function minimizeChat() {
-        if (!isMinimized) {
-            // Minimize
-            chatMessages.classList.add('hidden');
-            chatForm.classList.add('hidden');
-            chatBox.style.transform = 'translateY(calc(100% - 50px))';
-            chatMinimize.setAttribute('aria-label', 'Restore chat');
-            chatMinimize.innerHTML = '<i class="fas fa-window-restore" aria-hidden="true"></i>';
-            isMinimized = true;
             chatToggle.focus();
-        } else {
-            // Restore
-            chatBox.style.transform = '';
-            chatMessages.classList.remove('hidden');
-            chatForm.classList.remove('hidden');
-            chatMinimize.setAttribute('aria-label', 'Minimize chat');
-            chatMinimize.innerHTML = '<i class="fas fa-window-minimize" aria-hidden="true"></i>';
-            isMinimized = false;
-            chatInput.focus();
+            // Reset conversation state
+            if (chatMessages) {
+                chatMessages.innerHTML = '';
+            }
+            welcomeShown = false;
         }
-    }
-    
-    // Close chat
-    function closeChat() {
-        chatBox.classList.add('hidden');
-        chatToggle.setAttribute('aria-expanded', 'false');
-        isMinimized = false;
-        chatToggle.focus();
-        // Reset conversation state
-        if (chatMessages) {
-            chatMessages.innerHTML = '';
-        }
-        welcomeShown = false;
-    }
-    
-    // Add a new message to the chat
-    function addMessage(role, content) {
-        if (!chatMessages) return;
-        
-        const messageDiv = document.createElement('div');
-        messageDiv.className = `flex ${role === 'user' ? 'justify-end' : 'justify-start'} mb-4`;
-        messageDiv.setAttribute('role', role === 'user' ? 'status' : 'complementary');
-        
-        const messageContent = document.createElement('div');
-        messageContent.className = `max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${
-            role === 'user' 
-                ? 'bg-green-600 text-white rounded-br-none' 
+
+        // Add a new message to the chat
+        function addMessage(role, content) {
+            if (!chatMessages) return;
+
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `flex ${role === 'user' ? 'justify-end' : 'justify-start'} mb-4`;
+            messageDiv.setAttribute('role', role === 'user' ? 'status' : 'complementary');
+
+            const messageContent = document.createElement('div');
+            messageContent.className = `max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${role === 'user'
+                ? 'bg-green-600 text-white rounded-br-none'
                 : 'bg-gray-200 text-gray-800 rounded-bl-none'
-        }`;
-        messageContent.textContent = content;
-        
-        messageDiv.appendChild(messageContent);
-        chatMessages.appendChild(messageDiv);
-        
-        // Scroll to bottom
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-        
-        // Announce new message for screen readers
-        const announcement = document.createElement('div');
-        announcement.setAttribute('aria-live', 'polite');
-        announcement.className = 'sr-only';
-        announcement.textContent = `New ${role} message: ${content}`;
-        document.body.appendChild(announcement);
-        setTimeout(() => announcement.remove(), 100);
-    }
-    
-    // Handle form submission
-    async function handleSubmit(e) {
-        e.preventDefault();
-        const message = chatInput.value.trim();
-        
-        if (message) {
-            // Add user message
-            addMessage('user', message);
-            chatInput.value = '';
-            
-            // Show typing indicator
-            const typingIndicator = document.createElement('div');
-            typingIndicator.className = 'flex justify-start mb-4';
-            typingIndicator.innerHTML = `
+                }`;
+            messageContent.textContent = content;
+
+            messageDiv.appendChild(messageContent);
+            chatMessages.appendChild(messageDiv);
+
+            // Scroll to bottom
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            // Announce new message for screen readers
+            const announcement = document.createElement('div');
+            announcement.setAttribute('aria-live', 'polite');
+            announcement.className = 'sr-only';
+            announcement.textContent = `New ${role} message: ${content}`;
+            document.body.appendChild(announcement);
+            setTimeout(() => announcement.remove(), 100);
+        }
+
+        // Handle form submission
+        async function handleSubmit(e) {
+            e.preventDefault();
+            const message = chatInput.value.trim();
+
+            if (message) {
+                // Add user message
+                addMessage('user', message);
+                chatInput.value = '';
+
+                // Show typing indicator
+                const typingIndicator = document.createElement('div');
+                typingIndicator.className = 'flex justify-start mb-4';
+                typingIndicator.innerHTML = `
                 <div class="typing-indicator flex space-x-1 bg-gray-200 text-gray-800 rounded-full px-4 py-2">
                     <span class="w-2 h-2 bg-gray-500 rounded-full animate-bounce"></span>
                     <span class="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style="animation-delay: 0.2s"></span>
                     <span class="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style="animation-delay: 0.4s"></span>
                 </div>
             `;
-            chatMessages.appendChild(typingIndicator);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-            
-            try {
-                const resp = await axios.post(`${API_BASE_URL}/chat`, { question: message });
-                // Safety check – backend should return { answer: "..." }
-                const reply = (resp.data && resp.data.answer) ? resp.data.answer : 'Sorry, I could not get an answer.';
-                addMessage('bot', reply);
-            } catch (err) {
-                console.error('Chat API error:', err);
-                addMessage('bot', 'Sorry, I could not get an answer right now.');
-            } finally {
-                if (typingIndicator.parentNode === chatMessages) {
-                    chatMessages.removeChild(typingIndicator);
+                chatMessages.appendChild(typingIndicator);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+
+                try {
+                    const resp = await axios.post(`${API_BASE_URL}/chat`, { question: message });
+                    // Safety check – backend should return { answer: "..." }
+                    const reply = (resp.data && resp.data.answer) ? resp.data.answer : 'Sorry, I could not get an answer.';
+                    addMessage('bot', reply);
+                } catch (err) {
+                    console.error('Chat API error:', err);
+                    addMessage('bot', 'Sorry, I could not get an answer right now.');
+                } finally {
+                    if (typingIndicator.parentNode === chatMessages) {
+                        chatMessages.removeChild(typingIndicator);
+                    }
                 }
             }
         }
-    }
-    
-    // Event delegation for chat box to handle clicks
-    document.addEventListener('click', function(e) {
-        // Close chat when clicking outside
-        if (!chatBox.contains(e.target) && e.target !== chatToggle && !chatToggle.contains(e.target)) {
-            if (!chatBox.classList.contains('hidden') && !isMinimized) {
+
+        // Event delegation for chat box to handle clicks
+        document.addEventListener('click', function (e) {
+            // Close chat when clicking outside
+            if (!chatBox.contains(e.target) && e.target !== chatToggle && !chatToggle.contains(e.target)) {
+                if (!chatBox.classList.contains('hidden') && !isMinimized) {
+                    closeChat();
+                }
+            }
+        });
+
+        // Add keyboard navigation
+        document.addEventListener('keydown', function (e) {
+            // Toggle chat with Ctrl+Space
+            if (e.ctrlKey && e.code === 'Space') {
+                e.preventDefault();
+                toggleChat();
+            }
+
+            // Close chat with Escape
+            if (e.key === 'Escape' && !chatBox.classList.contains('hidden')) {
+                e.preventDefault();
                 closeChat();
             }
-        }
-    });
-    
-    // Add keyboard navigation
-    document.addEventListener('keydown', function(e) {
-        // Toggle chat with Ctrl+Space
-        if (e.ctrlKey && e.code === 'Space') {
-            e.preventDefault();
-            toggleChat();
-        }
-        
-        // Close chat with Escape
-        if (e.key === 'Escape' && !chatBox.classList.contains('hidden')) {
-            e.preventDefault();
-            closeChat();
-        }
-        
-        // Focus chat input with / when chat is open
-        if (e.key === '/' && !chatBox.classList.contains('hidden') && document.activeElement !== chatInput) {
-            e.preventDefault();
-            chatInput.focus();
-        }
-    });
-    
-    // Initialize event listeners
-    if (chatToggle) chatToggle.addEventListener('click', toggleChat);
-    if (chatClose) chatClose.addEventListener('click', closeChat);
-    if (chatMinimize) chatMinimize.addEventListener('click', minimizeChat);
-    if (chatForm) chatForm.addEventListener('submit', handleSubmit);
-    
-    // Add welcome message after a short delay
-    setTimeout(() => {
-        if (!welcomeShown) { addMessage('bot', WELCOME_TEXT); welcomeShown = true; }
-    }, 1000);
-    
-    // Add animation for chat toggle button
-    let isHovering = false;
-    if (chatToggle) {
-        chatToggle.addEventListener('mouseenter', () => {
-            isHovering = true;
-            chatToggle.classList.add('animate-bounce');
-            setTimeout(() => {
-                if (isHovering) {
-                    chatToggle.classList.remove('animate-bounce');
-                }
-            }, 1000);
+
+            // Focus chat input with / when chat is open
+            if (e.key === '/' && !chatBox.classList.contains('hidden') && document.activeElement !== chatInput) {
+                e.preventDefault();
+                chatInput.focus();
+            }
         });
-            
+
+        // Initialize event listeners
+        if (chatToggle) chatToggle.addEventListener('click', toggleChat);
+        if (chatClose) chatClose.addEventListener('click', closeChat);
+        if (chatMinimize) chatMinimize.addEventListener('click', minimizeChat);
+        if (chatForm) chatForm.addEventListener('submit', handleSubmit);
+
+        // Add welcome message after a short delay
+        setTimeout(() => {
+            if (!welcomeShown) { addMessage('bot', WELCOME_TEXT); welcomeShown = true; }
+        }, 1000);
+
+        // Add animation for chat toggle button
+        let isHovering = false;
+        if (chatToggle) {
+            chatToggle.addEventListener('mouseenter', () => {
+                isHovering = true;
+                chatToggle.classList.add('animate-bounce');
+                setTimeout(() => {
+                    if (isHovering) {
+                        chatToggle.classList.remove('animate-bounce');
+                    }
+                }, 1000);
+            });
+
             // Add a new message to the chat
             function addMessage(role, content) {
                 if (!chatMessages) return;
-                
+
                 const messageDiv = document.createElement('div');
                 messageDiv.className = `flex ${role === 'user' ? 'justify-end' : 'justify-start'} mb-4`;
                 messageDiv.setAttribute('role', role === 'user' ? 'status' : 'complementary');
-                
+
                 const messageContent = document.createElement('div');
-                messageContent.className = `max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${
-                    role === 'user' 
-                        ? 'bg-green-600 text-white rounded-br-none' 
-                        : 'bg-gray-200 text-gray-800 rounded-bl-none'
-                }`;
+                messageContent.className = `max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${role === 'user'
+                    ? 'bg-green-600 text-white rounded-br-none'
+                    : 'bg-gray-200 text-gray-800 rounded-bl-none'
+                    }`;
                 messageContent.textContent = content;
-                
+
                 messageDiv.appendChild(messageContent);
                 chatMessages.appendChild(messageDiv);
-                
+
                 // Scroll to bottom
                 chatMessages.scrollTop = chatMessages.scrollHeight;
-                
+
                 // Announce new message for screen readers
                 const announcement = document.createElement('div');
                 announcement.setAttribute('aria-live', 'polite');
@@ -1761,17 +1775,17 @@
                 document.body.appendChild(announcement);
                 setTimeout(() => announcement.remove(), 100);
             }
-            
+
             // Handle form submission
             async function handleSubmit(e) {
                 e.preventDefault();
                 const message = chatInput.value.trim();
-                
+
                 if (message) {
                     // Add user message
                     addMessage('user', message);
                     chatInput.value = '';
-                    
+
                     // Show typing indicator
                     const typingIndicator = document.createElement('div');
                     typingIndicator.className = 'flex justify-start mb-4';
@@ -1784,7 +1798,7 @@
                     `;
                     chatMessages.appendChild(typingIndicator);
                     chatMessages.scrollTop = chatMessages.scrollHeight;
-                    
+
                     try {
                         const resp = await axios.post(`${API_BASE_URL}/chat`, { question: message });
                         // Safety check – backend should return { answer: "..." }
@@ -1800,9 +1814,9 @@
                     }
                 }
             }
-            
+
             // Event delegation for chat box to handle clicks
-            document.addEventListener('click', function(e) {
+            document.addEventListener('click', function (e) {
                 // Close chat when clicking outside
                 if (!chatBox.contains(e.target) && e.target !== chatToggle && !chatToggle.contains(e.target)) {
                     if (!chatBox.classList.contains('hidden') && !isMinimized) {
@@ -1810,39 +1824,39 @@
                     }
                 }
             });
-            
+
             // Add keyboard navigation
-            document.addEventListener('keydown', function(e) {
+            document.addEventListener('keydown', function (e) {
                 // Toggle chat with Ctrl+Space
                 if (e.ctrlKey && e.code === 'Space') {
                     e.preventDefault();
                     toggleChat();
                 }
-                
+
                 // Close chat with Escape
                 if (e.key === 'Escape' && !chatBox.classList.contains('hidden')) {
                     e.preventDefault();
                     closeChat();
                 }
-                
+
                 // Focus chat input with / when chat is open
                 if (e.key === '/' && !chatBox.classList.contains('hidden') && document.activeElement !== chatInput) {
                     e.preventDefault();
                     chatInput.focus();
                 }
             });
-            
+
             // Initialize event listeners
             if (chatToggle) chatToggle.addEventListener('click', toggleChat);
             if (chatClose) chatClose.addEventListener('click', closeChat);
             if (chatMinimize) chatMinimize.addEventListener('click', minimizeChat);
             if (chatForm) chatForm.addEventListener('submit', handleSubmit);
-            
+
             // Add welcome message after a short delay
             setTimeout(() => {
                 if (!welcomeShown) { addMessage('bot', WELCOME_TEXT); welcomeShown = true; }
             }, 1000);
-            
+
             // Add animation for chat toggle button
             let isHovering = false;
             if (chatToggle) {
@@ -1855,364 +1869,157 @@
                         }
                     }, 1000);
                 });
-                
+
                 chatToggle.addEventListener('mouseleave', () => {
                     isHovering = false;
                     chatToggle.classList.remove('animate-bounce');
                 });
             }
-    }
+        }
     </script>
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const navToggle = document.getElementById('navToggle');
-        const navLinks = document.getElementById('navLinks');
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const navToggle = document.getElementById('navToggle');
+            const navLinks = document.getElementById('navLinks');
 
-        // Highlight active link
-        navLinks.querySelectorAll('a').forEach(a => {
-            if (a.getAttribute('href') === location.pathname.split('/').pop()) {
-                a.classList.add('text-green-600', 'font-semibold');
+            // Highlight active link
+            navLinks.querySelectorAll('a').forEach(a => {
+                if (a.getAttribute('href') === location.pathname.split('/').pop()) {
+                    a.classList.add('text-green-600', 'font-semibold');
+                }
+            });
+
+            if (navToggle && navLinks) {
+                navToggle.addEventListener('click', () => {
+                    navLinks.classList.toggle('hidden');
+                    navToggle.innerHTML = navLinks.classList.contains('hidden')
+                        ? '<i class="fas fa-bars text-2xl"></i>'
+                        : '<i class="fas fa-times text-2xl"></i>';
+                });
             }
+            // Close menu when a link is clicked (mobile)
+            navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+                if (window.innerWidth < 640) {
+                    navLinks.classList.add('hidden');
+                    navToggle.innerHTML = '<i class="fas fa-bars text-2xl"></i>';
+                }
+            }));
         });
+    </script>
+    <script>
 
-        if (navToggle && navLinks) {
-            navToggle.addEventListener('click', () => {
-                navLinks.classList.toggle('hidden');
-                navToggle.innerHTML = navLinks.classList.contains('hidden')
-                    ? '<i class="fas fa-bars text-2xl"></i>'
-                    : '<i class="fas fa-times text-2xl"></i>';
-            });
-        }
-        // Close menu when a link is clicked (mobile)
-        navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
-            if (window.innerWidth < 640) {
-                navLinks.classList.add('hidden');
-                navToggle.innerHTML = '<i class="fas fa-bars text-2xl"></i>';
-            }
-        }));
-    });
-</script>
-<script>
-    // Function to get user's location
-    async function getLocation() {
-        console.log('Starting location detection...');
-        console.log('Protocol:', window.location.protocol);
-        console.log('Hostname:', window.location.hostname);
-        
-        // Check if we're on a proper protocol for geolocation
-        const isFileProtocol = window.location.protocol === 'file:';
-        const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-        const isHTTPS = window.location.protocol === 'https:';
-        
-        if (isFileProtocol) {
-            console.warn('Geolocation not available with file:// protocol. Please run a local server. Falling back to IP-based location.');
-            return await getLocationByIP();
-        }
-        
-        if (!isHTTPS && !isLocalhost) {
-            console.warn('Geolocation requires HTTPS or localhost. Falling back to IP-based location.');
-            return await getLocationByIP();
-        }
-        
-        try {
-            // Check if geolocation is supported
-            if (!navigator.geolocation) {
-                console.error('Geolocation not supported by browser');
-                throw new Error('Geolocation is not supported by your browser');
-            }
-            
-            console.log('Geolocation API available, requesting position...');
-
-            // Request location with timeout
-            const position = await new Promise((resolve, reject) => {
-                const timeoutId = setTimeout(() => {
-                    reject(new Error('Location request timed out'));
-                }, 15000);
-                
-                navigator.geolocation.getCurrentPosition(
-                    (pos) => {
-                        clearTimeout(timeoutId);
-                        console.log('Position received:', pos);
-                        resolve(pos);
-                    },
-                    (err) => {
-                        clearTimeout(timeoutId);
-                        console.error('Geolocation error code:', err.code);
-                        console.error('Geolocation error message:', err.message);
-                        reject(new Error(err.message || 'Unable to get location'));
-                    },
-                    {
-                        enableHighAccuracy: true,  // Use high accuracy for better location
-                        timeout: 30000,  // Increase timeout to 30 seconds
-                        maximumAge: 60000  // Allow cached position up to 1 minute old
-                    }
-                );
-            });
-
-            const lat = position.coords.latitude;
-            const lon = position.coords.longitude;
-            console.log('Coordinates obtained:', lat, lon);
-            
-            // Update all location-related fields with null checks
-            const locationInput = document.getElementById('location');
-            if (locationInput) {
-                locationInput.value = `${lat.toFixed(4)}, ${lon.toFixed(4)}`;
-                console.log('Updated location field');
-            } else {
-                console.warn('Location input field not found');
-            }
-            
-            const latInput = document.getElementById('latitude');
-            if (latInput) {
-                latInput.value = lat;
-                console.log('Updated latitude field');
-            } else {
-                console.warn('Latitude input field not found');
-            }
-            
-            const lonInput = document.getElementById('longitude');
-            if (lonInput) {
-                lonInput.value = lon;
-                console.log('Updated longitude field');
-            } else {
-                console.warn('Longitude input field not found');
-            }
-            
-            // Update status message
-            const locationStatus = document.getElementById('locationStatus');
-            if (locationStatus) {
-                locationStatus.textContent = '✓ Location detected successfully';
-                locationStatus.classList.remove('text-gray-500', 'text-red-600', 'text-yellow-600');
-                locationStatus.classList.add('text-green-600');
-            }
-        } catch (error) {
-            console.warn('Primary geolocation failed:', error);
-            // Attempt fallback using IP-based lookup
-            await getLocationByIP();
-        }
-    }
-    
-    // Separate function for IP-based location
-    async function getLocationByIP() {
-        console.log('Attempting IP-based location...');
-        try {
-            const resp = await fetch('https://ipapi.co/json/');
-            if (!resp.ok) throw new Error('IP lookup failed');
-            const data = await resp.json();
-            console.log('IP location data:', data);
-            
-            const lat = parseFloat(data.latitude);
-            const lon = parseFloat(data.longitude);
-            
-            if (!isNaN(lat) && !isNaN(lon)) {
-                // Update location fields
-                const locationInput = document.getElementById('location');
-                if (locationInput) {
-                    locationInput.value = `${lat.toFixed(4)}, ${lon.toFixed(4)}`;
-                }
-                
-                const latInput = document.getElementById('latitude');
-                if (latInput) {
-                    latInput.value = lat;
-                }
-                
-                const lonInput = document.getElementById('longitude');
-                if (lonInput) {
-                    lonInput.value = lon;
-                }
-                
-                // Update status
-                const locStatus = document.getElementById('locationStatus');
-                if (locStatus) {
-                    // Provide helpful message for location issues
-                    if (error.message.includes('network service') || error.message.includes('timed out')) {
-                        locStatus.innerHTML = `⚠️ GPS unavailable. Using approximate location.<br>
-                            <small class="text-xs">Tip: Allow location access in browser & system settings</small>`;
-                        locStatus.classList.add('text-yellow-600');
-                    } else {
-                        locStatus.textContent = `Failed: ${error.message}`;
-                        locStatus.classList.add('text-red-600');
-                    }
-                    locStatus.classList.remove('text-gray-500', 'text-green-600');
-                }
-                
-                console.log('Location set via IP:', lat, lon);
-                return { lat, lon };
-            } else {
-                throw new Error('Invalid coordinates from IP lookup');
-            }
-        } catch (error) {
-            console.error('IP-based location lookup failed:', error);
-            
-            // Try a different IP service as backup
+        // Function to geocode city name to coordinates
+        async function geocodeLocation(locationText) {
             try {
-                const resp2 = await fetch('https://ip-api.com/json/');
-                const data2 = await resp2.json();
-                console.log('Backup IP location data:', data2);
-                
-                if (data2.status === 'success' && data2.lat && data2.lon) {
-                    const lat = parseFloat(data2.lat);
-                    const lon = parseFloat(data2.lon);
-                    
-                    // Update fields
-                    const locationInput = document.getElementById('location');
-                    if (locationInput) {
-                        locationInput.value = `${lat.toFixed(4)}, ${lon.toFixed(4)}`;
-                    }
-                    
-                    const latInput = document.getElementById('latitude');
-                    if (latInput) {
-                        latInput.value = lat;
-                    }
-                    
-                    const lonInput = document.getElementById('longitude');
-                    if (lonInput) {
-                        lonInput.value = lon;
-                    }
-                    
-                    const locStatus = document.getElementById('locationStatus');
-                    if (locStatus) {
-                        locStatus.textContent = '⚠ Approximate location via IP';
-                        locStatus.classList.remove('text-gray-500', 'text-red-600', 'text-green-600');
-                        locStatus.classList.add('text-yellow-600');
-                    }
-                    
-                    return { lat, lon };
+                // First, check if it's already coordinates (lat, lon format)
+                const coordPattern = /^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?),\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$/;
+                if (coordPattern.test(locationText.trim())) {
+                    const [lat, lon] = locationText.split(',').map(coord => parseFloat(coord.trim()));
+                    return { lat, lon, source: 'manual_coords' };
                 }
-            } catch (err2) {
-                console.error('Backup IP service also failed:', err2);
-            }
-            
-            // All methods failed
-            const locStatus = document.getElementById('locationStatus');
-            if (locStatus) {
-                locStatus.textContent = '✗ Unable to detect location';
-                locStatus.classList.remove('text-gray-500', 'text-green-600', 'text-yellow-600');
-                locStatus.classList.add('text-red-600');
-            }
-            
-            // Provide manual entry suggestion
-            const locationInput = document.getElementById('location');
-            if (locationInput) {
-                locationInput.placeholder = 'Enter city or coordinates manually';
-                locationInput.focus();
-            }
-            
-            alert('Unable to detect location automatically. Please enter your location manually or try again.');
-        }
-    }
 
-    // Function to geocode city name to coordinates
-    async function geocodeLocation(locationText) {
-        try {
-            // First, check if it's already coordinates (lat, lon format)
-            const coordPattern = /^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?),\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$/;
-            if (coordPattern.test(locationText.trim())) {
-                const [lat, lon] = locationText.split(',').map(coord => parseFloat(coord.trim()));
-                return { lat, lon, source: 'manual_coords' };
-            }
-            
-            // Otherwise, treat as city/address and geocode it
-            console.log('Geocoding location:', locationText);
-            
-            // Using OpenStreetMap's Nominatim API (free, no API key required)
-            const response = await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(locationText)}&format=json&limit=1`);
-            
-            if (!response.ok) {
-                throw new Error('Geocoding service unavailable');
-            }
-            
-            const data = await response.json();
-            
-            if (data && data.length > 0) {
-                const lat = parseFloat(data[0].lat);
-                const lon = parseFloat(data[0].lon);
-                const displayName = data[0].display_name;
-                
-                console.log('Geocoded to:', lat, lon, displayName);
-                return { lat, lon, displayName, source: 'geocoded' };
-            } else {
-                throw new Error('Location not found');
-            }
-        } catch (error) {
-            console.error('Geocoding error:', error);
-            throw error;
-        }
-    }
+                // Otherwise, treat as city/address and geocode it
+                console.log('Geocoding location:', locationText);
 
-    // Function to process location input and update coordinates
-    async function processLocationInput() {
-        const locationInput = document.getElementById('locationInput');
-        const locationStatus = document.getElementById('locationStatus');
-        const latInput = document.getElementById('latitude');
-        const lonInput = document.getElementById('longitude');
-        
-        if (!locationInput || !locationInput.value.trim()) {
-            if (locationStatus) {
-                locationStatus.textContent = '⚠️ Please enter a location or use detection';
-                locationStatus.className = 'text-xs text-yellow-600 mt-2 block';
-            }
-            return false;
-        }
-        
-        try {
-            // Show processing status
-            if (locationStatus) {
-                locationStatus.innerHTML = '<i class="fas fa-spinner fa-spin mr-1"></i> Processing location...';
-                locationStatus.className = 'text-xs text-blue-600 mt-2 block';
-            }
-            
-            const result = await geocodeLocation(locationInput.value);
-            
-            // Update hidden coordinate fields
-            if (latInput) latInput.value = result.lat;
-            if (lonInput) lonInput.value = result.lon;
-            
-            // Update status
-            if (locationStatus) {
-                if (result.source === 'manual_coords') {
-                    locationStatus.innerHTML = `✓ Coordinates set: ${result.lat.toFixed(4)}, ${result.lon.toFixed(4)}`;
+                // Using OpenStreetMap's Nominatim API (free, no API key required)
+                const response = await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(locationText)}&format=json&limit=1`);
+
+                if (!response.ok) {
+                    throw new Error('Geocoding service unavailable');
+                }
+
+                const data = await response.json();
+
+                if (data && data.length > 0) {
+                    const lat = parseFloat(data[0].lat);
+                    const lon = parseFloat(data[0].lon);
+                    const displayName = data[0].display_name;
+
+                    console.log('Geocoded to:', lat, lon, displayName);
+                    return { lat, lon, displayName, source: 'geocoded' };
                 } else {
-                    locationStatus.innerHTML = `✓ Location found: ${result.displayName || 'Geocoded successfully'}`;
+                    throw new Error('Location not found');
                 }
-                locationStatus.className = 'text-xs text-green-600 mt-2 block';
+            } catch (error) {
+                console.error('Geocoding error:', error);
+                throw error;
             }
-            
-            return true;
-        } catch (error) {
-            // Show error
-            if (locationStatus) {
-                locationStatus.innerHTML = `❌ ${error.message}. Please check your input or use detection.`;
-                locationStatus.className = 'text-xs text-red-600 mt-2 block';
-            }
-            return false;
         }
-    }
 
-    // Add event listener for location input to process on blur or Enter
-    document.addEventListener('DOMContentLoaded', function() {
-        const locationInput = document.getElementById('locationInput');
-        if (locationInput) {
-            // Process when user finishes typing (on blur)
-            locationInput.addEventListener('blur', async function() {
-                if (this.value.trim()) {
-                    await processLocationInput();
+        // Function to process location input and update coordinates
+        async function processLocationInput() {
+            const locationInput = document.getElementById('locationInput');
+            const locationStatus = document.getElementById('locationStatus');
+            const latInput = document.getElementById('latitude');
+            const lonInput = document.getElementById('longitude');
+
+            if (!locationInput || !locationInput.value.trim()) {
+                if (locationStatus) {
+                    locationStatus.textContent = '⚠️ Please enter a location or use detection';
+                    locationStatus.className = 'text-xs text-yellow-600 mt-2 block';
                 }
-            });
-            
-            // Process on Enter key
-            locationInput.addEventListener('keypress', async function(e) {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
+                return false;
+            }
+
+            try {
+                // Show processing status
+                if (locationStatus) {
+                    locationStatus.innerHTML = '<i class="fas fa-spinner fa-spin mr-1"></i> Processing location...';
+                    locationStatus.className = 'text-xs text-blue-600 mt-2 block';
+                }
+
+                const result = await geocodeLocation(locationInput.value);
+
+                // Update hidden coordinate fields
+                if (latInput) latInput.value = result.lat;
+                if (lonInput) lonInput.value = result.lon;
+
+                // Update status
+                if (locationStatus) {
+                    if (result.source === 'manual_coords') {
+                        locationStatus.innerHTML = `✓ Coordinates set: ${result.lat.toFixed(4)}, ${result.lon.toFixed(4)}`;
+                    } else {
+                        locationStatus.innerHTML = `✓ Location found: ${result.displayName || 'Geocoded successfully'}`;
+                    }
+                    locationStatus.className = 'text-xs text-green-600 mt-2 block';
+                }
+
+                return true;
+            } catch (error) {
+                // Show error
+                if (locationStatus) {
+                    locationStatus.innerHTML = `❌ ${error.message}. Please check your input or use detection.`;
+                    locationStatus.className = 'text-xs text-red-600 mt-2 block';
+                }
+                return false;
+            }
+        }
+
+        // Add event listener for location input to process on blur or Enter
+        document.addEventListener('DOMContentLoaded', function () {
+            const locationInput = document.getElementById('locationInput');
+            if (locationInput) {
+                // Process when user finishes typing (on blur)
+                locationInput.addEventListener('blur', async function () {
                     if (this.value.trim()) {
                         await processLocationInput();
                     }
-                }
-            });
-        }
-    });
+                });
 
-    // Mobile menu toggle functionality
-</script>
+                // Process on Enter key
+                locationInput.addEventListener('keypress', async function (e) {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        if (this.value.trim()) {
+                            await processLocationInput();
+                        }
+                    }
+                });
+            }
+        });
+
+        // Mobile menu toggle functionality
+    </script>
 </body>
+
 </html>
