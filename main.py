@@ -79,6 +79,8 @@ app.add_middleware(
 # Enable automatic GZip compression for faster responses
 app.add_middleware(GZipMiddleware, minimum_size=1000)
 
+
+
 # Serve static files (CSS, JS, images, etc.)
 app.mount(
     "/static",
@@ -361,10 +363,12 @@ class WeatherData(BaseModel):
     wind_speed: float
     solar_radiation: float
     soil_moisture: float
+    city_name: Optional[str] = "Unknown Region"
     
     def get_weather_summary(self) -> dict:
         """Generate a weather summary for the advisory"""
         return {
+            "city_name": self.city_name,
             "temperature": f"{self.temperature:.1f}" if self.temperature is not None else "N/A",
             "rain": self._get_rain_level() if self.humidity is not None else "N/A",
             "humidity": f"{self.humidity:.0f}" if self.humidity is not None else "N/A",
@@ -415,8 +419,8 @@ async def get_nasa_power_data(lat: float, lon: float):
         
         # Get current date
         now = datetime.now()
-        start_date = now.strftime("%Y%m%d")
-        end_date = now.strftime("%Y%m%d")  # Single day data
+        start_date = (now - timedelta(days=5)).strftime("%Y%m%d") # Fetch last 5 days to handle latency
+        end_date = now.strftime("%Y%m%d") 
         
         # Parameters for agriculture community
         params = {
@@ -458,109 +462,31 @@ async def get_nasa_power_data(lat: float, lon: float):
         parameters = properties["parameter"]
         logger.info(f"Parameters from response: {parameters}")
         
-        # Get temperature data with fallbacks
-        try:
-            temp_data = parameters.get("T2M", {})
-            if not temp_data:
-                raise ValueError("No temperature data found in response")
-                
-            mean_data = temp_data.get("MEAN", {})
-            if not mean_data:
-                raise ValueError("No MEAN temperature data found")
-                
-            all_data = mean_data.get("all", {})
-            if not all_data:
-                raise ValueError("No all-time temperature data found")
-                
-            value_data = all_data.get("value", {})
-            if not value_data:
-                raise ValueError("No temperature value data found")
-                
-            date_keys = list(value_data.keys())
-            if not date_keys:
-                raise ValueError("No available dates in temperature data")
-                
-            date_key = date_keys[0]
-            logger.info(f"Using date key: {date_key}")
-            temperature = value_data.get(date_key, 25.0)  # Default to 25°C
-            
-        except ValueError as e:
-            logger.error(f"Error extracting temperature data: {e}")
-            temperature = 25.0  # Fallback to default temperature
-            
-        # Get humidity data with fallbacks
-        try:
-            humidity_data = parameters.get("RH2M", {})
-            if not humidity_data:
-                raise ValueError("No humidity data found in response")
-                
-            mean_data = humidity_data.get("MEAN", {})
-            if not mean_data:
-                raise ValueError("No MEAN humidity data found")
-                
-            all_data = mean_data.get("all", {})
-            if not all_data:
-                raise ValueError("No all-time humidity data found")
-                
-            value_data = all_data.get("value", {})
-            if not value_data:
-                raise ValueError("No humidity value data found")
-                
-            humidity = value_data.get(date_key, 70.0)  # Default to 70%
-            
-        except ValueError as e:
-            logger.error(f"Error extracting humidity data: {e}")
-            humidity = 70.0  # Fallback to default humidity
-            
-        # Get wind speed data with fallbacks
-        try:
-            wind_data = parameters.get("WS2M", {})
-            if not wind_data:
-                raise ValueError("No wind speed data found in response")
-                
-            mean_data = wind_data.get("MEAN", {})
-            if not mean_data:
-                raise ValueError("No MEAN wind speed data found")
-                
-            all_data = mean_data.get("all", {})
-            if not all_data:
-                raise ValueError("No all-time wind speed data found")
-                
-            value_data = all_data.get("value", {})
-            if not value_data:
-                raise ValueError("No wind speed value data found")
-                
-            wind_speed = value_data.get(date_key, 2.0)  # Default to 2m/s
-            
-        except ValueError as e:
-            logger.error(f"Error extracting wind speed data: {e}")
-            wind_speed = 2.0  # Fallback to default wind speed
-            
-        # Get solar radiation data with fallbacks
-        try:
-            solar_data = parameters.get("ALLSKY_SFC_SW_DWN", {})
-            if not solar_data:
-                raise ValueError("No solar radiation data found in response")
-                
-            mean_data = solar_data.get("MEAN", {})
-            if not mean_data:
-                raise ValueError("No MEAN solar radiation data found")
-                
-            all_data = mean_data.get("all", {})
-            if not all_data:
-                raise ValueError("No all-time solar radiation data found")
-                
-            value_data = all_data.get("value", {})
-            if not value_data:
-                raise ValueError("No solar radiation value data found")
-                
-            solar_radiation = value_data.get(date_key, 18.0)  # Default to 18 MJ/m²/day
-            
-        except ValueError as e:
-            logger.error(f"Error extracting solar radiation data: {e}")
-            solar_radiation = 18.0  # Fallback to default solar radiation
-            
-        logger.info(f"Extracted values: temperature={temperature}, humidity={humidity}, wind_speed={wind_speed}, solar_radiation={solar_radiation}")
+        # Helper to get the most recent valid value (not -999.0 or -99.0)
+        def get_recent_valid_value(param_name, default_val):
+            try:
+                values = parameters.get(param_name, {}).get("MEAN", {}).get("all", {}).get("value", {})
+                if not values:
+                    return default_val
+                # Sort dates descending
+                from collections import OrderedDict
+                sorted_dates = sorted(values.keys(), reverse=True)
+                for date in sorted_dates:
+                    val = values[date]
+                    if val != -999.0 and val != -99.0:
+                        return val
+                return default_val
+            except Exception as e:
+                logger.error(f"Error extracting {param_name} data: {e}")
+                return default_val
+
+        # Extract most recent valid values
+        temperature = get_recent_valid_value("T2M", 25.0)
+        humidity = get_recent_valid_value("RH2M", 70.0)
+        wind_speed = get_recent_valid_value("WS2M", 2.0)
+        solar_radiation = get_recent_valid_value("ALLSKY_SFC_SW_DWN", 18.0)
+        
+        logger.info(f"Extracted valid values: temperature={temperature}, humidity={humidity}, wind_speed={wind_speed}, solar_radiation={solar_radiation}")
         
         # Calculate soil moisture from humidity (simplified approximation)
         soil_moisture = humidity / 100.0  # Convert percentage to fraction
@@ -613,26 +539,33 @@ async def get_soilgrids_data(lat: float, lon: float):
                 return resp.json()
 
         # Launch SoilGrids requests concurrently
-        ph_data, moisture_data, texture_data = await asyncio.gather(
+        # Note: Do not fetch bdod for moisture, it's bulk density
+        ph_data, texture_data = await asyncio.gather(
             make_request("phh2o"),
-            make_request("bdod"),
             make_request("sltp")
         )
 
-        moisture_percentage = moisture_data["properties"]["value"] / 100.0
         texture_value = texture_data["properties"]["value"]
         if texture_value < 20:
             texture_type = "Clay"
+            moisture_percentage = 0.40 # Default field capacity for Clay
         elif texture_value < 40:
             texture_type = "Sandy Clay"
+            moisture_percentage = 0.35
         elif texture_value < 60:
             texture_type = "Loam"
+            moisture_percentage = 0.30 # Default field capacity for Loam
         else:
             texture_type = "Sand"
+            moisture_percentage = 0.15 # Default field capacity for Sand
+            
+        # pH value is returned multiplied by 10 (e.g. 65 means 6.5)
+        raw_ph = ph_data["properties"]["value"]
+        actual_ph = raw_ph / 10.0 if raw_ph else 6.0
 
-        logger.info(f"Soil data fetched successfully: pH={ph_data['properties']['value']}, moisture={moisture_percentage}, type={texture_type}")
+        logger.info(f"Soil data fetched successfully: pH={actual_ph}, moisture={moisture_percentage}, type={texture_type}")
         return SoilData(
-            ph=ph_data["properties"]["value"],
+            ph=actual_ph,
             moisture=moisture_percentage,
             type=texture_type
         )
@@ -661,36 +594,58 @@ async def get_weather_data(lat: float, lon: float):
                 resp.raise_for_status()
                 return resp.json()
 
-        # Run NASA POWER and OpenWeatherMap calls concurrently
         nasa_task = asyncio.create_task(get_nasa_power_data(lat, lon))
         owm_task = asyncio.create_task(fetch_openweather())
-        nasa_data, owm_data = await asyncio.gather(nasa_task, owm_task)
+        nasa_data, owm_data = await asyncio.gather(nasa_task, owm_task, return_exceptions=True)
 
-        if "list" not in owm_data:
-            logger.error("Invalid OpenWeatherMap response format")
-            raise HTTPException(status_code=500, detail="Invalid OpenWeatherMap response format")
-
+        owm_has_error = isinstance(owm_data, Exception) or "list" not in owm_data
+        nasa_has_error = isinstance(nasa_data, Exception)
+        
+        if owm_has_error and nasa_has_error:
+            logger.error("Both OpenWeatherMap and NASA POWER failed")
+            raise HTTPException(status_code=500, detail="Failed to fetch weather data from all sources")
+            
+        # Extract OpenWeather Data (Primary for Temp, Humidity, Wind)
         temp_sum = rain_sum = humidity_sum = wind_sum = count = 0
-        for forecast in owm_data["list"][:8]:
-            main = forecast.get("main", {})
-            temp_sum += main.get("temp", 0)
-            humidity_sum += main.get("humidity", 0)
-            rain_sum += forecast.get("rain", {}).get("3h", 0)
-            wind_sum += forecast.get("wind", {}).get("speed", 0)
-            count += 1
+        if not owm_has_error:
+            for forecast in owm_data["list"][:8]:  # Next 24 hours
+                main = forecast.get("main", {})
+                temp_sum += main.get("temp", 0)
+                humidity_sum += main.get("humidity", 0)
+                rain_sum += forecast.get("rain", {}).get("3h", 0)
+                wind_sum += forecast.get("wind", {}).get("speed", 0)
+                count += 1
+                
+        # Use OWM as primary source of real-time metrics, fallback to NASA POWER
+        if count > 0:
+            final_temp = temp_sum / count
+            final_humidity = humidity_sum / count
+            final_wind = wind_sum / count
+        elif not nasa_has_error:
+            final_temp = nasa_data.temperature
+            final_humidity = nasa_data.humidity
+            final_wind = nasa_data.wind_speed
+        else:
+            raise HTTPException(status_code=502, detail="Incomplete weather data received")
 
-        if count == 0:
-            logger.error("No forecast data received from OpenWeatherMap")
-            raise HTTPException(status_code=502, detail="No forecast data from OpenWeatherMap")
+        # Use NASA POWER for solar radiation and soil moisture proxy, with fallback defaults
+        final_solar = nasa_data.solar_radiation if not nasa_has_error else 18.0
+        final_moisture = nasa_data.soil_moisture if not nasa_has_error else min(final_humidity / 100.0, 1.0)
 
-        logger.info(f"Calculated weather averages: temp={temp_sum/count}, rain={rain_sum}, humidity={humidity_sum/count}, wind={wind_sum/count}")
+        # Extract City Name for Location context
+        city_name = "Unknown Region"
+        if not owm_has_error and "city" in owm_data:
+            city_name = owm_data["city"].get("name", "Unknown Region")
+
+        logger.info(f"Final calculated weather: temp={final_temp}, rain={rain_sum}, humidity={final_humidity}, wind={final_wind}, city={city_name}")
 
         return WeatherData(
-            temperature=(temp_sum / count + nasa_data.temperature) / 2,
-            humidity=humidity_sum / count,
-            wind_speed=wind_sum / count,
-            solar_radiation=nasa_data.solar_radiation,
-            soil_moisture=nasa_data.soil_moisture
+            temperature=final_temp,
+            humidity=final_humidity,
+            wind_speed=final_wind,
+            solar_radiation=final_solar,
+            soil_moisture=final_moisture,
+            city_name=city_name
         )
     except (httpx.HTTPError, ValueError) as e:
         logger.error(f"HTTP error fetching weather data: {e}")
@@ -971,6 +926,51 @@ async def translate_text(payload: dict):
     except Exception as e:
         logger.error(f"Error translating text: {str(e)}")
         raise HTTPException(status_code=500, detail="Failed to translate text")
+
+@app.post("/market-price")
+async def get_market_price(payload: dict):
+    """Fetch estimated real-time market prices for a specific crop and location"""
+    try:
+        crop_type = payload.get("crop_type")
+        location_data = payload.get("location_data", "Unknown Region")
+        
+        if not crop_type:
+            raise HTTPException(status_code=400, detail="Crop type is required")
+            
+        # Ensure OpenAI API key is configured
+        if not openai_client.api_key:
+            logger.error("OpenAI API key is not configured.")
+            raise HTTPException(status_code=500, detail="OpenAI API key not configured")
+
+        prompt = (
+            f"You are an agricultural commodities expert. I need the estimated current local market price "
+            f"for '{crop_type}' in or near '{location_data}'.\n"
+            f"Provide a short, 2-line response: \n"
+            f"1. The estimated price range in local currency per standard unit (e.g. per kg, ton, or bag).\n"
+            f"2. A brief note on the current market trend (e.g. 'Prices are rising due to off-season').\n"
+            f"Do not write any other introductory text."
+        )
+
+        from openai import OpenAIError
+        response = await openai_client.chat.completions.create(
+            model=openai_settings["model"],
+            messages=[{"role": "user", "content": prompt}],
+            temperature=0.2,
+            max_tokens=150
+        )
+        price_estimation = response.choices[0].message.content.strip()
+        logger.info(f"Market price generated for {crop_type} at {location_data}")
+        return {"price_estimation": price_estimation}
+        
+    except HTTPException:
+        raise
+    except OpenAIError as e:
+        logger.error(f"OpenAI API error: {str(e)}")
+        raise HTTPException(status_code=502, detail="Upstream OpenAI error during market price estimation")
+    except Exception as e:
+        logger.error(f"Error fetching market price: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to retrieve market prices")
+
 
 # ---------------------------------------------------------------------------
 # Chat endpoint: Ask Me Anything for agriculture questions

@@ -248,50 +248,45 @@
                     </select>
                 </div>
 
-                <!-- Location Input with Icon -->
+                <!-- Sleek Location Detection Card -->
                 <div class="group">
-                    <label for="location" class="block text-sm font-semibold text-gray-700 mb-2">
-                        <i class="fas fa-location-dot text-sky-600 mr-2"></i>
-                        Your Location
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">
+                        <i class="fas fa-map-marker-alt text-sky-600 mr-2"></i>
+                        Farm Location
                     </label>
-                    <div class="relative">
-                        <input type="text" id="location" name="location" placeholder="Enter city or coordinates"
-                            autocomplete="off"
-                            class="block w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:border-sky-500 focus:ring-2 focus:ring-sky-200 transition-all duration-200 hover:bg-gray-100">
-                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                            <i class="fas fa-map-marker-alt text-gray-400"></i>
+
+                    <button type="button" id="getLocationBtn"
+                        class="w-full relative overflow-hidden bg-white hover:bg-sky-50 border-2 border-sky-100 hover:border-sky-300 rounded-2xl p-4 transition-all duration-300 shadow-sm hover:shadow-md flex items-center justify-between group">
+                        <div class="flex items-center text-left">
+                            <div
+                                class="w-12 h-12 rounded-full bg-sky-100 text-sky-600 flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
+                                <i class="fas fa-location-crosshairs text-xl"></i>
+                            </div>
+                            <div>
+                                <p class="font-bold text-gray-900 text-lg">Detect My Farm</p>
+                                <p id="locationStatus" class="text-sm text-gray-500">Tap to get precise weather & soil
+                                    data</p>
+                            </div>
                         </div>
-                    </div>
+                        <i class="fas fa-chevron-right text-gray-400 group-hover:text-sky-500 transition-colors"></i>
+                    </button>
+
+                    <!-- Hidden inputs for backend -->
+                    <input type="hidden" id="location" name="location">
+                    <input type="hidden" id="latitude" name="latitude">
+                    <input type="hidden" id="longitude" name="longitude">
                 </div>
 
-                <!-- Location Detection Card -->
-                <div id="locationInfo"
-                    class="bg-gradient-to-r from-sky-50 to-emerald-50 rounded-xl p-4 border border-sky-100">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <p class="font-medium text-gray-700 mb-1">Use Current Location</p>
-                            <p class="text-sm text-gray-600">Get precise local weather and soil data</p>
-                        </div>
-                        <button type="button" id="getLocationBtn"
-                            class="px-6 py-3 bg-gradient-to-r from-sky-500 to-sky-600 text-white font-medium rounded-xl hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 flex items-center">
-                            <i class="fas fa-location-crosshairs mr-2"></i>
-                            <span>Detect</span>
-                        </button>
-                    </div>
-                    <span id="locationStatus" class="text-xs text-gray-500 mt-2 block"></span>
+                <!-- Massive CTA Button -->
+                <div class="pt-4">
+                    <button type="submit" id="submitBtn"
+                        class="w-full py-5 bg-gradient-to-r from-emerald-500 to-green-600 text-white font-bold text-xl rounded-2xl shadow-[0_8px_30px_rgb(16,185,129,0.3)] hover:shadow-[0_8px_30px_rgb(16,185,129,0.5)] transform hover:-translate-y-1 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none group">
+                        <span class="flex items-center justify-center">
+                            Get AI Farm Plan
+                            <i class="fas fa-arrow-right ml-3 group-hover:translate-x-1 transition-transform"></i>
+                        </span>
+                    </button>
                 </div>
-
-                <input type="hidden" id="latitude" name="latitude">
-                <input type="hidden" id="longitude" name="longitude">
-
-                <!-- Submit Button with Gradient -->
-                <button type="submit" id="submitBtn"
-                    class="w-full py-4 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white font-semibold rounded-xl hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed group">
-                    <span class="flex items-center justify-center">
-                        <i class="fas fa-magic mr-2 group-hover:animate-pulse"></i>
-                        Get AI-Powered Insights
-                    </span>
-                </button>
             </form>
         </div>
 
@@ -321,71 +316,78 @@
                 </div>
 
                 <!-- Weather Metrics Grid -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <!-- Apple-style minimal glassmorphism grid -->
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-5">
                     <!-- Temperature -->
-                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-100">
-                        <div class="flex items-center justify-between">
-                            <div class="flex items-center">
-                                <i class="fas fa-thermometer-half text-red-500 text-xl mr-2"></i>
-                                <span class="text-sm font-medium text-gray-600">Temperature</span>
-                            </div>
-                            <span id="temperature" class="text-gray-800 font-semibold">--°C</span>
+                    <div
+                        class="bg-gradient-to-br from-red-50 to-orange-50 p-5 rounded-2xl border border-red-100 flex flex-col items-center justify-center text-center shadow-sm hover:shadow-md transition-shadow">
+                        <div
+                            class="w-12 h-12 bg-white rounded-full flex items-center justify-center mb-3 shadow-sm text-red-500 text-2xl">
+                            <i class="fas fa-temperature-high"></i>
                         </div>
+                        <span
+                            class="text-xs font-semibold tracking-wider text-red-800/70 uppercase mb-1">Temperature</span>
+                        <span id="temperature" class="text-2xl font-bold text-gray-900 tracking-tight">--°C</span>
                     </div>
 
                     <!-- Rainfall -->
-                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-100">
-                        <div class="flex items-center justify-between">
-                            <div class="flex items-center">
-                                <i class="fas fa-cloud-rain text-blue-500 text-xl mr-2"></i>
-                                <span class="text-sm font-medium text-gray-600">Rainfall</span>
-                            </div>
-                            <span id="rainfall" class="text-gray-800 font-semibold">-- mm</span>
+                    <div
+                        class="bg-gradient-to-br from-blue-50 to-sky-50 p-5 rounded-2xl border border-blue-100 flex flex-col items-center justify-center text-center shadow-sm hover:shadow-md transition-shadow">
+                        <div
+                            class="w-12 h-12 bg-white rounded-full flex items-center justify-center mb-3 shadow-sm text-blue-500 text-2xl">
+                            <i class="fas fa-cloud-showers-heavy"></i>
                         </div>
+                        <span
+                            class="text-xs font-semibold tracking-wider text-blue-800/70 uppercase mb-1">Rainfall</span>
+                        <span id="rainfall" class="text-2xl font-bold text-gray-900 tracking-tight">-- mm</span>
                     </div>
 
                     <!-- Humidity -->
-                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-100">
-                        <div class="flex items-center justify-between">
-                            <div class="flex items-center">
-                                <i class="fas fa-tint text-blue-400 text-xl mr-2"></i>
-                                <span class="text-sm font-medium text-gray-600">Humidity</span>
-                            </div>
-                            <span id="humidity" class="text-gray-800 font-semibold">--%</span>
+                    <div
+                        class="bg-gradient-to-br from-cyan-50 to-teal-50 p-5 rounded-2xl border border-cyan-100 flex flex-col items-center justify-center text-center shadow-sm hover:shadow-md transition-shadow">
+                        <div
+                            class="w-12 h-12 bg-white rounded-full flex items-center justify-center mb-3 shadow-sm text-cyan-500 text-2xl">
+                            <i class="fas fa-tint"></i>
                         </div>
+                        <span
+                            class="text-xs font-semibold tracking-wider text-cyan-800/70 uppercase mb-1">Humidity</span>
+                        <span id="humidity" class="text-2xl font-bold text-gray-900 tracking-tight">--%</span>
                     </div>
 
                     <!-- Wind Speed -->
-                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-100">
-                        <div class="flex items-center justify-between">
-                            <div class="flex items-center">
-                                <i class="fas fa-wind text-gray-500 text-xl mr-2"></i>
-                                <span class="text-sm font-medium text-gray-600">Wind Speed</span>
-                            </div>
-                            <span id="windSpeed" class="text-gray-800 font-semibold">-- km/h</span>
+                    <div
+                        class="bg-gradient-to-br from-gray-50 to-slate-100 p-5 rounded-2xl border border-gray-200 flex flex-col items-center justify-center text-center shadow-sm hover:shadow-md transition-shadow">
+                        <div
+                            class="w-12 h-12 bg-white rounded-full flex items-center justify-center mb-3 shadow-sm text-gray-600 text-2xl">
+                            <i class="fas fa-wind"></i>
                         </div>
+                        <span class="text-xs font-semibold tracking-wider text-gray-600 uppercase mb-1">Wind
+                            Speed</span>
+                        <span id="windSpeed" class="text-2xl font-bold text-gray-900 tracking-tight">-- km/h</span>
                     </div>
 
                     <!-- Solar Radiation -->
-                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-100">
-                        <div class="flex items-center justify-between">
-                            <div class="flex items-center">
-                                <i class="fas fa-sun text-yellow-500 text-xl mr-2"></i>
-                                <span class="text-sm font-medium text-gray-600">Solar Radiation</span>
-                            </div>
-                            <span id="solarRadiation" class="text-gray-800 font-semibold">-- W/m²</span>
+                    <div
+                        class="bg-gradient-to-br from-amber-50 to-yellow-50 p-5 rounded-2xl border border-amber-100 flex flex-col items-center justify-center text-center shadow-sm hover:shadow-md transition-shadow">
+                        <div
+                            class="w-12 h-12 bg-white rounded-full flex items-center justify-center mb-3 shadow-sm text-amber-500 text-2xl">
+                            <i class="fas fa-sun"></i>
                         </div>
+                        <span class="text-xs font-semibold tracking-wider text-amber-800/70 uppercase mb-1">Solar
+                            Rad</span>
+                        <span id="solarRadiation" class="text-2xl font-bold text-gray-900 tracking-tight">-- W/m²</span>
                     </div>
 
                     <!-- Soil Moisture -->
-                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-100">
-                        <div class="flex items-center justify-between">
-                            <div class="flex items-center">
-                                <i class="fas fa-seedling text-green-600 text-xl mr-2"></i>
-                                <span class="text-sm font-medium text-gray-600">Soil Moisture</span>
-                            </div>
-                            <span id="soilMoisture" class="text-gray-800 font-semibold">--%</span>
+                    <div
+                        class="bg-gradient-to-br from-emerald-50 to-green-50 p-5 rounded-2xl border border-emerald-100 flex flex-col items-center justify-center text-center shadow-sm hover:shadow-md transition-shadow">
+                        <div
+                            class="w-12 h-12 bg-white rounded-full flex items-center justify-center mb-3 shadow-sm text-emerald-600 text-2xl">
+                            <i class="fas fa-seedling"></i>
                         </div>
+                        <span class="text-xs font-semibold tracking-wider text-emerald-800/70 uppercase mb-1">Soil
+                            Moisture</span>
+                        <span id="soilMoisture" class="text-2xl font-bold text-gray-900 tracking-tight">--%</span>
                     </div>
                 </div>
 
@@ -423,63 +425,113 @@
                 <div class="mb-4">
                     <h3 class="font-semibold mb-2">Advice</h3>
                     <div id="advice-text" class="max-w-full"></div>
-                    <div id="translation-result" class="mt-4 text-blue-700 whitespace-pre-wrap"></div>
-                    <!-- Audio controls -->
-                    <div id="audio-controls" class="mt-2 hidden flex space-x-2">
-                        <button id="play-audio-btn"
-                            class="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-600" disabled>
-                            Play Audio
-                        </button>
-                        <button id="stop-audio-btn"
-                            class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 hidden">
-                            Stop
-                        </button>
+                    <!-- Advice Toolbar: Translate & Audio -->
+                    <div
+                        class="mt-6 bg-gradient-to-r from-gray-50 to-white border border-gray-100 rounded-xl p-4 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+                        <div class="flex-1 w-full max-w-xs">
+                            <label for="language-select"
+                                class="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">Translate
+                                Advice</label>
+                            <div class="flex gap-2">
+                                <select id="language-select"
+                                    class="block w-full text-sm rounded-lg border-gray-200 bg-white focus:border-blue-500 focus:ring-blue-500 py-2 shadow-sm">
+                                    <option value="yo">Yoruba</option>
+                                    <option value="ha">Hausa</option>
+                                    <option value="ig">Igbo</option>
+                                    <option value="fr">French</option>
+                                    <option value="es">Spanish</option>
+                                </select>
+                                <button id="translate-btn"
+                                    class="px-4 py-2 bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-200 rounded-lg text-sm font-medium transition-colors whitespace-nowrap">
+                                    <i class="fas fa-language mr-1"></i>Translate
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Audio controls -->
+                        <div id="audio-controls"
+                            class="hidden flex items-center justify-end border-l border-gray-200 pl-4">
+                            <button id="play-audio-btn"
+                                class="flex items-center justify-center w-10 h-10 bg-purple-100 text-purple-700 hover:bg-purple-200 rounded-full transition-colors disabled:opacity-50"
+                                title="Play Audio">
+                                <i class="fas fa-play"></i>
+                            </button>
+                            <button id="stop-audio-btn"
+                                class="hidden flex items-center justify-center w-10 h-10 bg-red-100 text-red-700 hover:bg-red-200 rounded-full transition-colors ml-2"
+                                title="Stop Audio">
+                                <i class="fas fa-stop"></i>
+                            </button>
+                        </div>
                     </div>
-                    <!-- Language selection for translation -->
-                    <div class="mt-4">
-                        <label for="language-select" class="block text-sm font-medium text-gray-700 mb-1">Translate
-                            to:</label>
-                        <select id="language-select"
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                            <option value="yo">Yoruba</option>
-                            <option value="ha">Hausa</option>
-                            <option value="ig">Igbo</option>
-                            <option value="fr">French</option>
-                            <option value="es">Spanish</option>
-                        </select>
+                    <div id="translation-result"
+                        class="mt-4 text-blue-800 bg-blue-50/50 rounded-lg p-4 text-sm leading-relaxed whitespace-pre-wrap hidden">
                     </div>
                 </div>
 
-                <!-- Dynamic Crop Calendar -->
-                <div id="calendar-section" class="mt-6 hidden">
-                    <h3 class="text-lg font-semibold mb-2">Crop Calendar</h3>
-                    <div class="overflow-x-auto">
-                        <table id="calendar-table" class="min-w-full divide-y divide-gray-200 text-sm"></table>
+                <!-- Data & Insights Section (Calendar & Yield) -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8">
+                    <!-- Dynamic Crop Calendar -->
+                    <div id="calendar-section"
+                        class="hidden bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden flex-1">
+                        <div class="bg-gray-50 border-b border-gray-200 px-6 py-4">
+                            <h3 class="text-lg font-bold text-gray-900 flex items-center">
+                                <i class="far fa-calendar-check text-indigo-500 mr-2"></i>Crop Calendar
+                            </h3>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table id="calendar-table" class="min-w-full divide-y divide-gray-200 text-sm"></table>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col gap-6 flex-1">
+                        <!-- Yield Forecast -->
+                        <div id="yield-section"
+                            class="hidden bg-gradient-to-br from-emerald-50 to-green-50 border border-emerald-100 rounded-2xl p-6 shadow-sm">
+                            <h3
+                                class="text-sm font-bold text-emerald-800 uppercase tracking-wide mb-1 flex items-center">
+                                <i class="fas fa-chart-line text-emerald-500 mr-2"></i>Yield Forecast
+                            </h3>
+                            <p id="yield-value" class="text-3xl font-black text-gray-900 tracking-tight mt-2"></p>
+                        </div>
+
+                        <!-- Market Price -->
+                        <div id="market-price-section"
+                            class="hidden bg-gradient-to-br from-indigo-50 to-purple-50 border border-indigo-100 rounded-2xl p-6 shadow-sm">
+                            <h3
+                                class="text-sm font-bold text-indigo-800 uppercase tracking-wide mb-1 flex items-center">
+                                <i class="fas fa-coins text-indigo-500 mr-2"></i>Market Price Estimate
+                            </h3>
+                            <div id="market-price-content" class="text-gray-800 mt-2 space-y-2">
+                                <div class="flex items-center space-x-2 text-indigo-600">
+                                    <i class="fas fa-spinner fa-spin"></i>
+                                    <span class="text-sm font-medium">Analyzing local market data...</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Upcoming Alerts -->
+                        <div id="alerts-section"
+                            class="hidden bg-white border border-amber-100 rounded-2xl p-6 shadow-sm relative overflow-hidden">
+                            <div
+                                class="absolute top-0 right-0 w-16 h-16 bg-gradient-to-bl from-amber-100 to-transparent rounded-bl-full opacity-50">
+                            </div>
+                            <h3 class="text-sm font-bold text-amber-800 uppercase tracking-wide mb-3 flex items-center">
+                                <i class="fas fa-bell text-amber-500 mr-2"></i>Upcoming Alerts
+                            </h3>
+                            <div id="alerts-container" class="flex flex-col gap-3"></div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Yield Forecast -->
-                <div id="yield-section" class="mt-6 hidden">
-                    <h3 class="text-lg font-semibold mb-2">Yield Forecast</h3>
-                    <p id="yield-value" class="text-green-700 font-semibold"></p>
-                </div>
-
-                <!-- Upcoming Alerts -->
-                <div id="alerts-section" class="mt-4 hidden">
-                    <h3 class="text-lg font-semibold mb-2">Upcoming Alerts</h3>
-                    <div id="alerts-container" class="flex flex-wrap gap-2"></div>
-                </div>
-
-                <div class="mb-4">
-                    <h3 class="font-semibold mb-2">Tip</h3>
+                <div class="mt-6">
                     <div id="advice-tip"></div>
                 </div>
 
-                <div class="flex justify-end gap-2">
+                <!-- Primary Bottom Actions -->
+                <div class="border-t border-gray-100 mt-8 pt-6 flex justify-end">
                     <button id="download-btn"
-                        class="px-4 py-2 bg-indigo-500 text-white rounded hover:bg-indigo-600">Download Advice</button>
-                    <button id="translate-btn" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-                        <span class="text-white">Translate to Local Language</span>
+                        class="px-6 py-3 bg-indigo-600 text-white font-medium rounded-xl hover:bg-indigo-700 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 flex items-center">
+                        <i class="fas fa-download mr-2"></i>Download Advice PDF
                     </button>
                 </div>
             </div>
@@ -1072,6 +1124,10 @@
 
                 // Update results
                 const adviceMarkdown = response.data.advice;
+
+                // Stash original Markdown for better translation accuracy
+                window.lastAdviceMarkdown = adviceMarkdown;
+
                 let adviceHtml = adviceMarkdown;
                 if (typeof marked !== 'undefined') {
                     adviceHtml = marked.parse(adviceMarkdown);
@@ -1080,7 +1136,7 @@
                 adviceContainer.innerHTML = adviceHtml;
                 wrapAdviceInCards(adviceContainer);
                 // Clear previous translation
-                document.getElementById('translation-result').textContent = '';
+                document.getElementById('translation-result').innerHTML = '';
                 // Cache latest advice for offline use
                 try { localStorage.setItem('lastAdvice', JSON.stringify(response.data)); } catch (e) { console.warn('Unable to cache advice', e); }
 
@@ -1114,7 +1170,38 @@
                 // Update date and location
                 const now = new Date();
                 document.getElementById('date').textContent = now.toLocaleDateString();
-                document.getElementById('location').textContent = `Latitude: ${latitude}, Longitude: ${longitude}`;
+                const resolvedCity = response.data.weather?.city_name || "Unknown Region";
+                document.getElementById('location').textContent = `${resolvedCity} (Lat: ${parseFloat(latitude).toFixed(2)}, Lon: ${parseFloat(longitude).toFixed(2)})`;
+
+                // Call Market Price Endpoint asynchronously
+                const marketSec = document.getElementById('market-price-section');
+                const marketContent = document.getElementById('market-price-content');
+                marketSec.classList.remove('hidden');
+                marketContent.innerHTML = `
+                    <div class="flex items-center space-x-2 text-indigo-600">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <span class="text-sm font-medium">Analyzing local market data for ${resolvedCity}...</span>
+                    </div>`;
+
+                axios.post(`${API_BASE_URL}/market-price`, {
+                    crop_type: cropSelect.value,
+                    location_data: resolvedCity
+                }).then(marketResp => {
+                    const priceData = marketResp.data.price_estimation;
+                    // Format response lines as proper HTML
+                    const lines = priceData.split('\n').filter(l => l.trim().length > 0);
+                    let htmlContent = '';
+                    if (lines.length > 0) {
+                        htmlContent += `<p class="text-xl font-black text-gray-900 tracking-tight">${lines[0].replace(/^1\.\s*/, '')}</p>`;
+                    }
+                    if (lines.length > 1) {
+                        htmlContent += `<p class="text-sm text-indigo-700 mt-2 font-medium flex items-start"><i class="fas fa-info-circle mt-1 mr-2 opacity-75"></i><span>${lines[1].replace(/^2\.\s*/, '')}</span></p>`;
+                    }
+                    marketContent.innerHTML = htmlContent;
+                }).catch(marketErr => {
+                    console.error("Failed to fetch market price", marketErr);
+                    marketContent.innerHTML = `<p class="text-sm text-red-600"><i class="fas fa-exclamation-circle mr-1"></i> Market data temporarily unavailable.</p>`;
+                });
 
                 // Show advice section
                 document.getElementById('advice').classList.remove('hidden');
@@ -1166,7 +1253,7 @@
 
         // Function to handle translation requests
         async function handleTranslate() {
-            const advice = document.getElementById('advice-text').innerText.trim();
+            const advice = window.lastAdviceMarkdown || document.getElementById('advice-text').innerText.trim();
             if (!advice) {
                 alert('No advice available to translate');
                 return;
@@ -1182,14 +1269,39 @@
                     text: advice,
                     target_language: targetLang
                 });
-                document.getElementById('translation-result').innerHTML = response.data.translation;
+                const transContainer = document.getElementById('translation-result');
+                transContainer.classList.remove('hidden');
+
+                let translatedHtml = response.data.translation;
+                if (typeof marked !== 'undefined') {
+                    translatedHtml = marked.parse(response.data.translation);
+                }
+                transContainer.innerHTML = translatedHtml;
+
+                // Apply sleek UI styling to the raw HTML tags inside translation container
+                transContainer.className = "mt-6 text-blue-900 bg-blue-50 border border-blue-100 rounded-2xl p-6 shadow-sm";
+                transContainer.querySelectorAll('h1, h2, h3, h4').forEach(el => el.className = 'font-bold text-lg mt-5 mb-3 text-blue-900 border-b border-blue-200/50 pb-2 flex items-center gap-2');
+                transContainer.querySelectorAll('ul, ol').forEach(el => el.className = 'list-none space-y-3 ml-2 my-4');
+                transContainer.querySelectorAll('li').forEach(el => {
+                    el.className = 'flex items-start group text-blue-900 text-sm md:text-base leading-relaxed';
+                    const icon = document.createElement('i');
+                    icon.className = 'fas fa-language text-blue-500 text-sm mt-1 mr-3 opacity-70 flex-shrink-0';
+                    const span = document.createElement('span');
+                    span.className = 'flex-1';
+                    span.innerHTML = el.innerHTML;
+                    el.innerHTML = '';
+                    el.appendChild(icon);
+                    el.appendChild(span);
+                });
+                transContainer.querySelectorAll('p').forEach(el => el.className = 'mb-4 text-blue-800 text-sm md:text-base leading-relaxed block');
+                transContainer.querySelectorAll('strong, b').forEach(el => el.className = 'font-bold text-blue-900');
 
                 // Generate audio using TTS endpoint
                 const audioControls = document.getElementById('audio-controls');
                 const playBtn = document.getElementById('play-audio-btn');
                 const stopBtn = document.getElementById('stop-audio-btn');
                 playBtn.disabled = true;
-                playBtn.textContent = 'Loading audio...';
+                playBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
                 audioControls.classList.remove('hidden');
 
                 try {
@@ -1200,35 +1312,39 @@
                     const audioUrl = URL.createObjectURL(new Blob([audioResp.data], { type: 'audio/mpeg' }));
                     let audio = new Audio(audioUrl);
                     playBtn.disabled = false;
-                    playBtn.textContent = 'Play Audio';
+                    playBtn.innerHTML = '<i class="fas fa-play"></i>';
                     stopBtn.classList.add('hidden');
 
                     playBtn.onclick = () => {
                         if (audio.paused) {
                             audio.play();
-                            playBtn.textContent = 'Pause';
+                            playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                            playBtn.classList.replace('bg-purple-100', 'bg-purple-200');
                             stopBtn.classList.remove('hidden');
                         } else {
                             audio.pause();
-                            playBtn.textContent = 'Play Audio';
+                            playBtn.innerHTML = '<i class="fas fa-play"></i>';
+                            playBtn.classList.replace('bg-purple-200', 'bg-purple-100');
                         }
                     };
 
                     stopBtn.onclick = () => {
                         audio.pause();
                         audio.currentTime = 0;
-                        playBtn.textContent = 'Play Audio';
+                        playBtn.innerHTML = '<i class="fas fa-play"></i>';
+                        playBtn.classList.replace('bg-purple-200', 'bg-purple-100');
                         stopBtn.classList.add('hidden');
                     };
 
                     // When audio ends reset buttons
                     audio.addEventListener('ended', () => {
-                        playBtn.textContent = 'Play Audio';
+                        playBtn.innerHTML = '<i class="fas fa-play"></i>';
+                        playBtn.classList.replace('bg-purple-200', 'bg-purple-100');
                         stopBtn.classList.add('hidden');
                     });
                 } catch (audioErr) {
                     console.error('Error generating audio:', audioErr);
-                    playBtn.textContent = 'Audio Unavailable';
+                    playBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
                 }
             } catch (error) {
                 console.error('Error translating text:', error);
@@ -1298,20 +1414,34 @@
             let currentSection = null;
 
             Array.from(tempDiv.childNodes).forEach(node => {
+                let isHeader = false;
+                let headerText = '';
+
                 if (node.nodeType === Node.ELEMENT_NODE && node.tagName === 'H2') {
+                    isHeader = true;
+                    headerText = node.textContent;
+                } else if (node.nodeType === Node.TEXT_NODE && node.textContent.trim().startsWith('##')) {
+                    isHeader = true;
+                    headerText = node.textContent.replace(/^##\s*/, '').trim();
+                } else if (node.nodeType === Node.ELEMENT_NODE && node.textContent.trim().startsWith('##')) {
+                    isHeader = true;
+                    headerText = node.textContent.replace(/^##\s*/, '').trim();
+                }
+
+                if (isHeader) {
                     // Start a new section
                     if (currentSection) {
                         sections.push(currentSection);
                     }
                     currentSection = {
-                        title: node.textContent,
+                        title: headerText,
                         titleElement: node,
                         content: []
                     };
                 } else if (currentSection) {
                     currentSection.content.push(node);
                 } else {
-                    // Content before first h2
+                    // Content before first h2/##
                     if (!sections[0]) {
                         sections.push({ title: '', titleElement: null, content: [] });
                     }
@@ -1383,6 +1513,10 @@
 
                     // Process content
                     section.content.forEach(node => {
+                        let textContent = node.textContent || '';
+                        // Skip if it's just the '##' header title that was accidentally pushed as a text node later
+                        if (textContent.trim() === '' || textContent.trim().startsWith('##')) return;
+
                         if (node.nodeType === Node.ELEMENT_NODE) {
                             // Style lists
                             if (node.tagName === 'UL' || node.tagName === 'OL') {
@@ -1406,10 +1540,55 @@
                             }
                             contentDiv.appendChild(node.cloneNode(true));
                         } else if (node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {
-                            const p = document.createElement('p');
-                            p.className = 'text-gray-700 text-sm sm:text-base leading-relaxed';
-                            p.textContent = node.textContent;
-                            contentDiv.appendChild(p);
+                            // Process basic markdown-like list strings: "- item"
+                            let textLines = node.textContent.split('\n');
+                            let inList = false;
+                            let ul = null;
+
+                            textLines.forEach(line => {
+                                let trimmed = line.trim();
+                                if (!trimmed) return;
+
+                                if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
+                                    if (!inList) {
+                                        ul = document.createElement('ul');
+                                        ul.className = 'list-none space-y-2 ml-4 mt-2 mb-3';
+                                        inList = true;
+                                    }
+                                    let li = document.createElement('li');
+                                    li.className = 'text-gray-700 text-sm sm:text-base leading-relaxed flex items-start group';
+
+                                    let icon = document.createElement('i');
+                                    icon.className = `fas fa-leaf ${config.iconColor} text-xs mt-1 mr-3 opacity-70 group-hover:opacity-100 transition-opacity flex-shrink-0`;
+
+                                    let span = document.createElement('span');
+                                    span.className = 'flex-1';
+                                    span.textContent = trimmed.substring(2);
+
+                                    li.appendChild(icon);
+                                    li.appendChild(span);
+                                    ul.appendChild(li);
+                                } else {
+                                    if (inList && ul) {
+                                        contentDiv.appendChild(ul);
+                                        inList = false;
+                                        ul = null;
+                                    }
+                                    const p = document.createElement('p');
+                                    // Special styling for numbered lists vs normal text
+                                    if (/^\d+\./.test(trimmed)) {
+                                        p.className = 'text-gray-900 font-semibold text-sm sm:text-base mt-4 mb-2 flex items-center gap-2';
+                                    } else {
+                                        p.className = 'text-gray-600 text-sm sm:text-base leading-relaxed mb-3';
+                                    }
+                                    p.textContent = trimmed;
+                                    contentDiv.appendChild(p);
+                                }
+                            });
+
+                            if (inList && ul) {
+                                contentDiv.appendChild(ul);
+                            }
                         }
                     });
 
@@ -1459,20 +1638,20 @@
             }
             section.classList.remove('hidden');
             const header = `
-                <thead class="bg-gray-50">
+                <thead class="bg-gray-100 border-b border-gray-200">
                     <tr>
-                        <th class="px-4 py-2 text-left font-medium text-gray-500">Date</th>
-                        <th class="px-4 py-2 text-left font-medium text-gray-500">Task</th>
-                        <th class="px-4 py-2 text-left font-medium text-gray-500">Note</th>
+                        <th class="px-6 py-3 text-left text-xs font-bold text-gray-600 uppercase tracking-wider w-1/4">Date</th>
+                        <th class="px-6 py-3 text-left text-xs font-bold text-gray-600 uppercase tracking-wider w-1/4">Task</th>
+                        <th class="px-6 py-3 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">Note</th>
                     </tr>
                 </thead>`;
             const rows = entries.map(item => `
-                <tr class="divide-x divide-gray-200">
-                    <td class="px-4 py-2 whitespace-nowrap">${item.date}</td>
-                    <td class="px-4 py-2 whitespace-nowrap">${item.task}</td>
-                    <td class="px-4 py-2">${item.note || ''}</td>
+                <tr class="hover:bg-gray-50 transition-colors">
+                    <td class="px-6 py-4 whitespace-nowrap text-gray-900 font-medium">${item.date}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-indigo-700 font-medium"><i class="fas fa-check-circle text-indigo-400 mr-2 text-xs"></i>${item.task}</td>
+                    <td class="px-6 py-4 text-gray-600">${item.note || ''}</td>
                 </tr>`).join('');
-            table.innerHTML = header + `<tbody class="divide-y divide-gray-200">${rows}</tbody>`;
+            table.innerHTML = header + `<tbody class="divide-y divide-gray-100 bg-white">${rows}</tbody>`;
         }
 
         // Render upcoming alerts as badges
