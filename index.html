@@ -406,7 +406,7 @@
                             </div>
                             <div class="flex items-center">
                                 <i class="fas fa-map-marker-alt mr-1"></i>
-                                <span id="location">--, --</span>
+                                <span id="location-display">--, --</span>
                             </div>
                         </div>
                     </div>
@@ -1070,6 +1070,27 @@
             console.error('Location button not found in DOM');
         }
 
+        // Auto-detect location automatically on page load
+        window.addEventListener('load', async () => {
+            const latitudeField = document.getElementById('latitude');
+            const longitudeField = document.getElementById('longitude');
+            if (getLocationBtn && (!latitudeField.value || !longitudeField.value)) {
+                console.log('Auto-detecting location on startup...');
+                const originalContent = getLocationBtn.innerHTML;
+                getLocationBtn.disabled = true;
+                getLocationBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Auto-detecting...';
+
+                try {
+                    await getLocation();
+                } catch (error) {
+                    console.error('Auto-location failed:', error.message);
+                } finally {
+                    getLocationBtn.disabled = false;
+                    getLocationBtn.innerHTML = originalContent;
+                }
+            }
+        });
+
         // Wire up the submit button for getting AI advice
         const submitBtn = document.getElementById('submitBtn');
         if (submitBtn) {
@@ -1171,7 +1192,7 @@
                 const now = new Date();
                 document.getElementById('date').textContent = now.toLocaleDateString();
                 const resolvedCity = response.data.weather?.city_name || "Unknown Region";
-                document.getElementById('location').textContent = `${resolvedCity} (Lat: ${parseFloat(latitude).toFixed(2)}, Lon: ${parseFloat(longitude).toFixed(2)})`;
+                document.getElementById('location-display').textContent = `${resolvedCity} (Lat: ${parseFloat(latitude).toFixed(2)}, Lon: ${parseFloat(longitude).toFixed(2)})`;
 
                 // Call Market Price Endpoint asynchronously
                 const marketSec = document.getElementById('market-price-section');

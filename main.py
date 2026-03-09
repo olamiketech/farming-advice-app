@@ -971,7 +971,6 @@ async def get_market_price(payload: dict):
         logger.error(f"Error fetching market price: {str(e)}")
         raise HTTPException(status_code=500, detail="Failed to retrieve market prices")
 
-
 # ---------------------------------------------------------------------------
 # Chat endpoint: Ask Me Anything for agriculture questions
 # ---------------------------------------------------------------------------
