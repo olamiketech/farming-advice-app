@@ -827,8 +827,16 @@
             container.innerHTML = cardsHTML;
         }
 
+        // Flag to prevent multiple simultaneous location requests
+        let locationDetectionInProgress = false;
+
         // Function to get user's location
         async function getLocation() {
+            if (locationDetectionInProgress) {
+                console.warn('Location detection already in progress, ignoring duplicate request.');
+                return;
+            }
+            locationDetectionInProgress = true;
             console.log('Starting location detection...');
             console.log('Protocol:', window.location.protocol);
             console.log('Hostname:', window.location.hostname);
@@ -857,27 +865,38 @@
 
                 console.log('Geolocation API available, requesting position...');
 
-                // Request location with timeout
+                // Request location with timeout — manual timeout matches geolocation timeout
+                const LOCATION_TIMEOUT_MS = 30000;
                 const position = await new Promise((resolve, reject) => {
+                    let settled = false;
                     const timeoutId = setTimeout(() => {
-                        reject(new Error('Location request timed out'));
-                    }, 15000);
+                        if (!settled) {
+                            settled = true;
+                            reject(new Error('Location request timed out'));
+                        }
+                    }, LOCATION_TIMEOUT_MS);
 
                     navigator.geolocation.getCurrentPosition(
                         (pos) => {
-                            clearTimeout(timeoutId);
-                            console.log('Position received:', pos);
-                            resolve(pos);
+                            if (!settled) {
+                                settled = true;
+                                clearTimeout(timeoutId);
+                                console.log('Position received:', pos);
+                                resolve(pos);
+                            }
                         },
                         (err) => {
-                            clearTimeout(timeoutId);
-                            console.error('Geolocation error code:', err.code);
-                            console.error('Geolocation error message:', err.message);
-                            reject(new Error(err.message || 'Unable to get location'));
+                            if (!settled) {
+                                settled = true;
+                                clearTimeout(timeoutId);
+                                console.error('Geolocation error code:', err.code);
+                                console.error('Geolocation error message:', err.message);
+                                reject(new Error(err.message || 'Unable to get location'));
+                            }
                         },
                         {
                             enableHighAccuracy: true,  // Use high accuracy for better location
-                            timeout: 30000,  // Increase timeout to 30 seconds
+                            timeout: LOCATION_TIMEOUT_MS,  // Must match the manual timeout above
                             maximumAge: 60000  // Allow cached position up to 1 minute old
                         }
                     );
@@ -923,6 +942,8 @@
                 console.warn('Primary geolocation failed:', error);
                 // Attempt fallback using IP-based lookup
                 await getLocationByIP();
+            } finally {
+                locationDetectionInProgress = false;
             }
         }
 
@@ -1008,6 +1029,8 @@
                     }
                 } catch (err2) {
                     console.error('Backup IP service also failed:', err2);
+                } finally {
+                    locationDetectionInProgress = false;
                 }
 
                 // All methods failed
